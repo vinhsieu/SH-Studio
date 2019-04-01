@@ -1,0 +1,11 @@
+﻿  CGame.cpp
+e:\hkii 2019\phát triển game\ninja\ninja\ninja\cgame.cpp(70): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+  CGameObject.cpp
+  debug.cpp
+  main.cpp
+  Ninja.cpp
+  Sprite.cpp
+  Texture.cpp
+  Generating Code...
+e:\hkii 2019\phát triển game\ninja\ninja\ninja\sprite.cpp(96): warning C4715: 'CAnimation::Render': not all control paths return a value
+  Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\Ninja\Ninja\Debug\Ninja.exe

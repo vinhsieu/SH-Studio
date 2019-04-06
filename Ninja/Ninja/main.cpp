@@ -129,7 +129,7 @@ void LoadResources()
 	ani->Add(10003);
 	animations->Add(500, ani);
 	//JUMP
-	ani = new CAnimation(50);
+	ani = new CAnimation(20);
 	ani->Add(10021);
 	ani->Add(10022);
 	ani->Add(10023);

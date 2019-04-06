@@ -1,11 +1,17 @@
-﻿  CGame.cpp
-e:\hkii 2019\phát triển game\ninja\ninja\ninja\cgame.cpp(70): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
-  CGameObject.cpp
-  debug.cpp
+﻿  CGameObject.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgameobject.cpp(46): error C2572: 'CGameObject::Update': redefinition of default argument: parameter 1
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgameobject.h(73): note: see declaration of 'CGameObject::Update'
   main.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\main.cpp(157): error C2259: 'Ninja': cannot instantiate abstract class
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\main.cpp(157): note: due to following members:
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\main.cpp(157): note: 'void CGameObject::GetBoundingBox(float &,float &,float &,float &)': is abstract
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgameobject.h(76): note: see declaration of 'CGameObject::GetBoundingBox'
   Ninja.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\ninja.cpp(8): error C2259: 'CGameObject': cannot instantiate abstract class
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\ninja.cpp(8): note: due to following members:
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\ninja.cpp(8): note: 'void CGameObject::GetBoundingBox(float &,float &,float &,float &)': is abstract
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgameobject.h(76): note: see declaration of 'CGameObject::GetBoundingBox'
   Sprite.cpp
-  Texture.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\sprite.cpp(20): error C2660: 'CGame::Draw': function does not take 8 arguments
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgame.h(45): note: see declaration of 'CGame::Draw'
   Generating Code...
-e:\hkii 2019\phát triển game\ninja\ninja\ninja\sprite.cpp(96): warning C4715: 'CAnimation::Render': not all control paths return a value
-  Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\Ninja\Ninja\Debug\Ninja.exe

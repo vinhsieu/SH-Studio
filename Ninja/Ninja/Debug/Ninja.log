@@ -1,17 +1,6 @@
 ﻿  CGameObject.cpp
-e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgameobject.cpp(46): error C2572: 'CGameObject::Update': redefinition of default argument: parameter 1
-  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgameobject.h(73): note: see declaration of 'CGameObject::Update'
-  main.cpp
-e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\main.cpp(157): error C2259: 'Ninja': cannot instantiate abstract class
-  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\main.cpp(157): note: due to following members:
-  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\main.cpp(157): note: 'void CGameObject::GetBoundingBox(float &,float &,float &,float &)': is abstract
-  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgameobject.h(76): note: see declaration of 'CGameObject::GetBoundingBox'
   Ninja.cpp
-e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\ninja.cpp(8): error C2259: 'CGameObject': cannot instantiate abstract class
-  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\ninja.cpp(8): note: due to following members:
-  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\ninja.cpp(8): note: 'void CGameObject::GetBoundingBox(float &,float &,float &,float &)': is abstract
-  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgameobject.h(76): note: see declaration of 'CGameObject::GetBoundingBox'
-  Sprite.cpp
-e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\sprite.cpp(20): error C2660: 'CGame::Draw': function does not take 8 arguments
-  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgame.h(45): note: see declaration of 'CGame::Draw'
+  main.cpp
   Generating Code...
+  LINK : E:\HKII 2019\Phßt Tri?n Game\Ninja\SH-Studio\Ninja\Debug\Ninja.exe not found or not built by the last incremental link; performing full link
+  Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\Ninja\SH-Studio\Ninja\Debug\Ninja.exe

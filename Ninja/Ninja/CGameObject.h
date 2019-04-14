@@ -54,7 +54,7 @@ public:
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
-	void RenderBoundingBox();
+	/*void RenderBoundingBox();
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
@@ -67,13 +67,13 @@ public:
 		float &ny
 	);
 
-
+*/
 
 	CGameObject();
-	virtual void Update(DWORD, vector<LPGAMEOBJECT> *coObject=NULL);
+	virtual void Update(DWORD);
 	virtual void Render();
 	virtual int GetState() { return currentState; };
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+	/*virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;*/
 	~CGameObject();
 };
 

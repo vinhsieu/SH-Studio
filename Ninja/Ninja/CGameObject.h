@@ -54,9 +54,9 @@ public:
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
-	void RenderBoundingBox();
+	//void RenderBoundingBox();
 
-	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
+	/*LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
 	void FilterCollision(
 		vector<LPCOLLISIONEVENT> &coEvents,
@@ -65,7 +65,7 @@ public:
 		float &min_ty,
 		float &nx,
 		float &ny
-	);
+	);*/
 
 
 

@@ -42,12 +42,12 @@ class CGame
 
 public:
 	void Init(HWND hWnd);
-	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom,int flipX, int alpha);
+	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom,int flipX);
 	LPDIRECT3DDEVICE9 GetDirect3dDevice() { return this->d3ddev; };
 	LPDIRECT3DSURFACE9 Getbackbuffer() { return this->backbuffer; };
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; };
 	LPDIRECT3DSURFACE9 Getbackground() { return this->back; }
-	static void SweptAABB(
+	/*static void SweptAABB(
 		float ml,
 		float mt,
 		float mr,
@@ -62,7 +62,7 @@ public:
 		float &nx,
 		float &ny
 
-	);
+	);*/
 
 
 	int isKeyDown(int KeyCode);

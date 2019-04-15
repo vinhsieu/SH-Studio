@@ -44,7 +44,7 @@ void CGame::Init(HWND hWnd)
 	D3DXCreateSprite(d3ddev, &spriteHandler);
 }
 
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top, int right, int bottom, int flipX, int alpha)
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top, int right, int bottom, int flipX)
 {
 	
 	if (flipX == 1)// Co Flip Sang X
@@ -68,22 +68,22 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top
 	r.right = right;
 	r.bottom = bottom;
 	D3DXVECTOR3 center((right-left)/2, (bottom-top) / 2, 0);
-	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_ARGB(alpha,255, 255, 255));
+	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_XRGB(255, 255, 255));
 }
 
 
-void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float & t, float & nx, float & ny)
-{
-	float dx_entry, dx_exit, tx_entry, tx_exit;
-	float dy_entry, dy_exit, ty_entry, ty_exit;
-
-	float t_entry;
-	float t_exit;
-
-	t = -1.0f;
-	nx = ny = 0;
-
-}
+//void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float & t, float & nx, float & ny)
+//{
+//	float dx_entry, dx_exit, tx_entry, tx_exit;
+//	float dy_entry, dy_exit, ty_entry, ty_exit;
+//
+//	float t_entry;
+//	float t_exit;
+//
+//	t = -1.0f;
+//	nx = ny = 0;
+//
+//}
 
 int CGame::isKeyDown(int KeyCode)
 {

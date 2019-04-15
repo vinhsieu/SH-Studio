@@ -7,7 +7,6 @@
 #include"Sprite.h"
 #include"Ninja.h"
 #include"debug.h"
-#include"Camera.h"
 
 
 #define SCREEN_WIDTH 320
@@ -22,8 +21,6 @@
 
 CGame * game;
 Ninja * ninja;
-Ninja *background;
-Camera *camera;
 
 class CKeyHandler : public CKeyEventHandler
 {
@@ -165,7 +162,6 @@ void LoadResources()
 	ani->Add(10038);
 	ani->Add(10039);
 	animations->Add(702,ani);
-	ninja = new Ninja();
 	
 	//Attach on Jump right
 	ani = new CAnimation(200);
@@ -179,11 +175,9 @@ void LoadResources()
 	Ninja::AddAnimation(801);       //Sit idle right 8
 	Ninja::AddAnimation(702);		//Sit Attach right 9
 	Ninja::AddAnimation(704);		//Attach on Jump Right 11
-	background = new Ninja();
-	background->AddAnimation(300);
+	
 	ninja->SetPosition(0.0f, 150.0f);
 
-	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT, 0, DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
 }
 HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int ScreenHeight)
 {
@@ -250,11 +244,7 @@ void Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ninja->Render();
-		background->Render();
-		if (camera)
-		{
-			camera->SetTransform(&d3ddv);
-		}
+		
 
 
 		spriteHandler->End();
@@ -266,26 +256,7 @@ void Render()
 }
 void Update(DWORD dt)
 {
-	if (camera)
-	{
-		if (GetAsyncKeyState(70)) //70 is the vKey value for F
-		{
-			if (!camera->isFollowing())
-			{
-				camera->Follow(ninja);
-			}
-		}
-
-		if (GetAsyncKeyState(85)) //85 is the vKey value for U
-		{
-			if (camera->isFollowing())
-			{
-				camera->Unfollow();
-			}
-		}
-
-		camera->Update();
-	}
+	
 	ninja->Update(dt);
 }
 

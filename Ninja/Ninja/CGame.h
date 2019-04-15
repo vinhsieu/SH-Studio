@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include<d3d9.h>
 #include<d3dx9.h>
 #include<Windows.h>
@@ -42,12 +42,12 @@ class CGame
 
 public:
 	void Init(HWND hWnd);
-	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom,int flipX);
+	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom,int flipX, int alpha);
 	LPDIRECT3DDEVICE9 GetDirect3dDevice() { return this->d3ddev; };
 	LPDIRECT3DSURFACE9 Getbackbuffer() { return this->backbuffer; };
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; };
 	LPDIRECT3DSURFACE9 Getbackground() { return this->back; }
-	/*static void SweptAABB(
+	static void SweptAABB(
 		float ml,
 		float mt,
 		float mr,
@@ -62,7 +62,7 @@ public:
 		float &nx,
 		float &ny
 
-	);*/
+	);
 
 
 	int isKeyDown(int KeyCode);
@@ -73,23 +73,6 @@ public:
 
 	~CGame();
 	LPDIRECT3DSURFACE9 LoadSurface(const char * filename, D3DCOLOR transcolor);
-
-
-
-	HRESULT SetTransForm(D3DTRANSFORMSTATETYPE State, CONST D3DMATRIX *pMatrix);
-	D3DXMATRIX matProj; // ma trận chiếu 
-	void createCamera(float nearClip, float farClip)
-	{
-		D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 640 / 480, nearClip, farClip);
-		d3ddev->SetTransform(D3DTS_PROJECTION, &matProj);
-	}
-	D3DXMATRIX matView;
-
-	void pointCamera(D3DXVECTOR3 cameraPosition, D3DXVECTOR3 cameraLook)
-	{
-		D3DXMatrixLookAtLH(&matView, &cameraPosition, &cameraLook, &D3DXVECTOR3(1.0f, 0.0f, 0.0f));
-		d3ddev->SetTransform(D3DTS_VIEW, &matView);
-	}
 };
 
 

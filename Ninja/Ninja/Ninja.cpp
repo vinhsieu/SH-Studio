@@ -5,7 +5,7 @@ bool checker2 = false;
 
 Ninja::Ninja()
 {
-	//CGameObject::CGameObject();
+	CGameObject::CGameObject();
 	isAttach = -1;//Not attach, 1 attach
 	isSit = -2;// Not Sit , 2 sit
 	isLeft = 0;//1 on the left, 0 on the right

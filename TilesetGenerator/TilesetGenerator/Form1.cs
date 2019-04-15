@@ -35,16 +35,14 @@ namespace TilesetGenerator
                 filepath = openFileDialog1.FileName;
                 textBox1.Text = filepath;
                 image = new Bitmap(filepath);
-                pictureBox_Export.SizeMode =PictureBoxSizeMode.StretchImage;
-                pictureBox_Export.Image = image;
-
+                panel_Image.Size = image.Size;
+                panel_Image.BackgroundImage = image;
             }
         }
 
         private void btn_Generator_Click(object sender, EventArgs e)
         {
-            #region CheckFile anh
-            if (rBtn_16bit.Checked ==false  & rBtn_32bit.Checked==false)
+           if(rBtn_16bit.Checked ==false  & rBtn_32bit.Checked==false)
             {
                 MessageBox.Show("Vui long chon kich co");
                 return;
@@ -52,29 +50,18 @@ namespace TilesetGenerator
            if(rBtn_16bit.Checked)
             {
                 bit = 16;
-                if(image.Width%bit !=0 | image.Height%bit !=0)
-                {
-                    MessageBox.Show("Kich Co Ban Chon Khong Phu Hop voi File anh" );
-                    rBtn_16bit.Checked = false;
-                    return;
-                }
             }
            else
             {
                 bit = 32;
-                if (image.Width % bit != 0 | image.Height % bit != 0)
-                {
-                    MessageBox.Show("Kich Co Ban Chon Khong Phu Hop voi File anh");
-                    rBtn_32bit.Checked = false;
-                    return;
-                }
             }
-            #endregion
-            #region Xulianh
+            
+            #region
             for (int i = 0; i < image.Height; i += bit)
             {
                 for (int j = 0; j < image.Width; j += bit)
                 {
+                    //MessageBox.Show(i.ToString() +" "+ j.ToString());
                     temp = new Bitmap(bit, bit);
                     for (int k = i; k < bit + i; k++)
                     {
@@ -86,7 +73,9 @@ namespace TilesetGenerator
                         }
                     }
 
-                   
+                    panel_Image.BackgroundImage = temp;
+                    panel_Image.Size = temp.Size;
+
                     int result = Compare(TileSet, temp);
                     if (result == -1)
                     {
@@ -105,22 +94,6 @@ namespace TilesetGenerator
             #endregion
             richTextBox_Matrix.Text = matrix;
             System.IO.File.WriteAllText("MatrixOut.txt", matrix);
-            #region ghepanh
-            ExportImage = new Bitmap(TileSet.Count * bit, bit);
-           for (int i = 0; i < TileSet.Count; i++)
-           {
-                for (int j = i * bit; j < i * bit + bit; j++)
-                {
-                    for (int k = 0; k < bit; k++)
-                    {
-                        Color a = TileSet[i].GetPixel(j - i * bit, k);
-                        ExportImage.SetPixel(j, k, a);
-                    }
-                }
-           }
-            #endregion
-            pictureBox_Export.SizeMode = PictureBoxSizeMode.Normal;
-            pictureBox_Export.Image = ExportImage;
             btn_Export.Enabled = true;
             //panel_Image.BackgroundImage = Tileset;
         }
@@ -158,7 +131,18 @@ namespace TilesetGenerator
         private void btn_Export_Click(object sender, EventArgs e)
         {
 
-            
+            ExportImage = new Bitmap(TileSet.Count*bit, bit);
+            for(int i=0; i<TileSet.Count;i++)
+            {
+                for(int j=i*bit;j< i*bit+bit;j++)
+                {
+                    for (int k=0;k<bit;k++)
+                    {
+                        Color a = TileSet[i].GetPixel(j - i * bit, k);
+                        ExportImage.SetPixel(j, k, a);
+                    }
+                }
+            }
             //panel_Image.Size = ExportImage.Size;
             //panel_Image.BackgroundImage = ExportImage;
             pictureBox_Export.Image = ExportImage;
@@ -167,15 +151,15 @@ namespace TilesetGenerator
             sfdlg.OverwritePrompt = true;
             sfdlg.CheckPathExists = true;
             sfdlg.ShowHelp = true;
-
-            sfdlg.Filter = "Image Files (JPEG, GIF, BMP, etc.)|" +
-"*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.tiff;*.png|" +
-"JPEG files (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-"GIF Files (*.gif)|*.gif|" +
-"BMP Files (*.bmp)|*.bmp|" +
-"TIFF Files (*.tif;*.tiff)|*.tif;*.tiff|" +
-"PNG Files (*.png)|*.png|" +
-"All files (*.*)|*.*";
+            sfdlg.DefaultExt = "TileSet";
+//            sfdlg.Filter = "Image Files (JPEG, GIF, BMP, etc.)|" +
+//"*.jpg;*.jpeg;*.gif;*.bmp;*.tif;*.tiff;*.png|" +
+//"JPEG files (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+//"GIF Files (*.gif)|*.gif|" +
+//"BMP Files (*.bmp)|*.bmp|" +
+//"TIFF Files (*.tif;*.tiff)|*.tif;*.tiff|" +
+//"PNG Files (*.png)|*.png|" +
+//"All files (*.*)|*.*";
             if (sfdlg.ShowDialog()==DialogResult.OK)
             {
                 filename = sfdlg.FileName.ToString();

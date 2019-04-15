@@ -33,6 +33,7 @@
             this.richTextBox_Matrix = new System.Windows.Forms.RichTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.btn_filepath = new System.Windows.Forms.Button();
+            this.panel_Image = new System.Windows.Forms.Panel();
             this.btn_Export = new System.Windows.Forms.Button();
             this.rBtn_16bit = new System.Windows.Forms.RadioButton();
             this.rBtn_32bit = new System.Windows.Forms.RadioButton();
@@ -81,6 +82,13 @@
             this.btn_filepath.UseVisualStyleBackColor = true;
             this.btn_filepath.Click += new System.EventHandler(this.btn_filepath_Click);
             // 
+            // panel_Image
+            // 
+            this.panel_Image.Location = new System.Drawing.Point(12, 227);
+            this.panel_Image.Name = "panel_Image";
+            this.panel_Image.Size = new System.Drawing.Size(510, 63);
+            this.panel_Image.TabIndex = 4;
+            // 
             // btn_Export
             // 
             this.btn_Export.Enabled = false;
@@ -126,10 +134,9 @@
             // 
             // pictureBox_Export
             // 
-            this.pictureBox_Export.Location = new System.Drawing.Point(12, 236);
+            this.pictureBox_Export.Location = new System.Drawing.Point(12, 322);
             this.pictureBox_Export.Name = "pictureBox_Export";
-            this.pictureBox_Export.Size = new System.Drawing.Size(632, 136);
-            this.pictureBox_Export.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_Export.Size = new System.Drawing.Size(632, 50);
             this.pictureBox_Export.TabIndex = 9;
             this.pictureBox_Export.TabStop = false;
             // 
@@ -143,6 +150,7 @@
             this.Controls.Add(this.rBtn_32bit);
             this.Controls.Add(this.rBtn_16bit);
             this.Controls.Add(this.btn_Export);
+            this.Controls.Add(this.panel_Image);
             this.Controls.Add(this.btn_filepath);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.richTextBox_Matrix);
@@ -162,6 +170,7 @@
         private System.Windows.Forms.RichTextBox richTextBox_Matrix;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button btn_filepath;
+        private System.Windows.Forms.Panel panel_Image;
         private System.Windows.Forms.Button btn_Export;
         private System.Windows.Forms.RadioButton rBtn_16bit;
         private System.Windows.Forms.RadioButton rBtn_32bit;

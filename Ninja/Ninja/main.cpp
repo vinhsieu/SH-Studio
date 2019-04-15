@@ -7,6 +7,7 @@
 #include"Sprite.h"
 #include"Ninja.h"
 #include"debug.h"
+#include"Camera.h"
 
 
 #define SCREEN_WIDTH 320
@@ -16,10 +17,14 @@
 #define MAIN_WINDOW_TITLE L"BT1"
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 100)
 #define ID_TEX_NINJA 0
+#define ID_TEX_BACKGROUND 1
 
 
 CGame * game;
 Ninja * ninja;
+Ninja *background;
+Camera *camera;
+
 class CKeyHandler : public CKeyEventHandler
 {
 	virtual void KeyState(BYTE *state);
@@ -82,12 +87,14 @@ void LoadResources()
 {
 	CTexture * texture = CTexture::GetInstance();
 	texture->Add(ID_TEX_NINJA, L"Ninja.png", D3DCOLOR_XRGB(255, 163, 177));
-
+	texture->Add(ID_TEX_BACKGROUND, L"NinjaGaidenMapStage3-1BG.png", D3DCOLOR_XRGB(255, 163, 177));
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
 
 	LPDIRECT3DTEXTURE9 texNinja = texture->Get(ID_TEX_NINJA);
-
+	LPDIRECT3DTEXTURE9 texBackground = texture->Get(ID_TEX_BACKGROUND);
+	//Back ground
+	sprites->Add(20000, 0, 0, 2560, 208, texBackground);
 	//Run Right
 	sprites->Add(10000, 0, 5, 22, 37, texNinja);
 	sprites->Add(10001, 338, 5, 360, 37, texNinja);
@@ -117,6 +124,10 @@ void LoadResources()
 	sprites->Add(10051, 108, 192, 130, 224, texNinja);
 
 	LPANIMATION ani;
+	//
+	ani = new CAnimation(100);
+	ani->Add(20000);
+	animations->Add(300, ani);
 	//idle right
 	ani = new CAnimation(100);
 	ani->Add(10000);
@@ -168,9 +179,11 @@ void LoadResources()
 	Ninja::AddAnimation(801);       //Sit idle right 8
 	Ninja::AddAnimation(702);		//Sit Attach right 9
 	Ninja::AddAnimation(704);		//Attach on Jump Right 11
+	background = new Ninja();
+	background->AddAnimation(300);
 	ninja->SetPosition(0.0f, 150.0f);
 
-
+	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT, 0, DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
 }
 HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int ScreenHeight)
 {
@@ -233,10 +246,15 @@ void Render()
 	{
 		// Clear back buffer with a color
 		//d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
-		d3ddv->StretchRect(back, &p, bb, NULL, D3DTEXF_NONE);
+		//d3ddv->StretchRect(back, &p, bb, NULL, D3DTEXF_NONE);
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ninja->Render();
+		background->Render();
+		if (camera)
+		{
+			camera->SetTransform(&d3ddv);
+		}
 
 
 		spriteHandler->End();
@@ -248,6 +266,26 @@ void Render()
 }
 void Update(DWORD dt)
 {
+	if (camera)
+	{
+		if (GetAsyncKeyState(70)) //70 is the vKey value for F
+		{
+			if (!camera->isFollowing())
+			{
+				camera->Follow(ninja);
+			}
+		}
+
+		if (GetAsyncKeyState(85)) //85 is the vKey value for U
+		{
+			if (camera->isFollowing())
+			{
+				camera->Unfollow();
+			}
+		}
+
+		camera->Update();
+	}
 	ninja->Update(dt);
 }
 

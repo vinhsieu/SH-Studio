@@ -149,17 +149,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="GamePlay.h" />
     <ClInclude Include="Ninja.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="GamePlay.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ninja.cpp" />
     <ClCompile Include="Sprite.cpp" />

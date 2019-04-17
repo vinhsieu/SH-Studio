@@ -18,7 +18,8 @@ void GameMap::Draw()
 	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
 		240 / 2 - mCamera->GetPosition().y);
 	CGame * game = CGame::GetInstance();
-	game->Draw(mCamera->GetPosition().x, mCamera->GetPosition().y, mMap, mCamera->GetPosition().x - 160, 33, mCamera->GetPosition().x + 160, 208, NULL);
+	DebugOut(L"[INFO] Toa Do BackGround: %f\n", mCamera->GetPosition().x);
+	game->Draw(mCamera->GetPosition().x,100, mMap, mCamera->GetPosition().x - 160,0, mCamera->GetPosition().x + 160, 208, NULL);
 }
 
 void GameMap::LoadMap(LPCWSTR texturePath, D3DCOLOR transcolor)

@@ -40,25 +40,24 @@ void CGame::Init(HWND hWnd)
 	}
 	d3ddev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
 	back = LoadSurface("NinjaGaidenMapStage3-1BG.png", NULL);
-	// Initialize sprite helper from Direct3DX helper library
+	//Initialize sprite helper from Direct3DX helper library
 	D3DXCreateSprite(d3ddev, &spriteHandler);
 }
 
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top, int right, int bottom, int flipX)
 {
-	
+
+	D3DXMATRIX matScale;
 	if (flipX == 1)// Co Flip Sang X
 	{
-		D3DXMATRIX matScale;
 		D3DXMatrixScaling(&matScale, -1.0, 1.0, 0.0f);
 		spriteHandler->SetTransform(&(matScale));
 		x = -x;
 	}
 	else
 	{
-		D3DXMATRIX matScale;
-		D3DXMatrixScaling(&matScale, 1.0, 1.0, 0.0f);
-		spriteHandler->SetTransform(&(matScale));
+		/*D3DXMatrixScaling(&matScale, 1.0, 1.0, 0.0f);
+		spriteHandler->SetTransform(&(matScale));*/
 	}
 
 	D3DXVECTOR3 p(x, y, 0);
@@ -69,6 +68,8 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top
 	r.bottom = bottom;
 	D3DXVECTOR3 center((right-left)/2, (bottom-top) / 2, 0);
 	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_XRGB(255, 255, 255));
+	D3DXMatrixScaling(&matScale, 1.0, 1.0, 0.0f);
+	spriteHandler->SetTransform(&(matScale));
 }
 
 
@@ -243,5 +244,4 @@ LPDIRECT3DSURFACE9 CGame:: LoadSurface(const char *filename, D3DCOLOR transcolor
 	}
 	return image;
 }
-
 

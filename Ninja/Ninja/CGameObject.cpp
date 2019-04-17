@@ -11,7 +11,7 @@ void CGameObject::AddAnimation(int aniId)
 	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
 	animations.push_back(ani);
 }
-
+//
 //void CGameObject::RenderBoundingBox()
 //{
 //	D3DXVECTOR3 p(x, y, 0);
@@ -29,7 +29,7 @@ void CGameObject::AddAnimation(int aniId)
 //
 //	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 1,32);
 //}
-
+//
 //LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 //{
 //	return LPCOLLISIONEVENT();
@@ -43,17 +43,19 @@ CGameObject::CGameObject()
 	//isAttach = -1;
 }
 
-void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObject )
+void CGameObject::Update(DWORD dt)
 {
-	this->dt = dt;
+	x += vx * dt;
+	y += vy * dt;
+	/*this->dt = dt;
 	dx = vx * dt;
-	dy = vy * dt;
+	dy = vy * dt;*/
 
 }
 
 void CGameObject::Render()
 {
-	
+	//animations[0]->Render();
 }
 
 void CGameObject::SetPosition(float x, float y)

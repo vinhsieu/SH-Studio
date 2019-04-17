@@ -7,7 +7,8 @@
 #include"Sprite.h"
 #include"Ninja.h"
 #include"debug.h"
-
+#include"Camera.h"
+#include"GameMap.h"
 
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
@@ -21,7 +22,10 @@
 
 CGame * game;
 Ninja * ninja;
-
+Camera *mCamera;
+GameMap *gamemap;
+float cam_position=0;
+bool keydown;
 class CKeyHandler : public CKeyEventHandler
 {
 	virtual void KeyState(BYTE *state);
@@ -35,10 +39,12 @@ void CKeyHandler::KeyState(BYTE * state)
 	if (game->isKeyDown(DIK_RIGHT))
 	{
 		ninja->SetState(NINJA_STATE_WALKING_RIGHT);
+		keydown = true;
 	}
 	else if (game->isKeyDown(DIK_LEFT))
 	 {
 		ninja->SetState(NINJA_STATE_WALKING_LEFT);
+		keydown = true;
 	 }
 	else if (game->isKeyDown(DIK_DOWN))
 	{
@@ -50,7 +56,7 @@ void CKeyHandler::KeyState(BYTE * state)
 }
 void CKeyHandler::OnKeyDown(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
 	case DIK_SPACE:
@@ -66,7 +72,11 @@ void CKeyHandler::OnKeyDown(int KeyCode)
 }
 void CKeyHandler::OnKeyUp(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	if (KeyCode==DIK_RIGHT | KeyCode==DIK_LEFT)
+	{
+		keydown = false;
+	}
+	//DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -84,14 +94,11 @@ void LoadResources()
 {
 	CTexture * texture = CTexture::GetInstance();
 	texture->Add(ID_TEX_NINJA, L"Ninja.png", D3DCOLOR_XRGB(255, 163, 177));
-	texture->Add(ID_TEX_BACKGROUND, L"NinjaGaidenMapStage3-1BG.png", D3DCOLOR_XRGB(255, 163, 177));
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
 
 	LPDIRECT3DTEXTURE9 texNinja = texture->Get(ID_TEX_NINJA);
-	LPDIRECT3DTEXTURE9 texBackground = texture->Get(ID_TEX_BACKGROUND);
-	//Back ground
-	sprites->Add(20000, 0, 0, 2560, 208, texBackground);
+
 	//Run Right
 	sprites->Add(10000, 0, 5, 22, 37, texNinja);
 	sprites->Add(10001, 338, 5, 360, 37, texNinja);
@@ -121,10 +128,6 @@ void LoadResources()
 	sprites->Add(10051, 108, 192, 130, 224, texNinja);
 
 	LPANIMATION ani;
-	//
-	ani = new CAnimation(100);
-	ani->Add(20000);
-	animations->Add(300, ani);
 	//idle right
 	ani = new CAnimation(100);
 	ani->Add(10000);
@@ -162,21 +165,24 @@ void LoadResources()
 	ani->Add(10038);
 	ani->Add(10039);
 	animations->Add(702,ani);
-	
+	ninja = new Ninja();
 	//Attach on Jump right
 	ani = new CAnimation(200);
 	ani->Add(10035);
 	animations->Add(704, ani);
-	
-	Ninja::AddAnimation(400);		// idle right 0
-	Ninja::AddAnimation(500);		// walk right 2
-	Ninja::AddAnimation(600);       //Jump Ani 4
-	Ninja::AddAnimation(701);       //Attach left 6
-	Ninja::AddAnimation(801);       //Sit idle right 8
-	Ninja::AddAnimation(702);		//Sit Attach right 9
-	Ninja::AddAnimation(704);		//Attach on Jump Right 11
-	
+
+	ninja->AddAnimation(400);		// idle right 0
+	ninja->AddAnimation(500);		// walk right 2
+	ninja->AddAnimation(600);       //Jump Ani 4
+	ninja->AddAnimation(701);       //Attach left 6
+	ninja->AddAnimation(801);       //Sit idle right 8
+	ninja->AddAnimation(702);		//Sit Attach right 9
+	ninja->AddAnimation(704);		//Attach on Jump Right 11
 	ninja->SetPosition(0.0f, 150.0f);
+	
+	mCamera = new Camera(320, 240,0, DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
+	gamemap = new GameMap(L"NinjaGaidenMapStage3-1BG.png");
+	gamemap->SetCamera(mCamera);
 
 }
 HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int ScreenHeight)
@@ -232,20 +238,31 @@ void Render()
 	LPD3DXSPRITE spriteHandler = game->GetSpriteHandler();
 	LPDIRECT3DSURFACE9 back = game->Getbackground();
 	RECT p;
-	p.left = 0;
+	
+	p.left =0/* cam_position*/;
 	p.top = 33;
-	p.right = 320;
+	p.right = /*cam_position +*/320;
 	p.bottom = 208;
+	RECT des;
+	des.left = 50;
+	des.top = 50;
+	des.right = 100;
+	des.bottom = 100;
 	if (d3ddv->BeginScene())
 	{
 		// Clear back buffer with a color
-		//d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
-		//d3ddv->StretchRect(back, &p, bb, NULL, D3DTEXF_NONE);
+		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+		//d3ddv->StretchRect(back,&p, bb, &des, D3DTEXF_NONE);
+		
+//		d3ddv->SetTransform(v)
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
+		gamemap->Draw();
 		ninja->Render();
-		
-
+		if (mCamera)
+		{
+			mCamera->SetTransform(game);
+		}
 
 		spriteHandler->End();
 		d3ddv->EndScene();
@@ -256,8 +273,32 @@ void Render()
 }
 void Update(DWORD dt)
 {
+	float ninjaX, ninjaY;
+	ninja->GetPosition(ninjaX, ninjaY);
 	
 	ninja->Update(dt);
+	if (mCamera)
+	{
+		if (GetAsyncKeyState(70)) //70 is the vKey value for F
+		{
+			if (!mCamera->IsFollowing())
+			{
+				mCamera->Following(ninja);
+			}
+			DebugOut(L"Following");
+		}
+
+		if (GetAsyncKeyState(85)) //85 is the vKey value for U
+		{
+			if (mCamera->IsFollowing())
+			{
+				mCamera->UnFollowing();
+			}
+			DebugOut(L"Unfollowing");
+		}
+
+		mCamera->Update();
+	}
 }
 
 int Run()
@@ -288,6 +329,11 @@ int Run()
 			frameStart = now;
 			game->ProcessKeyBoard();
 			Update(dt);
+			if (keydown == true)
+			{
+				float x = ninja->GetVx();
+				cam_position += dt * x;
+			}
 			Render();
 		}
 		else

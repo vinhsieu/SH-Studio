@@ -1,2 +1,9 @@
-﻿  Ninja.cpp
+﻿  Camera.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\camera.cpp(20): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\camera.cpp(61): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\camera.cpp(122): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\camera.cpp(124): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  GameMap.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\gamemap.cpp(22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
   Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\Ninja\SH-Studio\Ninja\Debug\Ninja.exe

@@ -1,17 +1,12 @@
 #include "Ninja.h"
-
-bool checker = false;
-bool checker2 = false;
+#include"debug.h"
 
 Ninja::Ninja()
 {
-	//CGameObject::CGameObject();
+	CGameObject::CGameObject();
 	isAttach = -1;//Not attach, 1 attach
 	isSit = -2;// Not Sit , 2 sit
 	isLeft = 0;//1 on the left, 0 on the right
-	x = y = 0;
-	vx = vy = 0;
-	nx = 1;
 }
 
 void Ninja::Update(DWORD dt)
@@ -22,10 +17,11 @@ void Ninja::Update(DWORD dt)
 	{
 		vy = 0; y = 150.0f;
 	}
-
+	
 	// simple screen edge collision!!!
-	if (vx > 0 && x > 290) x = 290;
+	//if (vx > 0 && x > 290) x = 290;
 	if (vx < 0 && x < 0) x = 0;
+	DebugOut(L"[INFO]Toa Do Ninja: %f, %f\n", x, y);
 }
 
 void Ninja::Render()

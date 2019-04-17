@@ -43,10 +43,10 @@ void Camera::UnFollowing()
 
 void Camera::SetTransform(CGame * game)
 {
-	if (mNinja == nullptr)
+	/*if (mNinja == nullptr)
 	{
 		return;
-	}
+	}*/
 	game->GetDirect3dDevice()->SetTransform(D3DTS_PROJECTION, &orthographicMatrix);
 	game->GetDirect3dDevice()->SetTransform(D3DTS_WORLD, &identityMatrix);
 	game->GetDirect3dDevice()->SetTransform(D3DTS_VIEW, &viewMatrix);
@@ -62,11 +62,19 @@ void Camera::Update()
 	if (this->mNinja)
 	{
 		this->mNinja->GetPosition(cameraX, cameraY);
-		this->mPosition.x = cameraX;
-		this->mPosition.y = cameraY;
+
+		
 		//cameraX += 50;
 		cameraY =100;
+		
 	}
+	
+	if (cameraX < 160)
+	{
+		cameraX = 160;
+	}
+	this->mPosition.x = cameraX;
+	this->mPosition.y = 100;
 	DebugOut(L"[INFO] Toa Do Camera: %f, %f\n", cameraX, cameraY);
 	this->viewMatrix = D3DXMATRIX(
 		scaleFactors.x * cos(angle), scaleFactors.x * sin(angle), 0, 0,
@@ -74,6 +82,7 @@ void Camera::Update()
 		0, 0, scaleFactors.z, 0,
 		-cameraX * scaleFactors.x * cos(angle) + cameraY * scaleFactors.y * sin(angle), -cameraX * scaleFactors.y * sin(angle) - cameraY * scaleFactors.y * cos(angle), 0, 1
 	);
+	
 	/*D3DXVECTOR2 trans = D3DXVECTOR2(340 / 2 - mCamera->GetPosition().x,
 		GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y);
 

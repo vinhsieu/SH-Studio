@@ -13,28 +13,37 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="GameComponents">
+      <UniqueIdentifier>{a0e70644-6c26-4118-97e2-eebc3d6263e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{c4a649a1-787d-4824-be58-79818e5a8bb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CGameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ninja.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
+      <Filter>GameComponents</Filter>
     </ClInclude>
     <ClInclude Include="CGame.h">
-      <Filter>Header Files</Filter>
+      <Filter>GameComponents</Filter>
     </ClInclude>
-    <ClInclude Include="GamePlay.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="CGameObject.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Ninja.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>GameComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -42,25 +51,28 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CGame.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="CGameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ninja.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>GameComponents</Filter>
     </ClCompile>
-    <ClCompile Include="GamePlay.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Ninja.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>GameComponents</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

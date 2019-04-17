@@ -33,5 +33,6 @@ public:
 	void Update(DWORD dt);
 	void Render();
 	void SetState(int State);
+	float GetVx() { return vx; };
 };
 

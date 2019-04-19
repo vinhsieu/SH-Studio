@@ -45,6 +45,12 @@
     <ClInclude Include="GameMap.h">
       <Filter>GameComponents</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyBoard.h">
+      <Filter>GameComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,6 +78,12 @@
       <Filter>GameComponents</Filter>
     </ClCompile>
     <ClCompile Include="GameMap.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyBoard.cpp">
       <Filter>GameComponents</Filter>
     </ClCompile>
   </ItemGroup>

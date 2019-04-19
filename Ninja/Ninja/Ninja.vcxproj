@@ -153,7 +153,9 @@
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
+    <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="Ninja.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
@@ -163,7 +165,9 @@
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="KeyBoard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ninja.cpp" />
     <ClCompile Include="Sprite.cpp" />

@@ -39,7 +39,7 @@ void CGame::Init(HWND hWnd)
 		return;
 	}
 	d3ddev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
-	back = LoadSurface("NinjaGaidenMapStage3-1BG.png", NULL);
+	//back = LoadSurface("NinjaGaidenMapStage3-1BG.png", NULL);
 	//Initialize sprite helper from Direct3DX helper library
 	D3DXCreateSprite(d3ddev, &spriteHandler);
 }
@@ -86,104 +86,10 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top
 //
 //}
 
-int CGame::isKeyDown(int KeyCode)
-{
-	return (keyState[KeyCode] &0x80)>0;
-}
-
-void CGame::ProcessKeyBoard()
-{
-	HRESULT result;
-
-	result = didv->GetDeviceState(sizeof(keyState), keyState);
-
-	if (FAILED(result))
-	{
-		if ((result == DIERR_INPUTLOST) || (result == DIERR_NOTACQUIRED))
-		{
-			HRESULT h = didv->Acquire();
-			if (h == DI_OK)
-			{
-				DebugOut(L"[INFO] Keyboard re-acquired!\n");
-			}
-			else
-			{
-				return;
-			}
-		}
-		else
-		{
-			DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", result);
-			return;
-		}
-	}
-	
-	keyHandler->KeyState((BYTE *)&keyState);
-
-	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
-	result = didv->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), KeyEvents, &dwElements, 0);
-	if (FAILED(result))
-	{
-		DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", result);
-		return;
-	}
-
-	for (DWORD i = 0; i < dwElements; i++)
-	{
-		int KeyCode = KeyEvents[i].dwOfs;
-		int KeyState = KeyEvents[i].dwData;
-		if ((KeyState & 0x80) > 0)
-		{
-			keyHandler->OnKeyDown(KeyCode);
-		}
-		else
-		{
-			keyHandler->OnKeyUp(KeyCode);
-		}
-	}
 
 
-}
 
-void CGame::InitKeyBoard(LPKEYEVENTHANDLER handler)
-{
-	HRESULT
-		result= DirectInput8Create
-		(
-		(HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE),
-			DIRECTINPUT_VERSION,
-			IID_IDirectInput8, (VOID**)&di, NULL
-		);
-	if (result != DI_OK)
-	{
-		return;
-	}
-	result = di->CreateDevice(GUID_SysKeyboard, &didv, NULL);
-	if (result != DI_OK)
-	{
-		return;
-	}
 
-	result = didv->SetDataFormat(&c_dfDIKeyboard);
-	result = didv->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
-
-	DIPROPDWORD dipdw;
-
-	dipdw.diph.dwSize = sizeof(DIPROPDWORD);
-	dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
-	dipdw.diph.dwObj = 0;
-	dipdw.diph.dwHow = DIPH_DEVICE;
-	dipdw.dwData = KEYBOARD_BUFFER_SIZE;
-
-	result = didv->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
-	result = didv->Acquire();
-	if (result != NULL)
-	{
-		return;
-	}
-	this->keyHandler = handler;
-
-}
 
 CGame * CGame::GetInstance()
 {

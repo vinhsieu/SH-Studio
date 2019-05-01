@@ -39,7 +39,7 @@ void CGame::Init(HWND hWnd)
 		return;
 	}
 	d3ddev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backbuffer);
-	//back = LoadSurface("NinjaGaidenMapStage3-1BG.png", NULL);
+	back = LoadSurface("NinjaGaidenMapStage3-1BG.png", NULL);
 	//Initialize sprite helper from Direct3DX helper library
 	D3DXCreateSprite(d3ddev, &spriteHandler);
 }

@@ -107,7 +107,7 @@ void Game::LoadResources()
 	ninja->SetPosition(0.0f, 150.0f);
 
 	mCamera = new Camera(320, 200, 0, DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
-	gamemap = new GameMap(L"NinjaGaidenMapStage3-1BG.png");
+	gamemap = new GameMap(L"NinjaGaidenMapStage3-1BG_1.png",L"NinjaGaidenMapStage3-1BG_1.txt");
 	gamemap->SetCamera(mCamera);
 	keyboard->SetNinja(this->ninja);
 }
@@ -125,16 +125,22 @@ void Game::Render()
 		p.right = /*cam_position +*/320;
 		p.bottom = 208;
 		RECT des;
-		des.left = 50;
-		des.top = 50;
+		des.left = 70;
+		des.top = 70;
 		des.right = 100;
 		des.bottom = 100;
+		RECT des2;
+		des2.left = 10;
+		des2.top = 10;
+		des2.right = 40;
+		des2.bottom = 40;
 		if (d3ddv->BeginScene())
 		{
 			// Clear back buffer with a color
 			d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 			//d3ddv->StretchRect(back,&p, bb, &des, D3DTEXF_NONE);
 
+			d3ddv->StretchRect(back, &p, bb, &des2, D3DTEXF_NONE);
 	//		d3ddv->SetTransform(v)
 			spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 

@@ -48,7 +48,7 @@ void Camera::SetTransform(CGame * game)
 		return;
 	}*/
 	game->GetDirect3dDevice()->SetTransform(D3DTS_PROJECTION, &orthographicMatrix);
-	game->GetDirect3dDevice()->SetTransform(D3DTS_WORLD, &identityMatrix);
+	//game->GetDirect3dDevice()->SetTransform(D3DTS_WORLD, &identityMatrix);
 	game->GetDirect3dDevice()->SetTransform(D3DTS_VIEW, &viewMatrix);
 }
 
@@ -62,8 +62,6 @@ void Camera::Update()
 	if (this->mNinja)
 	{
 		this->mNinja->GetPosition(cameraX, cameraY);
-
-		
 		//cameraX += 50;
 		cameraY =100;
 		
@@ -82,17 +80,6 @@ void Camera::Update()
 		0, 0, scaleFactors.z, 0,
 		-cameraX * scaleFactors.x * cos(angle) + cameraY * scaleFactors.y * sin(angle), -cameraX * scaleFactors.y * sin(angle) - cameraY * scaleFactors.y * cos(angle), 0, 1
 	);
-	
-	/*D3DXVECTOR2 trans = D3DXVECTOR2(340 / 2 - mCamera->GetPosition().x,
-		GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y);
-
-
-
-
-	D3DXMATRIX matTranslate;
-	D3DXMatrixTranslation(&matTranslate, -1.0f, 0.0f, 0.0f);
-	this->viewMatrix = matTranslate;
-	DebugOut(L"[INFO] Toa Do Camera: %f, %f\n", cameraX, cameraY);*/
 }
 
 int Camera::GetWidth()

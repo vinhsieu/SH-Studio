@@ -7,23 +7,17 @@
 #include"Texture.h"
 #include"Sprite.h"
 #include "KeyBoard.h"
+#include"Dagger.h"
 
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
-#define MAX_FRAME_RATE 30
-#define WINDOW_CLASS_NAME L"BT1"
-#define MAIN_WINDOW_TITLE L"BT1"
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 100)
-#define ID_TEX_NINJA 0
-#define ID_TEX_BACKGROUND 1
 
 class Game
 {
 	CGame * Cgame;
-	Ninja * ninja;
-	Camera *mCamera;
+	Ninja * ninja=Ninja::GetInstance();
 	GameMap *gamemap;
 	CKeyHandler * keyboard;
+	//CDagger * dagger;
+	CCamera * mCamera = CCamera::GetInstance();
 public:
 	
 	Game();

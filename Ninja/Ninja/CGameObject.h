@@ -4,6 +4,8 @@
 #include"CGame.h"
 #include"Sprite.h"
 #include<vector>
+#include "Camera.h"
+
 using namespace std;
 #define ID_TEX_BBOX -100
 
@@ -28,18 +30,29 @@ struct CCollisionEvent
 class CGameObject
 {
 protected:
+
+	int id;
+
+	//eType type;//Loai Object
+
+	int Health; //Con Con Tai Hay Khong
+
 	float x;
 	float y;
 
 	float dx;
 	float dy;
 
+	int isAttach;
+	
+	// Van Toc
 	float vx;
 	float vy;
 
-	int isLeft;
+	//FlipX ?
 
-	int nx;
+
+	int nx; // Direction
 
 	int currentState;
 
@@ -54,26 +67,17 @@ public:
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
-	/*void RenderBoundingBox();
+	
+	int GetHealth();
 
-	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
-	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
-	void FilterCollision(
-		vector<LPCOLLISIONEVENT> &coEvents,
-		vector<LPCOLLISIONEVENT> &coEventsResult,
-		float &min_tx,
-		float &min_ty,
-		float &nx,
-		float &ny
-	);
-
-*/
+	int GetID();
 
 	CGameObject();
 	virtual void Update(DWORD);
 	virtual void Render();
 	virtual int GetState() { return currentState; };
 	virtual float GetVx() { return vx; }
+	virtual void LoadAni();
 	/*virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;*/
 	~CGameObject();
 };

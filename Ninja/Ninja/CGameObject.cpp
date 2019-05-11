@@ -35,6 +35,16 @@ void CGameObject::AddAnimation(int aniId)
 //	return LPCOLLISIONEVENT();
 //}
 
+int CGameObject::GetHealth()
+{
+	return Health;
+}
+
+int CGameObject::GetID()
+{
+	return this->id;
+}
+
 CGameObject::CGameObject()
 {
 	x = y = 0;
@@ -70,6 +80,10 @@ void CGameObject::SetSpeed(float vx, float vy)
 	this->vy = vy;
 }
 
+
+void CGameObject::LoadAni()
+{
+}
 
 CGameObject::~CGameObject()
 {

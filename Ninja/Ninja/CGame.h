@@ -20,43 +20,15 @@ class CGame
 	LPD3DXSPRITE spriteHandler = NULL;
 	LPDIRECT3DSURFACE9 back = NULL;
 
-
-	
-
-	//
-	
-	
-	
-
-
-
 public:
 
 	HWND hWnd;
 	void Init(HWND hWnd);
-	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom,int flipX);
+	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom,int flipX, D3DXVECTOR2 transform);
 	LPDIRECT3DDEVICE9 GetDirect3dDevice() { return this->d3ddev; };
 	LPDIRECT3DSURFACE9 Getbackbuffer() { return this->backbuffer; };
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; };
 	LPDIRECT3DSURFACE9 Getbackground() { return this->back; }
-	/*static void SweptAABB(
-		float ml,
-		float mt,
-		float mr,
-		float mb,
-		float dx,
-		float dy,
-		float sl,
-		float st,
-		float sr,
-		float sb,
-		float &t,
-		float &nx,
-		float &ny
-
-	);*/
-
-
 	
 	static CGame * GetInstance();
 

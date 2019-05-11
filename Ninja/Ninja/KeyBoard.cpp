@@ -2,10 +2,7 @@
 
 
 
-void CKeyHandler::SetNinja(Ninja * ninja)
-{
-	this->ninja = ninja;
-}
+
 
 int CKeyHandler::isKeyDown(int KeyCode)
 {
@@ -25,7 +22,7 @@ void CKeyHandler::ProcessKeyBoard()
 			HRESULT h = didv->Acquire();
 			if (h == DI_OK)
 			{
-				DebugOut(L"[INFO] Keyboard re-acquired!\n");
+				//DebugOut(L"[INFO] Keyboard re-acquired!\n");
 			}
 			else
 			{
@@ -107,6 +104,7 @@ void CKeyHandler::InitKeyBoard(LPKEYEVENTHANDLER handler)
 }
 void CKeyHandler::KeyState(BYTE * state)
 {
+	CCamera * mCamera = CCamera::GetInstance();
 	if (this->isKeyDown(DIK_RIGHT))
 	{
 		ninja->SetState(NINJA_STATE_WALKING_RIGHT);
@@ -126,6 +124,7 @@ void CKeyHandler::KeyState(BYTE * state)
 }
 void CKeyHandler::OnKeyDown(int KeyCode)
 {
+	
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{

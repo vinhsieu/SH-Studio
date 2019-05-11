@@ -21,7 +21,7 @@ class CSprite
 
 public:
 	CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
-	void Draw(float , float , int);
+	void Draw(float x, float y, int FlipX, D3DXVECTOR2 transform) ;
 
 };
 
@@ -64,7 +64,7 @@ class CAnimation
 public:
 	CAnimation(int defaultTime);
 	void Add(int spriteId, DWORD Time = 0);
-	int Render(float , float , int, int);
+	int Render(float x, float y, int isAttach, int FlipX, D3DXVECTOR2 trans);
 
 };
 

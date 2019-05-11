@@ -2,107 +2,67 @@
 
 
 
+CCamera * CCamera::_instance = NULL;
 
-
-Camera::~Camera()
+CCamera::~CCamera()
 {
+	
 }
 
 
 
-Camera::Camera(int width, int height, float angle, DirectX::XMFLOAT3 scaleFactors)
+CCamera::CCamera(int width, int height)
 {
 	this->mWidth = width;
 	this->mHeight = height;
-	this->angle = angle;
-	this->scaleFactors = scaleFactors;
-
-	D3DXMatrixOrthoLH(&orthographicMatrix, width, -height, 0.0f, 1.0f);
-	D3DXMatrixIdentity(&identityMatrix);
+	//mPosition = D3DXVECTOR3(150, 130, 0);
 }
 
-void Camera::SetPosition(float x, float y)
+
+
+void CCamera::SetPosition(float x, float y)
 {
 	SetPosition(D3DXVECTOR3(x, y, 0));
 }
 
-void Camera::SetPosition(D3DXVECTOR3 pos)
+void CCamera::SetPosition(D3DXVECTOR3 pos)
 {
+	if (pos.x < 160)
+	{
+		pos.x = 160;
+	}
+	pos.x = (int)pos.x;
+	pos.y = (int)pos.y;
 	mPosition = pos;
 }
 
-void Camera::Following(Ninja * following)
+CCamera * CCamera::GetInstance()
 {
-	this->mNinja = following;
-}
-
-void Camera::UnFollowing()
-{
-	this->mNinja = nullptr;
-}
-
-void Camera::SetTransform(CGame * game)
-{
-	/*if (mNinja == nullptr)
+	if (_instance == NULL)
 	{
-		return;
-	}*/
-	game->GetDirect3dDevice()->SetTransform(D3DTS_PROJECTION, &orthographicMatrix);
-	//game->GetDirect3dDevice()->SetTransform(D3DTS_WORLD, &identityMatrix);
-	game->GetDirect3dDevice()->SetTransform(D3DTS_VIEW, &viewMatrix);
-}
-
-void Camera::Update()
-{
-	if (mNinja == nullptr)
-	{
-		return;
+		_instance = new CCamera(SCREEN_WIDTH,SCREEN_HEIGHT);
 	}
-	float cameraX = this->mWidth / 2, cameraY = this->mHeight / 2;
-	if (this->mNinja)
-	{
-		this->mNinja->GetPosition(cameraX, cameraY);
-		//cameraX += 50;
-		cameraY =100;
-		
-	}
-	
-	if (cameraX < 160)
-	{
-		cameraX = 160;
-	}
-	this->mPosition.x = cameraX;
-	this->mPosition.y = 100;
-	DebugOut(L"[INFO] Toa Do Camera: %f, %f\n", cameraX, cameraY);
-	this->viewMatrix = D3DXMATRIX(
-		scaleFactors.x * cos(angle), scaleFactors.x * sin(angle), 0, 0,
-		-scaleFactors.y * sin(angle), scaleFactors.y * cos(angle), 0, 0,
-		0, 0, scaleFactors.z, 0,
-		-cameraX * scaleFactors.x * cos(angle) + cameraY * scaleFactors.y * sin(angle), -cameraX * scaleFactors.y * sin(angle) - cameraY * scaleFactors.y * cos(angle), 0, 1
-	);
+	return _instance;
 }
 
-int Camera::GetWidth()
+
+int CCamera::GetWidth()
 {
 	return mWidth;
 }
 
-int Camera::GetHeight()
+int CCamera::GetHeight()
 {
 	return mHeight;
 }
 
-bool Camera::IsFollowing() const
-{
-	return this->mNinja != nullptr;
-}
 
-D3DXVECTOR3 Camera::GetPosition()
+D3DXVECTOR3 CCamera::GetPosition()
 {
 	return mPosition;
 }
 
-RECT Camera::GetBound()
+RECT CCamera::GetBound()
 {
 	RECT bound;
 

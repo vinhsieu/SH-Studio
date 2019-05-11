@@ -24,11 +24,10 @@ typedef CKeyEventHandler * LPKEYEVENTHANDLER;
 class CKeyHandler : public CKeyEventHandler
 {
 	LPKEYEVENTHANDLER keyHandler;
-	Ninja *ninja;
+	Ninja *ninja = Ninja::GetInstance();
 
 
 public:
-	void SetNinja(Ninja *ninja);
 	int isKeyDown(int KeyCode);
 	void ProcessKeyBoard();
 	void InitKeyBoard(LPKEYEVENTHANDLER handler);

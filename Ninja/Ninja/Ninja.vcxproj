@@ -152,9 +152,12 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="Dagger.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
+    <ClInclude Include="define.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="Ninja.h" />
     <ClInclude Include="Sprite.h" />
@@ -164,9 +167,11 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="Dagger.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="KeyBoard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ninja.cpp" />

@@ -44,22 +44,24 @@ void CGame::Init(HWND hWnd)
 	D3DXCreateSprite(d3ddev, &spriteHandler);
 }
 
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top, int right, int bottom, int flipX)
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top, int right, int bottom, int flipX, D3DXVECTOR2 transform)
 {
 
-	D3DXMATRIX matScale;
-	if (flipX == 1)// Co Flip Sang X
+	D3DXMATRIX oldMatrix;
+	D3DXMATRIX mMatrix;
+	D3DXVECTOR2 Scale = D3DXVECTOR2(1.0, 1.0);
+	D3DXVECTOR2 scalingScenter = D3DXVECTOR2(x,y);
+	if (flipX == -1)// Co Flip Sang X
 	{
-		D3DXMatrixScaling(&matScale, -1.0, 1.0, 0.0f);
-		spriteHandler->SetTransform(&(matScale));
+		Scale = D3DXVECTOR2(-1.0, 1.0);
 		x = -x;
 	}
-	else
-	{
-		/*D3DXMatrixScaling(&matScale, 1.0, 1.0, 0.0f);
-		spriteHandler->SetTransform(&(matScale));*/
-	}
+	
+	D3DXMatrixTransformation2D(&mMatrix, NULL, 0,&Scale, NULL,
+		NULL, &transform);
 
+	spriteHandler->GetTransform(&oldMatrix);
+	spriteHandler->SetTransform(&mMatrix);
 	D3DXVECTOR3 p(x, y, 0);
 	RECT r;
 	r.left = left;
@@ -67,32 +69,18 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top
 	r.right = right;
 	r.bottom = bottom;
 	D3DXVECTOR3 center((right-left)/2, (bottom-top) / 2, 0);
+
+
 	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_XRGB(255, 255, 255));
-	D3DXMatrixScaling(&matScale, 1.0, 1.0, 0.0f);
-	spriteHandler->SetTransform(&(matScale));
+	
+	spriteHandler->SetTransform(&oldMatrix);
 }
-
-
-//void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float & t, float & nx, float & ny)
-//{
-//	float dx_entry, dx_exit, tx_entry, tx_exit;
-//	float dy_entry, dy_exit, ty_entry, ty_exit;
-//
-//	float t_entry;
-//	float t_exit;
-//
-//	t = -1.0f;
-//	nx = ny = 0;
-//
-//}
-
-
-
 
 
 
 CGame * CGame::GetInstance()
 {
+	
 	if (_instance == NULL)
 	{
 		_instance = new CGame();

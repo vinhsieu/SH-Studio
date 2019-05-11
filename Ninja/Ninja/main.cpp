@@ -12,7 +12,7 @@
 #include"Game.h"
 
 #define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define SCREEN_HEIGHT 238
 #define MAX_FRAME_RATE 30
 #define WINDOW_CLASS_NAME L"BT1"
 #define MAIN_WINDOW_TITLE L"BT1"

@@ -5,6 +5,7 @@
 #include <string>
 #include"CGame.h"
 #include"Texture.h"
+#include"Sprite.h"
 
 #define ID_TEX_MAP 2000
 
@@ -19,15 +20,17 @@ public:
 	int GetTileWidth();
 	int GetTileHeight();
 	vector<vector<int>> matrix;
-	void SetCamera(Camera *camera);
+	//void SetCamera(Camera *camera);
 	void Draw();
-	int tileWidth, tileHeight;
+	int numtileWidth,numtileHeight;
+	int tileSize = 16;
+	bool isContain(RECT rect1, RECT rect2);
 
 private:
 	void LoadMap(LPCWSTR filePath, D3DCOLOR transcolor);
 	void LoadMatrix(LPCWSTR filePath);
 	LPDIRECT3DSURFACE9 mMap;
-	Camera *mCamera;
+	CCamera * mCamera;
 	~GameMap();
 };
 

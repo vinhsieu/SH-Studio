@@ -1,5 +1,7 @@
 #pragma once
 #include"CGameObject.h"
+#include"Texture.h"
+#include"define.h"
 
 #define NINJA_WALKING_SPEED		0.1f
 #define NINJA_JUMP_SPEED_Y		0.5f
@@ -25,14 +27,16 @@
 
 class Ninja:public CGameObject
 {
-	int isAttach;
+private:
+	static Ninja * _instance;
+	
 	int isSit;
-
 public:
 	Ninja();
 	void Update(DWORD dt);
 	void Render();
 	void SetState(int State);
-	float GetVx() { return vx; };
+	void LoadAni();
+	static Ninja * GetInstance();
 };
 

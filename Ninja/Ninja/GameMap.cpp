@@ -9,30 +9,57 @@ GameMap::GameMap(LPCWSTR filename, LPCWSTR matrixName)
 }
 
 
-void GameMap::SetCamera(Camera * camera)
-{
-	this->mCamera = camera;
-}
+
 
 void GameMap::Draw()
 {	CGame * game = CGame::GetInstance();
-	DebugOut(L"[INFO] Toa Do BackGround: %f\n", mCamera->GetPosition().x);
+	//DebugOut(L"[INFO] Toa Do BackGround: %f\n", mCamera->GetPosition().x);
 
+	mCamera = CCamera::GetInstance();
+	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
+	208/ 2 - mCamera->GetPosition().y);
 	CSprites * sprites = CSprites::GetInstance();
+	//DebugOut(L"[INFO]Toa Do Camera: %f, %f\n", mCamera->GetPosition().x, mCamera->GetPosition().y);
 	if (matrix.empty())
 	{
 		return;
 	}
 
-	for (int i = 0; i < matrix.size(); i++)
+	for (int i = 0; i < matrix.size(); i++)// hang
 	{
-		for (int j = 0; j < matrix[i].size(); j++)
+		for (int j = 0; j < matrix[i].size(); j++)// cot
 		{
-			int x=j*16+8;
-			int y=i*16+8;
-			sprites->Get(matrix[i][j] + ID_TEX_MAP)->Draw(x, y, 0);
+			D3DXVECTOR3 position(j * tileSize + tileSize / 2, i * tileSize + tileSize / 2, 0);
+			if (mCamera != NULL)
+			{
+				RECT objRECT;
+				objRECT.left = position.x - tileSize / 2;
+				objRECT.top = position.y - tileSize / 2;
+				objRECT.right = objRECT.left + tileSize;
+				objRECT.bottom = objRECT.top + tileSize;
+
+				//neu nam ngoai camera thi khong Draw
+				if (isContain(objRECT, mCamera->GetBound()) == false)
+					continue;
+			}
+			sprites->Get(matrix[i][j] + ID_TEX_MAP)->Draw(position.x, position.y, 0, trans);
+
+			//DebugOut(L"[INFO]Toa Do Back Ground: %f, %f\n", position.x, position.y);
+
+			//DebugOut(L"[INFO]Toa Do Camera: %f, %f\n", mCamera->GetPosition().x, mCamera->GetPosition().y);
 		}
 	}
+	
+}
+
+bool GameMap::isContain(RECT rect1, RECT rect2)
+{
+	if (rect1.left > rect2.right || rect1.right < rect2.left || rect1.top > rect2.bottom || rect1.bottom < rect2.top)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 void GameMap::LoadMap(LPCWSTR filename, D3DCOLOR transcolor)
@@ -41,33 +68,30 @@ void GameMap::LoadMap(LPCWSTR filename, D3DCOLOR transcolor)
 	D3DXIMAGE_INFO info;
 	HRESULT result;
 
-	result = D3DXGetImageInfoFromFile(filename, &info);
+	/*result = D3DXGetImageInfoFromFile(filename, &info);
 	if (result != D3D_OK)
 	{
 		return;
-	}
+	}*/
 
-
-	this->tileHeight = info.Height / 16;
-	this->tileWidth = info.Width / 16;
-
-	CTexture * texture = CTexture::GetInstance();
-	texture->Add(ID_TEX_MAP, filename,NULL);
+	
 	CSprites * sprites = CSprites::GetInstance();
+	CTexture * texture = CTexture::GetInstance();
+	this->numtileHeight = 13;
+	this->numtileWidth = 80 ;
+	LPDIRECT3DTEXTURE9 texMAP = texture->Get(eType::Map1);
 
-	LPDIRECT3DTEXTURE9 texMAP = texture->Get(ID_TEX_MAP);
-
-	for (int i = 0; i < this->tileHeight*this->tileWidth; i++)
+	for (int i = 0; i < this->numtileHeight*this->numtileWidth; i++)
 	{
-		int left = (i % this->tileWidth) * 16;
+		int left = (i % this->numtileWidth) * 16;
 		int right = left + 16;
-		int top = (i / this->tileWidth) * 16;
+		int top = (i / this->numtileWidth) * 16;
 		int bottom = top + 16;
 		
-		sprites->Add(ID_TEX_MAP+i, left, top, right, bottom, texMAP);
+		sprites->Add(ID_TEX_MAP + i, left, top, right, bottom, texMAP);
+		
 		
 	}
-
 }
 
 void GameMap::LoadMatrix(LPCWSTR filePath)
@@ -93,9 +117,12 @@ void GameMap::LoadMatrix(LPCWSTR filePath)
 				a.push_back(aa);
 		}
 		matrix.push_back(a);
-		DebugOut(L"[INFO]  matrix xong\n");
+		
 	}
 	
+
+	DebugOut(L"[INFO]  matrix xong\n");
+
 }
 
 GameMap::~GameMap()

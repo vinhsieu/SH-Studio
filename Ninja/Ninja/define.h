@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#include <algorithm>
 
 
 #define SCREEN_WIDTH 320
@@ -18,9 +18,11 @@ enum eType
 	NINJA_DEADTH = 03,
 
 	// object nền(Bat Dau 20)
-
+	BRICK = 20,
+	GATE = 21,
 
 	// object(Bat Dau 40)
+	STAIR=40,
 
 
 	// weapon(Bat Dau 60)
@@ -33,8 +35,8 @@ enum eType
 	Map1 = 100,
 	Map2 = 101,
 	Map3 = 102,
-
-	// Effect(Bat Dau 100)
+	BBOX=103,
+	
 
 
 	// Enemy(Bat Dau 120)
@@ -51,5 +53,5 @@ enum eType
 	BOSS = 140
 
 	// Intro(Bat Dau 160)
-	
+	// Effect(Bat Dau 180)
 };

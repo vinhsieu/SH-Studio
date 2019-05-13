@@ -8,7 +8,8 @@
 #include"Sprite.h"
 #include "KeyBoard.h"
 #include"Dagger.h"
-
+#include"Brick.h"
+#include"Grid.h"
 
 class Game
 {
@@ -17,7 +18,10 @@ class Game
 	GameMap *gamemap;
 	CKeyHandler * keyboard;
 	//CDagger * dagger;
+	Grid *mGrid;
+	//Brick *mBrick;
 	CCamera * mCamera = CCamera::GetInstance();
+	vector<LPGAMEOBJECT> obj;
 public:
 	
 	Game();

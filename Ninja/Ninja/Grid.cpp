@@ -27,15 +27,24 @@ void Grid::ReloadGrid()
 	inp >> n;
 	for (int i = 0; i < n; i++)
 	{
-		inp >> id >> type >> direction >> x >> y >> w >> h >> model;
-		Insert(id, type, direction, x, y, w, h, model);
+		inp >> id >> type >> direction >> x >> y >> w >> h /*>> model*/;
+		Insert(id, type, direction, x, y, w, h, NULL);
 	}
 	inp.close();
 }
 
+
+
+
 CGameObject * Grid::GetNewObject(int type, float x, float y, float w, float h, int model)
 {
-	return nullptr;
+	switch (type)
+	{
+		case eType::Dagger:
+			return new CDagger(x, y, 1);
+		case eType::BombGun:
+			return new CBombGun(x, y, 1);
+	}
 }
 
 void Grid::Insert(int id, int type, int direction, float x, float y, int w, int h, int Model)
@@ -49,29 +58,29 @@ void Grid::Insert(int id, int type, int direction, float x, float y, int w, int 
 	if (obj == NULL)
 		return;
 
-	//obj->SetId(id);
-	//obj->SetDirection(direction);
+	obj->SetID(id);
+	obj->SetDirection(direction);
 
 	for (int i = top; i <= bottom; i++)
 		for (int j = left; j <= right; j++)
 			cells[i][j].push_back(obj);
 }
 
-void Grid::GetListObject(vector<CGameObject*>& ListObj, CCamera * camera)
+void Grid::GetListObject(vector<CGameObject*>& ListObj)
 {
 	ListObj.clear();
 
 	unordered_map<int, CGameObject*> mapObject;
+	CCamera *camera = CCamera::GetInstance();
+	int bottom = (int)((camera->GetPosition().y + camera->GetHeight()/2 - 1) / GRID_CELL_HEIGHT);
+	int top = (int)((camera->GetPosition().y - camera->GetHeight() / 2 + 1) / GRID_CELL_HEIGHT);
 
-	int bottom = (int)((camera->GetPosition().y + camera->GetHeight() - 1) / GRID_CELL_HEIGHT);
-	int top = (int)((camera->GetPosition().y + 1) / GRID_CELL_HEIGHT);
+	int left = (int)((camera->GetPosition().x- camera->GetWidth()/2 + 1) / GRID_CELL_WIDTH);
+	int right = (int)((camera->GetPosition().x + camera->GetWidth()/2 - 1) / GRID_CELL_WIDTH);
 
-	int left = (int)((camera->GetPosition().x + 1) / GRID_CELL_WIDTH);
-	int right = (int)((camera->GetPosition().x + camera->GetWidth() - 1) / GRID_CELL_WIDTH);
-
-	for (int i = top; i <= bottom; i++)
+	for (int i = top; i <= bottom; i++)//Theo Cột
 	{
-		for (int j = left; j <= right; j++)
+		for (int j = left; j <= right; j++)//Theo Hàng
 			for (int k = 0; k < cells[i][j].size(); k++)
 			{
 				if (cells[i][j].at(k)->GetHealth() > 0) // còn tồn tại

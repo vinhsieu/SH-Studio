@@ -2,8 +2,15 @@
 #include "CGameObject.h"
 #include"Camera.h"
 #include"define.h"
-
 #include <fstream>
+
+#include"Dagger.h"
+#include"Blade.h"
+#include"BombGun.h"
+#include"BrownBird.h"
+#include"Footballguy.h"
+#include"GunRage.h"
+
 #define GRID_CELL_MAX_ROW 20 // số dòng tối đa;
 #define GRID_CELL_MAX_COLUMN 100 // số cột tối đa
 
@@ -23,7 +30,7 @@ public:
 
 	CGameObject *GetNewObject(int type, float x, float y, float w, float h, int model);
 	void Insert(int id, int type, int direction, float x, float y, int w, int h, int Model);
-	void GetListObject(vector<CGameObject*>& ListObj, CCamera *Camera);
+	void GetListObject(vector<CGameObject*>& ListObj);
 
 	~Grid();
 };

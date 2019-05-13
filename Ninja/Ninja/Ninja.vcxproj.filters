@@ -93,6 +93,33 @@
     <ClInclude Include="Dagger.h">
       <Filter>Objects\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="BrownBird.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Blade.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Panther.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="BombGun.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Footballguy.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GunRage.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Objects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Stairs.h">
+      <Filter>Objects\Ground</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Objects\Ground</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -133,6 +160,33 @@
     </ClCompile>
     <ClCompile Include="Dagger.cpp">
       <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BrownBird.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Blade.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Panther.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="BombGun.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Footballguy.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GunRage.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Objects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Stairs.cpp">
+      <Filter>Objects\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Objects\Ground</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

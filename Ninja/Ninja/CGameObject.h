@@ -5,6 +5,7 @@
 #include"Sprite.h"
 #include<vector>
 #include "Camera.h"
+#include"define.h"
 
 using namespace std;
 #define ID_TEX_BBOX -100
@@ -33,7 +34,7 @@ protected:
 
 	int id;
 
-	//eType type;//Loai Object
+	eType type;//Loai Object
 
 	int Health; //Con Con Tai Hay Khong
 
@@ -49,7 +50,7 @@ protected:
 	float vx;
 	float vy;
 
-	//FlipX ?
+	
 
 
 	int nx; // Direction
@@ -58,19 +59,37 @@ protected:
 
 	DWORD dt;
 
-	static vector<LPANIMATION> animations;
+	vector<LPANIMATION> animations;
 	
 public:
 	void SetState(int state) { this->currentState = state; }
-	static void AddAnimation(int aniId);
+	void AddAnimation(int aniId);
+
+	void RenderBoundingBox();
+
+	eType GetType();
+	void SetID(int id);
+	void SetDirection(int Direction);
 
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	
 	int GetHealth();
-
+	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 	int GetID();
+
+
+	LPCOLLISIONEVENT SweptAABBEx(CGameObject * coO);
+	void CalcPotentialCollisions(vector<CGameObject*> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
+	void FilterCollision(
+		vector<LPCOLLISIONEVENT> &coEvents,
+		vector<LPCOLLISIONEVENT> &coEventsResult,
+		float &min_tx,
+		float &min_ty,
+		float &nx,
+		float &ny);
+
 
 	CGameObject();
 	virtual void Update(DWORD);
@@ -78,7 +97,7 @@ public:
 	virtual int GetState() { return currentState; };
 	virtual float GetVx() { return vx; }
 	virtual void LoadAni();
-	/*virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;*/
+	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	~CGameObject();
 };
 

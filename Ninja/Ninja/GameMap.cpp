@@ -16,8 +16,7 @@ void GameMap::Draw()
 	//DebugOut(L"[INFO] Toa Do BackGround: %f\n", mCamera->GetPosition().x);
 
 	mCamera = CCamera::GetInstance();
-	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
-	208/ 2 - mCamera->GetPosition().y);
+	
 	CSprites * sprites = CSprites::GetInstance();
 	//DebugOut(L"[INFO]Toa Do Camera: %f, %f\n", mCamera->GetPosition().x, mCamera->GetPosition().y);
 	if (matrix.empty())
@@ -29,12 +28,12 @@ void GameMap::Draw()
 	{
 		for (int j = 0; j < matrix[i].size(); j++)// cot
 		{
-			D3DXVECTOR3 position(j * tileSize + tileSize / 2, i * tileSize + tileSize / 2, 0);
+			D3DXVECTOR3 position(j * tileSize, i * tileSize , 0);
 			if (mCamera != NULL)
 			{
 				RECT objRECT;
-				objRECT.left = position.x - tileSize / 2;
-				objRECT.top = position.y - tileSize / 2;
+				objRECT.left = position.x;
+				objRECT.top = position.y;
 				objRECT.right = objRECT.left + tileSize;
 				objRECT.bottom = objRECT.top + tileSize;
 
@@ -42,13 +41,13 @@ void GameMap::Draw()
 				if (isContain(objRECT, mCamera->GetBound()) == false)
 					continue;
 			}
-			sprites->Get(matrix[i][j] + ID_TEX_MAP)->Draw(position.x, position.y, 0, trans);
+			sprites->Get(matrix[i][j] + ID_TEX_MAP)->Draw(position.x, position.y, 0, mCamera->Tranform());
 
 			//DebugOut(L"[INFO]Toa Do Back Ground: %f, %f\n", position.x, position.y);
 
 			//DebugOut(L"[INFO]Toa Do Camera: %f, %f\n", mCamera->GetPosition().x, mCamera->GetPosition().y);
 		}
-	}
+	} 
 	
 }
 

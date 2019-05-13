@@ -15,7 +15,7 @@ CCamera::CCamera(int width, int height)
 {
 	this->mWidth = width;
 	this->mHeight = height;
-	//mPosition = D3DXVECTOR3(150, 130, 0);
+	mPosition = D3DXVECTOR3(150, 130, 0);
 }
 
 
@@ -43,6 +43,12 @@ CCamera * CCamera::GetInstance()
 		_instance = new CCamera(SCREEN_WIDTH,SCREEN_HEIGHT);
 	}
 	return _instance;
+}
+
+D3DXVECTOR2 CCamera::Tranform()
+{
+	return D3DXVECTOR2(320 / 2 - mPosition.x,
+		208 / 2 - mPosition.y);
 }
 
 

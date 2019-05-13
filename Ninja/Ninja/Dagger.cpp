@@ -10,6 +10,8 @@ CDagger::CDagger(float x, float y, int Direction)
 	this->x = x;
 	this->y = y;
 	this->nx = Direction;
+	this->vx = DAGGER_SPEED_X;
+	this->type = eType::Dagger;
 	LoadAni();
 }
 
@@ -27,17 +29,18 @@ void CDagger::LoadAni()
 
 	LPANIMATION ani;
 	//Di Binh Thuong
-	ani = new CAnimation(50);
+	ani = new CAnimation(100);
 	ani->Add(500);
 	ani->Add(501);
 	animations->Add(1000, ani);
 	//Danh
-	ani = new CAnimation(50);
+	ani = new CAnimation(100);
 	ani->Add(501);
 	ani->Add(502);
 	animations->Add(1001, ani);
-	this->animations.push_back(animations->Get(1000));
-	this->animations.push_back(animations->Get(1001));
+	AddAnimation(1000);
+	AddAnimation(1001);
+	
 
 }
 
@@ -48,17 +51,26 @@ void CDagger::Render()
 		208 / 2 - mCamera->GetPosition().y);
 	if (isAttach = -1)
 	{
-		animations.at(0)->Render(this->x, this->y, isAttach, this->nx, trans);
+		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, trans);
 	}
 	else
 	{
-		animations.at(1)->Render(this->x, this->y, isAttach, this->nx, trans);
+		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, trans);
 	}
+	RenderBoundingBox();
 }
 
 void CDagger::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
+}
+
+void CDagger::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	left = x;
+	top = y;
+	right = x + 32;
+	bottom = y + 32;
 }
 
 CDagger::~CDagger()

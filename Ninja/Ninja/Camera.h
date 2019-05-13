@@ -25,7 +25,7 @@ public:
 	void SetPosition(D3DXVECTOR3 pos);
 
 	static CCamera * GetInstance();
-
+	D3DXVECTOR2 Tranform();
 	//void Following(Ninja *following);
 	//void UnFollowing();
 	//void SetTransform(CGame * game);

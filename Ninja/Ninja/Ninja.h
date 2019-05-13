@@ -33,10 +33,11 @@ private:
 	int isSit;
 public:
 	Ninja();
-	void Update(DWORD dt);
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int State);
 	void LoadAni();
+	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	static Ninja * GetInstance();
 };
 

@@ -17,7 +17,7 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEX
 void CSprite::Draw(float x, float y, int isLeft ,D3DXVECTOR2 transform)
 {
 	CGame *game = CGame::GetInstance();
-	game->Draw(x, y, this->texture,this->left,this->top,this->right,this->bottom, isLeft, transform);
+	game->Draw(x, y, this->texture,this->left,this->top,this->right,this->bottom, isLeft, transform,255);
 
 }
 CSprites * CSprites::_instance=NULL;

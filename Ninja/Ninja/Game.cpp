@@ -13,12 +13,17 @@ void Game::GameInit(HWND hWnd)
 	CTexture::GetInstance();
 	keyboard = new CKeyHandler();
 	keyboard->InitKeyBoard(keyboard);
+	mGrid = new Grid();
+	mGrid->SetFile(L"Resources/Map/Map1_Object.txt");
+	mGrid->ReloadGrid();
 	LoadResources();
 }
 
 void Game::LoadResources()
 {
+	
 	//dagger = new CDagger(150,150,1);
+	//mBrick = new Brick(0.0f, 164.0f, 200.0f, 16.0f);
 	ninja->LoadAni();
 	gamemap = new GameMap(L"NinjaGaidenMapStage3-1BG_1.png", L"Resources/Map/Map1_Matrix.txt");
 }
@@ -41,11 +46,15 @@ void Game::Render()
 			//d3ddv->StretchRect(back, &p, bb, &des2, D3DTEXF_NONE);
 	//		d3ddv->SetTransform(v)
 			spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
+			
 			gamemap->Draw();
-			ninja->Render();
+			//mBrick->Render();
 			//dagger->Render();
-
+			for (auto x : obj)
+			{
+				x->Render();
+			}
+			ninja->Render();
 			spriteHandler->End();
 			d3ddv->EndScene();
 		}
@@ -56,7 +65,13 @@ void Game::Render()
 
 void Game::Update(DWORD dt)
 {
-	ninja->Update(dt);
+	mGrid->GetListObject(obj);
+	for (auto x : obj)
+	{
+		x->Update(dt);
+	}
+	//object.push_back(mBrick);
+	ninja->Update(dt,&obj);
 	//dagger->Update(dt);
 }
 

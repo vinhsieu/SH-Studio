@@ -1,4 +1,4 @@
-#include "Ninja.h"
+﻿#include "Ninja.h"
 #include"debug.h"
 
 Ninja * Ninja::_instance = NULL;
@@ -8,11 +8,11 @@ Ninja::Ninja()
 	CGameObject::CGameObject();
 	isAttach = -1;//Not attach, 1 attach
 	isSit = -2;// Not Sit , 2 sit
-	
+	this->type = eType::NINJA;
 	
 }
 
-void Ninja::Update(DWORD dt)
+void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	vy += NINJA_GRAVITY*dt;
@@ -20,21 +20,54 @@ void Ninja::Update(DWORD dt)
 	{
 		vy = 0; y = 150.0f;
 	}
-	
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	vector<LPGAMEOBJECT> list_Brick;
+	list_Brick.clear();
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		if (coObjects->at(i)->GetType() == eType::BRICK)
+			list_Brick.push_back(coObjects->at(i));
+	}
+	CalcPotentialCollisions(&list_Brick, coEvents);
+
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+		//isCollisionAxisYWithBrick = false; // đang ko va chạm trục y
+	//	DebugOut(L"%d : Col y = false (size = 0) - dt = %d - y = %f - dy = %f\n",GetTickCount(),dt,y, dy);
+	}
+	else
+
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		if (y > 150)
+		{
+			vy = 0; y = 150.0f;
+		}
+		x += min_tx * dx + nx * 0.4f;
+
+		//if (ny == -1)
+			y += min_ty * dy + ny * 0.4f;
+	}
 	// simple screen edge collision!!!
 	//if (vx > 0 && x > 290) x = 290;
 	if (vx < 0 && x < 0) x = 0;
 	CCamera * mCamera = CCamera::GetInstance();
 	mCamera->SetPosition(x,104);
-	DebugOut(L"[INFO]Toa Do Ninja: %f, %f\n", x, y);
+	//DebugOut(L"[INFO]Toa Do Ninja: %f, %f\n", x, y);
 }
 
 void Ninja::Render()
 {
 	int isLeft = this->nx;
-	CCamera * mCamera = CCamera::GetInstance();
-	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 -mCamera->GetPosition().x,
-		208 / 2 - mCamera->GetPosition().y);
+	
 	int ani;
 	int complex=isAttach+isSit;
 	if (vx == 0)// Idle
@@ -54,14 +87,7 @@ void Ninja::Render()
 			ani = NINJA_ANI_SIT_ATTACH;
 			break;
 		}
-		//if (nx > 0)// On the right side
-		//{
-		//	isLeft = 1;
-		//}
-		//else  //On the left side
-		//{
-		//	isLeft = -1;
-		//}
+		
 	}
 	else
 	{
@@ -77,17 +103,14 @@ void Ninja::Render()
 		if (isAttach == 1)
 		{
 			ani = NINJA_ANI_ATTACH_ON_JUMP;
-			/*if (nx > 0) isLeft=0;
-			else isLeft=1;*/
-
 		}
 		else ani = NINJA_ANI_JUMP;
 	}
-	if (animations.at(ani)->Render(x, y, isAttach,isLeft,trans) == -1)
+	if (animations.at(ani)->Render(x, y, isAttach,isLeft,CCamera::GetInstance()->Tranform()) == -1)
 	{
 		isAttach = -1;
 	}
-	
+	RenderBoundingBox();
 }
 
 void Ninja::SetState(int State)
@@ -212,15 +235,40 @@ void Ninja::LoadAni()
 	ani = new CAnimation(200);
 	ani->Add(10035);
 	animations->Add(704, ani);
+	AddAnimation(400);
+	AddAnimation(500);
+	AddAnimation(600);
+	AddAnimation(701);
+	AddAnimation(801);
+	AddAnimation(702);
+	AddAnimation(704);
+	//this->animations.push_back(animations->Get(400)); // idle right 0
+	//animations->Add->AddAnimation(400);		
+	//this->animations.push_back(animations->Get(500));		// walk right 2
+	//this->animations.push_back(animations->Get(600));      //Jump Ani 4
+	//this->animations.push_back(animations->Get(701));       //Attach left 6
+	//this->animations.push_back(animations->Get(801));      //Sit idle right 8
+	//this->animations.push_back(animations->Get(702));		//Sit Attach right 9
+	//this->animations.push_back(animations->Get(704));		//Attach on Jump Right 11
+	SetPosition(0.0f, 150.0f);
+}
 
-	_instance->AddAnimation(400);		// idle right 0
-	_instance->AddAnimation(500);		// walk right 2
-	_instance->AddAnimation(600);       //Jump Ani 4
-	_instance->AddAnimation(701);       //Attach left 6
-	_instance->AddAnimation(801);       //Sit idle right 8
-	_instance->AddAnimation(702);		//Sit Attach right 9
-	_instance->AddAnimation(704);		//Attach on Jump Right 11
-	_instance->SetPosition(0.0f, 150.0f);
+void Ninja::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	if (isAttach == 1)
+	{
+		left = x - 12;
+		top = y - 16;
+		right = x + 32;
+		bottom = y + 32;
+	}
+	else
+	{
+		left = x ;
+		top = y ;
+		right = x + 32;
+		bottom = y + 32;
+	}
 }
 
 Ninja * Ninja::GetInstance()

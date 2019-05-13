@@ -1,8 +1,6 @@
-﻿  Game.cpp
-e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\game.cpp(32): warning C4101: 'p': unreferenced local variable
-  Ninja.cpp
-  main.cpp
-e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\main.cpp(15): warning C4005: 'SCREEN_HEIGHT': macro redefinition
-  e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\define.h(6): note: see previous definition of 'SCREEN_HEIGHT'
-  Generating Code...
+﻿  Grid.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(23): warning C4101: 'model': unreferenced local variable
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(84): warning C4018: '<': signed/unsigned mismatch
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(48): warning C4715: 'Grid::GetNewObject': not all control paths return a value
   Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\SH-Studio-ec996b502f18b897684276431aa63ff202b3bfef\Ninja\Debug\Ninja.exe

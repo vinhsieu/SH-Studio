@@ -10,7 +10,7 @@
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 100)
 #define ID_TEX_NINJA 0
 #define ID_TEX_BACKGROUND 1
-
+#define IS_BBOX_DEBUGGING 0
 enum eType
 {
 	NINJA = 01,

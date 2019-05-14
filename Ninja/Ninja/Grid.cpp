@@ -44,6 +44,16 @@ CGameObject * Grid::GetNewObject(int type, float x, float y, float w, float h, i
 			return new CDagger(x, y, 1);
 		case eType::BombGun:
 			return new CBombGun(x, y, 1);
+		case eType::Blade:
+			return new CBlade(x, y, 1);
+		case eType::BrownBird:
+			return new CBrownBird(x, y, 1);
+		case eType::Footballguy:
+			return new CFootballguy(x, y, 1);
+		case eType::GunRage:
+			return new CGunRage(x, y, 1);
+		case eType::Panther:
+			return new CPanther(x, y, 1);
 	}
 }
 

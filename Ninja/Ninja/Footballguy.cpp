@@ -2,7 +2,7 @@
 
 
 
-Footballguy::Footballguy(float x, float y, int Direction)
+CFootballguy::CFootballguy(float x, float y, int Direction)
 {
 	this->x = x;
 	this->y = y;
@@ -12,7 +12,7 @@ Footballguy::Footballguy(float x, float y, int Direction)
 	LoadAni();
 }
 
-void Footballguy::LoadAni()
+void CFootballguy::LoadAni()
 {
 	CTexture * texture = CTexture::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -32,26 +32,28 @@ void Footballguy::LoadAni()
 	AddAnimation(1051);
 }
 
-void Footballguy::Render()
+void CFootballguy::Render()
 {
-	CCamera * mCamera = CCamera::GetInstance();
-	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
-		208 / 2 - mCamera->GetPosition().y);
+	
 	if (isAttach = -1)
 	{
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, trans);
+		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	}
 	else
 	{
-		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, trans);
+		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+	}
+	if (IS_BBOX_DEBUGGING)
+	{
+		RenderBoundingBox();
 	}
 }
 
-void Footballguy::Update(DWORD dt)
+void CFootballguy::Update(DWORD dt)
 {
 }
 
 
-Footballguy::~Footballguy()
+CFootballguy::~CFootballguy()
 {
 }

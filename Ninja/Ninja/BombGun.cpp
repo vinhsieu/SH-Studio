@@ -7,7 +7,7 @@ CBombGun::CBombGun(float x, float y, int Direction)
 	this->x = x;
 	this->y = y;
 	this->nx = Direction;
-	this->vx = 0.05f;
+	this->vx = 0.0f;
 	this->type = eType::BombGun;
 	LoadAni();
 }
@@ -24,7 +24,7 @@ void CBombGun::LoadAni()
 	sprites->Add(901, 414, 68, 444, 93, tex);
 	LPANIMATION ani;
 	//Di Binh Thuong
-	ani = new CAnimation(100);
+	ani = new CAnimation(200);
 	ani->Add(900);
 	ani->Add(901);
 	animations->Add(1041, ani);
@@ -33,12 +33,13 @@ void CBombGun::LoadAni()
 
 void CBombGun::Render()
 {
-	CCamera * mCamera = CCamera::GetInstance();
-	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
-		208 / 2 - mCamera->GetPosition().y);
 	
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, trans);
 	
+		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+		if (IS_BBOX_DEBUGGING)
+		{
+			RenderBoundingBox();
+		}
 }
 
 void CBombGun::Update(DWORD dt)

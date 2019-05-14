@@ -25,27 +25,21 @@ namespace MapEditor
 
         private int rows;
         private int cols;
-        //private int rowsTiles = 4;//row titles
-        //private int colsTiles = 0;//titles
+        
         private float zoom = 1.0f;
-        private int depth = 10;
-        //private int minWidth = 128;
-        //private int minHeight = 128;
-        private bool isDrawCells = true;
-        //private bool isLoadTile = false;
-        //private bool success = false;
-        //private int quality = 80;
-        private StringBuilder matrixCells;
-        private List<Bitmap> tilesImage;
-        private Bitmap image;
-        private Bitmap imageSub;
+        //private int depth = 10;
+        
 
+        private bool isDrawCells = true;
+        
+        
+        private Bitmap image;
+        
         private Pen pen;
 
         private bool isDraw = false;
 
         private Dictionary<int, CObject> objects;
-        private Dictionary<int, Color> colors;
         private Dictionary<int, string> names;
 
         private Point start;
@@ -61,13 +55,9 @@ namespace MapEditor
             cPanel1.HorizontalScroll.LargeChange = 5;
             cPanel1.VerticalScroll.LargeChange = 5;
             label3.Text = string.Empty;
-            
-            tilesImage = new List<Bitmap>();
-            matrixCells = new StringBuilder();
             objects = new Dictionary<int, CObject>();
 
             selectObjects = new List<CObject>();
-            colors = new Dictionary<int, Color>();
             names = new Dictionary<int, string>();
 
             pen = new Pen(Color.SeaGreen);
@@ -201,20 +191,35 @@ namespace MapEditor
                 if (checkBox_fillColor.Checked)
                     foreach (var item in objects)
                     {
-                        e.Graphics.FillRectangle(new SolidBrush(item.Value.color), item.Value.region);
+                        Rectangle temp= item.Value.region;
+                        temp.X = (int)(temp.X * zoom);
+                        temp.Y = (int)(temp.Y * zoom);
+                        temp.Width = (int)(temp.Width * zoom);
+                        temp.Height = (int)(temp.Height * zoom);
+                        e.Graphics.FillRectangle(new SolidBrush(Color.Red), temp);
                     }
                 else
                     foreach (var item in objects)
                     {
-                        e.Graphics.DrawRectangle(new Pen(item.Value.color) { Width = 3 }, item.Value.region);
+                        Rectangle temp = item.Value.region;
+                        temp.X = (int)(temp.X * zoom);
+                        temp.Y = (int)(temp.Y * zoom);
+                        temp.Width = (int)(temp.Width * zoom);
+                        temp.Height = (int)(temp.Height * zoom);
+                        e.Graphics.DrawRectangle(new Pen(Color.Red) { Width = 3 }, temp);
                     }
 
                 for (int i = 0; i < selectObjects.Count; ++i)
                 {
-                    e.Graphics.DrawRectangle(new Pen(selectObjects[i].color) { Width = 6 }, selectObjects[i].region);
+                    e.Graphics.DrawRectangle(new Pen(Color.Red) { Width = 6 }, selectObjects[i].region);
                 }
             }
-            if (isDraw) e.Graphics.DrawRectangle(new Pen(Color.Red), GetRectangle());
+            Rectangle temp1 = GetRectangle();
+            temp1.X = (int)(temp1.X * zoom);
+            temp1.Y = (int)(temp1.Y * zoom);
+            temp1.Width = (int)(temp1.Width * zoom);
+            temp1.Height = (int)(temp1.Height * zoom);
+            if (isDraw) e.Graphics.DrawRectangle(new Pen(Color.Red), temp1);
         }
         private Rectangle GetRectangle()
         {
@@ -232,7 +237,8 @@ namespace MapEditor
                 if (e.X <= pictureBox_Map.Width && e.Y <= pictureBox_Map.Height)
                 {
                     isDraw = true;
-                    start = end = e.Location;
+                    Point temp = new Point((int)(e.Location.X / zoom), (int)(e.Location.Y / zoom));
+                    start = end = temp ;
                     button_ZoomIn.Enabled = false;
                     button_ZoomOut.Enabled = false;
                 }
@@ -243,7 +249,8 @@ namespace MapEditor
         {
             if (isDraw)
             {
-                end = e.Location;
+                Point temp = new Point((int)(e.Location.X / zoom), (int)(e.Location.Y / zoom));
+                end = temp;
 
                 pictureBox_Map.Invalidate();
             }
@@ -257,7 +264,7 @@ namespace MapEditor
                 Rectangle rect = GetRectangle();
                 if (rect.Width > 0 && rect.Height > 0)
                 {
-                    objects.Add(id, new CObject(id++, rect, Color.Red, comboBox_Name.SelectedIndex, comboBox_Type.SelectedIndex, comboBox_Direction.SelectedIndex == 0));
+                    objects.Add(id, new CObject(id++, rect, comboBox_Name.SelectedItem.ToString(), comboBox_Type.SelectedIndex, comboBox_Direction.SelectedIndex ));
                     AddGridView(rect, comboBox_Name.Text, comboBox_Type.Text, comboBox_Direction.Text);
 
                     pictureBox_Map.Invalidate();
@@ -318,6 +325,19 @@ namespace MapEditor
             textBox_NumObject.Text = "0";
             button_ZoomIn.Enabled = true;
             button_ZoomOut.Enabled = true;
+        }
+
+        private void button_ExportGrid_Click(object sender, EventArgs e)
+        {
+            int numObject = objects.Count();
+            System.IO.File.WriteAllText("output.txt",string.Empty);
+            System.IO.File.AppendAllText("output.txt", numObject.ToString() + Environment.NewLine);
+            for (int i=0;i<numObject;i++)
+            {
+                string line = objects[i].Output();
+                System.IO.File.AppendAllText("output.txt", line + Environment.NewLine);
+            }
+            MessageBox.Show("Da Xuat Ra file output.txt trong debug");
         }
     }
 }

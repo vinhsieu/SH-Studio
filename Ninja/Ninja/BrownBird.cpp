@@ -5,7 +5,7 @@
 
 
 
-BrownBird::BrownBird(float x, float y, int Direction)
+CBrownBird::CBrownBird(float x, float y, int Direction)
 {
 	this->x = x;
 	this->y = y;
@@ -15,7 +15,7 @@ BrownBird::BrownBird(float x, float y, int Direction)
 	LoadAni();
 }
 
-void BrownBird::LoadAni()
+void CBrownBird::LoadAni()
 {
 	CTexture * texture = CTexture::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -33,20 +33,21 @@ void BrownBird::LoadAni()
 	AddAnimation(1011);
 }
 
-void BrownBird::Render()
+void CBrownBird::Render()
 {
-	CCamera * mCamera = CCamera::GetInstance();
-	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
-		208 / 2 - mCamera->GetPosition().y);
-
-	this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, trans);
+	
+	this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+	if (IS_BBOX_DEBUGGING)
+	{
+		RenderBoundingBox();
+	}
 }
 
-void BrownBird::Update(DWORD dt)
+void CBrownBird::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
 }
 
-BrownBird::~BrownBird()
+CBrownBird::~CBrownBird()
 {
 }

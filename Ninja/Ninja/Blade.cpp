@@ -2,15 +2,16 @@
 
 
 
-Blade::Blade(float x, float y, int Direction)
+CBlade::CBlade(float x, float y, int Direction)
 {
 	this->x = x;
 	this->y = y;
 	this->nx = Direction;
 	this->type = eType::Blade;
+	LoadAni();
 }
 
-void Blade::LoadAni()
+void CBlade::LoadAni()
 {
 	CTexture * texture = CTexture::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -31,19 +32,22 @@ void Blade::LoadAni()
 	AddAnimation(1021);
 }
 
-void Blade::Render()
+void CBlade::Render()
 {
-	RenderBoundingBox();
-	this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	
+	this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+	if (IS_BBOX_DEBUGGING)
+	{
+		RenderBoundingBox();
+	}
 }
 
-void Blade::Update(DWORD dt)
+void CBlade::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
 }
 
-void Blade::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void CBlade::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = x /*- 12*/;
 	top = y /*- 16*/;
@@ -52,6 +56,6 @@ void Blade::GetBoundingBox(float & left, float & top, float & right, float & bot
 }
 
 
-Blade::~Blade()
+CBlade::~CBlade()
 {
 }

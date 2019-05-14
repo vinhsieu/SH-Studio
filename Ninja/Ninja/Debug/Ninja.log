@@ -1,6 +1,45 @@
-﻿  Grid.cpp
-e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(23): warning C4101: 'model': unreferenced local variable
-e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(84): warning C4018: '<': signed/unsigned mismatch
-e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(48): warning C4715: 'Grid::GetNewObject': not all control paths return a value
-  Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\SH-Studio-ec996b502f18b897684276431aa63ff202b3bfef\Ninja\Debug\Ninja.exe
+﻿  Blade.cpp
+  BombGun.cpp
+  Boss.cpp
+  Brick.cpp
+  BrownBird.cpp
+  Camera.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\camera.cpp(34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\camera.cpp(35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\camera.cpp(75): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\camera.cpp(77): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  CGame.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\cgame.cpp(72): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+  CGameObject.cpp
+  Dagger.cpp
+  debug.cpp
+  Footballguy.cpp
+  Game.cpp
+  GameMap.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\gamemap.cpp(27): warning C4018: '<': signed/unsigned mismatch
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\gamemap.cpp(29): warning C4018: '<': signed/unsigned mismatch
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\gamemap.cpp(31): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\gamemap.cpp(35): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\gamemap.cpp(36): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\gamemap.cpp(68): warning C4101: 'result': unreferenced local variable
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\gamemap.cpp(67): warning C4101: 'info': unreferenced local variable
+  Grid.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\grid.cpp(23): warning C4101: 'model': unreferenced local variable
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\grid.cpp(67): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\grid.cpp(94): warning C4018: '<': signed/unsigned mismatch
+  GunRage.cpp
+  KeyBoard.cpp
+  main.cpp
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\main.cpp(15): warning C4005: 'SCREEN_HEIGHT': macro redefinition
+  e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\define.h(6): note: see previous definition of 'SCREEN_HEIGHT'
+  Ninja.cpp
+  Panther.cpp
+  Sprite.cpp
+  Generating Code...
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\sprite.cpp(96): warning C4715: 'CAnimation::Render': not all control paths return a value
+e:\hkii 2019\phát triển game\ninja\sh-studio\ninja\ninja\grid.cpp(58): warning C4715: 'Grid::GetNewObject': not all control paths return a value
+  Compiling...
+  Stairs.cpp
+  Texture.cpp
+  Generating Code...
+  Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\Ninja\SH-Studio\Ninja\Debug\Ninja.exe

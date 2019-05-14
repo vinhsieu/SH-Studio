@@ -2,7 +2,7 @@
 
 
 
-GunRage::GunRage(float x, float y, int Direction)
+CGunRage::CGunRage(float x, float y, int Direction)
 {
 	this->x = x;
 	this->y = y;
@@ -12,7 +12,7 @@ GunRage::GunRage(float x, float y, int Direction)
 	LoadAni();
 }
 
-void GunRage::LoadAni()
+void CGunRage::LoadAni()
 {
 	CTexture * texture = CTexture::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -34,27 +34,29 @@ void GunRage::LoadAni()
 	AddAnimation(1061);
 }
 
-void GunRage::Render()
+void CGunRage::Render()
 {
-	CCamera * mCamera = CCamera::GetInstance();
-	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
-		208 / 2 - mCamera->GetPosition().y);
+	
 	if (isAttach = -1)
 	{
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, trans);
+		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	}
 	else
 	{
-		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, trans);
+		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+	}
+	if (IS_BBOX_DEBUGGING)
+	{
+		RenderBoundingBox();
 	}
 }
 
-void GunRage::Update(DWORD dt)
+void CGunRage::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
 }
 
 
-GunRage::~GunRage()
+CGunRage::~CGunRage()
 {
 }

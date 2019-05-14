@@ -35,13 +35,21 @@ void Game::Render()
 		LPD3DXSPRITE spriteHandler = Cgame->GetSpriteHandler();
 		LPDIRECT3DSURFACE9 back = Cgame->Getbackground();
 		RECT p;
-
+		p.left = 0;
+		p.top = 0;
+		p.right = 2;
+		p.bottom = 2;
+		RECT des;
+		des.left = 150;
+		des.top = 150;
+		des.right = 152;
+		des.bottom = 152;
 		if (d3ddv->BeginScene())
 		{
 			// Clear back buffer with a color
 			d3ddv->Clear(0,NULL,D3DCLEAR_TARGET, D3DCOLOR_XRGB(255,255,255),0.0f,0);
 			//d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
-			//d3ddv->StretchRect(back,&p, bb, &des, D3DTEXF_NONE);
+			
 
 			//d3ddv->StretchRect(back, &p, bb, &des2, D3DTEXF_NONE);
 	//		d3ddv->SetTransform(v)
@@ -55,6 +63,7 @@ void Game::Render()
 				x->Render();
 			}
 			ninja->Render();
+			d3ddv->StretchRect(back, &p, bb, &des, D3DTEXF_NONE);
 			spriteHandler->End();
 			d3ddv->EndScene();
 		}

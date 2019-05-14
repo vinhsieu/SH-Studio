@@ -36,6 +36,7 @@
             this.pictureBox_Map = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button_ExportGrid = new System.Windows.Forms.Button();
             this.button_ZoomOut = new System.Windows.Forms.Button();
             this.button_ZoomIn = new System.Windows.Forms.Button();
             this.checkBox_fillColor = new System.Windows.Forms.CheckBox();
@@ -109,7 +110,7 @@
             // pictureBox_Map
             // 
             this.pictureBox_Map.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox_Map.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.pictureBox_Map.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pictureBox_Map.Location = new System.Drawing.Point(0, 0);
             this.pictureBox_Map.Name = "pictureBox_Map";
             this.pictureBox_Map.Size = new System.Drawing.Size(1012, 126);
@@ -132,6 +133,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.button_ExportGrid);
             this.groupBox2.Controls.Add(this.button_ZoomOut);
             this.groupBox2.Controls.Add(this.button_ZoomIn);
             this.groupBox2.Controls.Add(this.checkBox_fillColor);
@@ -153,6 +155,16 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Setting Object";
+            // 
+            // button_ExportGrid
+            // 
+            this.button_ExportGrid.Location = new System.Drawing.Point(785, 79);
+            this.button_ExportGrid.Name = "button_ExportGrid";
+            this.button_ExportGrid.Size = new System.Drawing.Size(75, 23);
+            this.button_ExportGrid.TabIndex = 16;
+            this.button_ExportGrid.Text = "Export Grid";
+            this.button_ExportGrid.UseVisualStyleBackColor = true;
+            this.button_ExportGrid.Click += new System.EventHandler(this.button_ExportGrid_Click);
             // 
             // button_ZoomOut
             // 
@@ -177,7 +189,7 @@
             // checkBox_fillColor
             // 
             this.checkBox_fillColor.AutoSize = true;
-            this.checkBox_fillColor.Location = new System.Drawing.Point(784, 109);
+            this.checkBox_fillColor.Location = new System.Drawing.Point(795, 108);
             this.checkBox_fillColor.Name = "checkBox_fillColor";
             this.checkBox_fillColor.Size = new System.Drawing.Size(65, 17);
             this.checkBox_fillColor.TabIndex = 13;
@@ -197,9 +209,9 @@
             // 
             // button_Clear
             // 
-            this.button_Clear.Location = new System.Drawing.Point(784, 79);
+            this.button_Clear.Location = new System.Drawing.Point(818, 50);
             this.button_Clear.Name = "button_Clear";
-            this.button_Clear.Size = new System.Drawing.Size(75, 23);
+            this.button_Clear.Size = new System.Drawing.Size(56, 23);
             this.button_Clear.TabIndex = 11;
             this.button_Clear.Text = "Clear";
             this.button_Clear.UseVisualStyleBackColor = true;
@@ -207,9 +219,9 @@
             // 
             // button_Delete
             // 
-            this.button_Delete.Location = new System.Drawing.Point(784, 50);
+            this.button_Delete.Location = new System.Drawing.Point(765, 50);
             this.button_Delete.Name = "button_Delete";
-            this.button_Delete.Size = new System.Drawing.Size(75, 23);
+            this.button_Delete.Size = new System.Drawing.Size(50, 23);
             this.button_Delete.TabIndex = 10;
             this.button_Delete.Text = "Delete";
             this.button_Delete.UseVisualStyleBackColor = true;
@@ -300,8 +312,16 @@
             // 
             this.comboBox_Name.FormattingEnabled = true;
             this.comboBox_Name.Items.AddRange(new object[] {
-            "Ground",
-            "Walls"});
+            "BRICK",
+            "STAIR",
+            "Dagger",
+            "BrownBird",
+            "Blade",
+            "Panther",
+            "BombGun",
+            "Footballguy",
+            "GunRage",
+            "GATE"});
             this.comboBox_Name.Location = new System.Drawing.Point(73, 21);
             this.comboBox_Name.Name = "comboBox_Name";
             this.comboBox_Name.Size = new System.Drawing.Size(107, 21);
@@ -513,6 +533,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
         private System.Windows.Forms.DataGridViewTextBoxColumn Direction;
         private System.Windows.Forms.DataGridViewTextBoxColumn Location;
+        private System.Windows.Forms.Button button_ExportGrid;
     }
 }
 

@@ -2,7 +2,7 @@
 
 
 
-Panther::Panther(float x, float y, int Direction)
+CPanther::CPanther(float x, float y, int Direction)
 {
 	this->x = x;
 	this->y = y;
@@ -12,7 +12,7 @@ Panther::Panther(float x, float y, int Direction)
 	LoadAni();
 }
 
-void Panther::LoadAni()
+void CPanther::LoadAni()
 {
 	CTexture * texture = CTexture::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
@@ -32,22 +32,22 @@ void Panther::LoadAni()
 	
 }
 
-void Panther::Render()
+void CPanther::Render()
 {
-	CCamera * mCamera = CCamera::GetInstance();
-	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
-		208 / 2 - mCamera->GetPosition().y);
 	
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, trans);
-	
+		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+		if (IS_BBOX_DEBUGGING)
+		{
+			RenderBoundingBox();
+		}
 }
 
-void Panther::Update(DWORD dt)
+void CPanther::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
 }
 
 
-Panther::~Panther()
+CPanther::~CPanther()
 {
 }

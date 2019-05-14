@@ -22,7 +22,7 @@ namespace MapEditor
             base.OnScroll(se);
         }
 
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        //private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
         protected override CreateParams CreateParams
         {

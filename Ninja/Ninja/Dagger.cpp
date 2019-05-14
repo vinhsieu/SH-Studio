@@ -46,18 +46,19 @@ void CDagger::LoadAni()
 
 void CDagger::Render()
 {
-	CCamera * mCamera = CCamera::GetInstance();
-	D3DXVECTOR2 trans = D3DXVECTOR2(320 / 2 - mCamera->GetPosition().x,
-		208 / 2 - mCamera->GetPosition().y);
+	
 	if (isAttach = -1)
 	{
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, trans);
+		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx,CCamera::GetInstance()->Tranform());
 	}
 	else
 	{
-		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, trans);
+		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	}
-	RenderBoundingBox();
+	if (IS_BBOX_DEBUGGING)
+	{
+		RenderBoundingBox();
+	}
 }
 
 void CDagger::Update(DWORD dt)

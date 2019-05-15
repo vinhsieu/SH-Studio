@@ -2,13 +2,15 @@
 #include"debug.h"
 
 Ninja * Ninja::_instance = NULL;
-
+int temp;
 Ninja::Ninja()
 {
 	CGameObject::CGameObject();
 	isAttach = -1;//Not attach, 1 attach
 	isSit = -2;// Not Sit , 2 sit
 	this->type = eType::NINJA;
+	this->x = 150;
+	isCollisionAxisYWithBrick = true;
 	
 }
 
@@ -16,10 +18,9 @@ void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	vy += NINJA_GRAVITY*dt;
-	if (y > 150)
-	{
-		vy = 0; y = 150.0f;
-	}
+	
+	//DebugOut(L"vy= %f ,dy= %f, dt= %lu\n\n", this->vy, this->dy, dt);
+
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
@@ -32,35 +33,70 @@ void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (coObjects->at(i)->GetType() == eType::BRICK)
 			list_Brick.push_back(coObjects->at(i));
 	}
+	
 	CalcPotentialCollisions(&list_Brick, coEvents);
-
+	
+	
+	
 	if (coEvents.size() == 0)
 	{
+		isCollisionAxisYWithBrick = false;
 		x += dx;
 		y += dy;
-		//isCollisionAxisYWithBrick = false; // đang ko va chạm trục y
-	//	DebugOut(L"%d : Col y = false (size = 0) - dt = %d - y = %f - dy = %f\n",GetTickCount(),dt,y, dy);
+		 // đang ko va chạm trục y
+	    //DebugOut(L"Khong Co Va Cham\n");
 	}
 	else
 
 	{
+		isCollisionAxisYWithBrick = true;
+		//DebugOut(L"Co Va Cham\n");
 		float min_tx, min_ty, nx = 0, ny;
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		if (y > 150)
-		{
-			vy = 0; y = 150.0f;
-		}
+		//DebugOut(L" min_tx = %f, min_ty=%f,nx = %f, ny=%f\n", min_tx, min_ty, nx, ny);
 		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+		
+		if (ny == -1)
+		{
+		}
+		else
+			y += dy;
+
+		if (ny == -1)
+		{
+			vy = 0.1f;
+			dy = vy * dt;
+
+			/*if (isJumping)
+			{
+				isJumping = false;
+				y = y - PULL_UP_SIMON_AFTER_JUMPING;
+			}*/
+		}
+
+
+		if (ny != 0)
+		{
+			isCollisionAxisYWithBrick = true;
+			//		DebugOut(L"%d : Col y = true - dt=%d - y = %f - dy = %f\n", GetTickCount(), dt,y, dy);
+		}
+		else
+		{
+			//	DebugOut(L"%d : Col y = false - dt=%d\n", GetTickCount(), dt);
+			isCollisionAxisYWithBrick = false;// đang ko va chạm trục y
+		}
 
 		//if (ny == -1)
-			y += min_ty * dy + ny * 0.4f;
+			
 	}
 	// simple screen edge collision!!!
 	//if (vx > 0 && x > 290) x = 290;
 	if (vx < 0 && x < 0) x = 0;
 	CCamera * mCamera = CCamera::GetInstance();
 	mCamera->SetPosition(x,104);
+	//DebugOut(L"vy= %f\n\n", this->vy);
 	//DebugOut(L"[INFO]Toa Do Ninja: %f, %f\n", x, y);
 }
 
@@ -98,7 +134,7 @@ void Ninja::Render()
 		}
 		
 	}
-	if (y<150)
+	if (isCollisionAxisYWithBrick==false)
 	{
 		if (isAttach == 1)
 		{
@@ -106,11 +142,11 @@ void Ninja::Render()
 		}
 		else ani = NINJA_ANI_JUMP;
 	}
-	if (animations.at(ani)->Render(x, y, isAttach,isLeft,CCamera::GetInstance()->Tranform()) == -1)
+	if (animations.at(ani)->Render(x+NINJA_TO_CENTERX, y+NINJA_TO_CENTERY, isAttach,isLeft,CCamera::GetInstance()->Tranform()) == -1)
 	{
 		isAttach = -1;
 	}
-	RenderBoundingBox();
+     //RenderBoundingBox(NINJA_TO_CENTERX,NINJA_TO_CENTERY);
 }
 
 void Ninja::SetState(int State)
@@ -137,7 +173,7 @@ void Ninja::SetState(int State)
 		nx = -1;
 		break;
 	case NINJA_STATE_JUMP:
-		if (y ==150)
+		if (isCollisionAxisYWithBrick!=false)
 		{
 			vy = -NINJA_JUMP_SPEED_Y;
 		}
@@ -250,24 +286,24 @@ void Ninja::LoadAni()
 	//this->animations.push_back(animations->Get(801));      //Sit idle right 8
 	//this->animations.push_back(animations->Get(702));		//Sit Attach right 9
 	//this->animations.push_back(animations->Get(704));		//Attach on Jump Right 11
-	SetPosition(0.0f, 150.0f);
+	//SetPosition(0.0f, 150.0f);
 }
 
 void Ninja::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	if (isAttach == 1)
 	{
-		left = x - 12;
-		top = y - 16;
-		right = x + 32;
-		bottom = y + 32;
+		left = x;
+		top = y;
+		right = left+40;
+		bottom = top + 32;
 	}
 	else
 	{
-		left = x ;
-		top = y ;
-		right = x + 32;
-		bottom = y + 32;
+		left = x;
+		top = y;
+		right = left + 20;
+		bottom = top + 32;
 	}
 }
 

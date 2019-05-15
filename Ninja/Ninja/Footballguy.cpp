@@ -37,20 +37,29 @@ void CFootballguy::Render()
 	
 	if (isAttach = -1)
 	{
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+		this->animations.at(0)->Render(this->x+FOOTBALLGUY_TO_CENTERX, this->y+FOOTBALLGUY_TO_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	}
 	else
 	{
-		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+		this->animations.at(1)->Render(this->x+FOOTBALLGUY_TO_CENTERX, this->y+FOOTBALLGUY_TO_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	}
 	if (IS_BBOX_DEBUGGING)
 	{
-		RenderBoundingBox();
+		RenderBoundingBox(FOOTBALLGUY_TO_CENTERX,FOOTBALLGUY_TO_CENTERY);
 	}
 }
 
 void CFootballguy::Update(DWORD dt)
 {
+	CGameObject::Update(dt);
+}
+
+void CFootballguy::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	left = x;
+	top = y;
+	right = x + 18;
+	bottom = y + 33;
 }
 
 

@@ -254,6 +254,7 @@
             this.dataGridView_Object.RowHeadersVisible = false;
             this.dataGridView_Object.Size = new System.Drawing.Size(573, 112);
             this.dataGridView_Object.TabIndex = 7;
+            this.dataGridView_Object.SelectionChanged += new System.EventHandler(this.dataGridView_Object_SelectionChanged);
             // 
             // NameObject
             // 

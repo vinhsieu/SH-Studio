@@ -11,7 +11,7 @@ void CGameObject::AddAnimation(int aniId)
 	this->animations.push_back(ani);
 }
 
-void CGameObject::RenderBoundingBox()
+void CGameObject::RenderBoundingBox(int ToCenterX, int ToCenterY)
 {
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
@@ -26,7 +26,7 @@ void CGameObject::RenderBoundingBox()
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom,0,CCamera::GetInstance()->Tranform(),200);
+	CGame::GetInstance()->Draw(x+ToCenterX, y+ToCenterY, bbox, rect.left, rect.top, rect.right, rect.bottom,0,CCamera::GetInstance()->Tranform(),200);
 }
 
 eType CGameObject::GetType()
@@ -62,7 +62,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(CGameObject * coO)
 	float ml, mt, mr, mb;		// moving object bbox
 	float t, nx, ny;
 
-	coO->GetBoundingBox(sl, st, sr, sb);
+	coO->GetBoundingBox(sl, st, sr, sb);//Object
 
 	// deal with moving object: m speed = original m speed - collide object speed
 	float svx, svy;
@@ -73,8 +73,8 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(CGameObject * coO)
 
 	float dx = this->dx - sdx;
 	float dy = this->dy - sdy;
-
-	GetBoundingBox(ml, mt, mr, mb);
+	//DebugOut(L"sdx= %f, sdy=%f,dx=%f,dy=%f\n\n", sdx, sdy,dx,dy);
+	GetBoundingBox(ml, mt, mr, mb);//Ninja
 
 	CGame::SweptAABB(
 		ml, mt, mr, mb,
@@ -150,11 +150,11 @@ CGameObject::CGameObject()
 
 void CGameObject::Update(DWORD dt)
 {
-	x += vx * dt;
-	y += vy * dt;
-	/*this->dt = dt;
+	this->dt = dt;
 	dx = vx * dt;
-	dy = vy * dt;*/
+	dy = vy * dt;
+	
+	
 
 }
 

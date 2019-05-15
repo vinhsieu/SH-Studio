@@ -99,10 +99,15 @@ void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy
 	float br = dx > 0.0f ? mr + dx : mr;
 	float bb = dy > 0.0f ? mb + dy : mb;
 
-	if (br < sl || bl > sr || bb < st || bt > sb) return;
-
-	if (dx == 0.0f && dy == 0.0f) return;		// moving object is not moving > obvious no collision
-
+	if (br < sl || bl > sr || bb < st || bt > sb)
+	{
+		return;
+	}
+	if (dx == 0.0f && dy == 0.0f)
+	{
+		
+		return;		// moving object is not moving > obvious no collision
+	}
 	if (dx > 0.0f)
 	{
 		dx_entry = sl - mr;

@@ -2,6 +2,10 @@
 #include "CGameObject.h"
 #include"define.h"
 #include"Texture.h"
+
+
+#define GUNRAGE_TO_CENTERX 10
+#define GUNRAGE_TO_CENTERY 15
 class CGunRage :
 	public CGameObject
 {
@@ -10,6 +14,7 @@ public:
 	void LoadAni();
 	void Render();
 	void Update(DWORD dt);
+	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	~CGunRage();
 };
 

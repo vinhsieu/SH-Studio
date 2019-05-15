@@ -11,6 +11,7 @@
 #include"Footballguy.h"
 #include"GunRage.h"
 #include"Panther.h"
+#include"Brick.h"
 
 #define GRID_CELL_MAX_ROW 20 // số dòng tối đa;
 #define GRID_CELL_MAX_COLUMN 100 // số cột tối đa

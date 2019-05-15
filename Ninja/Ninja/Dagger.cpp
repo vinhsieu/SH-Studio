@@ -49,29 +49,30 @@ void CDagger::Render()
 	
 	if (isAttach = -1)
 	{
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx,CCamera::GetInstance()->Tranform());
+		this->animations.at(0)->Render(this->x+DAGGER_T0_CENTERX, this->y+DAGGER_T0_CENTERY, isAttach, this->nx,CCamera::GetInstance()->Tranform());
 	}
 	else
 	{
-		this->animations.at(1)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+		this->animations.at(1)->Render(this->x+DAGGER_T0_CENTERX, this->y+DAGGER_T0_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	}
 	if (IS_BBOX_DEBUGGING)
 	{
-		RenderBoundingBox();
+		RenderBoundingBox(DAGGER_SPEED_X,DAGGER_SPEED_Y);
 	}
 }
 
 void CDagger::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
+
 }
 
 void CDagger::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = x;
 	top = y;
-	right = x + 32;
-	bottom = y + 32;
+	right = x + 26;
+	bottom = y + 33;
 }
 
 CDagger::~CDagger()

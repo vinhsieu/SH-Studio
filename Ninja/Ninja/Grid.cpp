@@ -54,6 +54,8 @@ CGameObject * Grid::GetNewObject(int type, float x, float y, float w, float h, i
 			return new CGunRage(x, y, 1);
 		case eType::Panther:
 			return new CPanther(x, y, 1);
+		case eType::BRICK:
+			return new CBrick(x, y, w, h);
 	}
 }
 

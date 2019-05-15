@@ -16,7 +16,7 @@ namespace MapEditor
     public partial class Form : System.Windows.Forms.Form
     {
         private int id = 0;//id Objects
-        private int idName = 0;
+      
         private int width = 0;
         private int height = 0;
 
@@ -40,12 +40,10 @@ namespace MapEditor
         private bool isDraw = false;
 
         private Dictionary<int, CObject> objects;
-        private Dictionary<int, string> names;
 
         private Point start;
         private Point end;
         private List<CObject> selectObjects;
-        private readonly Random random = new Random();
         public Form()
         {
             InitializeComponent();
@@ -58,7 +56,6 @@ namespace MapEditor
             objects = new Dictionary<int, CObject>();
 
             selectObjects = new List<CObject>();
-            names = new Dictionary<int, string>();
 
             pen = new Pen(Color.SeaGreen);
             //cbbType.SelectedIndex = 0;
@@ -325,6 +322,7 @@ namespace MapEditor
             textBox_NumObject.Text = "0";
             button_ZoomIn.Enabled = true;
             button_ZoomOut.Enabled = true;
+            id = 0;
         }
 
         private void button_ExportGrid_Click(object sender, EventArgs e)
@@ -338,6 +336,21 @@ namespace MapEditor
                 System.IO.File.AppendAllText("output.txt", line + Environment.NewLine);
             }
             MessageBox.Show("Da Xuat Ra file output.txt trong debug");
+        }
+
+        private void dataGridView_Object_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView_Object.SelectedRows.Count > 0)
+            {
+                selectObjects.Clear();
+                if (objects.Count <= 1) return;
+                
+                foreach (DataGridViewRow item in dataGridView_Object.SelectedRows)
+                {
+                    if (item.Tag != null) selectObjects.Add(objects[(int)item.Tag]);
+                }
+                pictureBox_Map.Invalidate();
+            }
         }
     }
 }

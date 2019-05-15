@@ -2,6 +2,8 @@
 #include "CGameObject.h"
 #include"define.h"
 #include"Texture.h"
+#define BROWNBIRD_TO_CENTERX 9
+#define BROWNBIRD_TO_CENTERY 7
 class CBrownBird :
 	public CGameObject
 {
@@ -10,6 +12,7 @@ public:
 	void LoadAni();
 	void Render();
 	void Update(DWORD dt);
+	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	~CBrownBird();
 };
 

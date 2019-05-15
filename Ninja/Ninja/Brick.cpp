@@ -2,10 +2,10 @@
 
 
 
-Brick::Brick(float X, float Y, int W, int H)
+CBrick::CBrick(float X, float Y, int W, int H)
 {
-	this->x = X + W / 2;
-	this->y = Y + H / 2;
+	this->x = X;
+	this->y = Y;
 	
 	this->width = W;
 	this->height = H;
@@ -16,15 +16,15 @@ Brick::Brick(float X, float Y, int W, int H)
 
 
 
-void Brick::Render()
+void CBrick::Render()
 {
-	RenderBoundingBox();
-	DebugOut(L"[INFO]Toa Do Brick: %f, %f\n", x, y);
+	//RenderBoundingBox(this->width/2,this->height/2);
+	//DebugOut(L"[INFO]Toa Do Brick: %f, %f\n", x, y);
 }
 
 
 
-void Brick::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void CBrick::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = x;
 	top = y;
@@ -33,6 +33,6 @@ void Brick::GetBoundingBox(float & left, float & top, float & right, float & bot
 }
 
 
-Brick::~Brick()
+CBrick::~CBrick()
 {
 }

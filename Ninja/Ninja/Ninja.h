@@ -25,11 +25,14 @@
 #define NINJA_ANI_SIT_ATTACH		 5
 #define NINJA_ANI_ATTACH_ON_JUMP	 6
 
+#define NINJA_TO_CENTERX 10
+#define NINJA_TO_CENTERY 16
+
 class Ninja:public CGameObject
 {
 private:
 	static Ninja * _instance;
-	
+	bool isCollisionAxisYWithBrick;
 	int isSit;
 public:
 	Ninja();

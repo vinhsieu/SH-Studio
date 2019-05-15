@@ -35,16 +35,24 @@ void CBombGun::Render()
 {
 	
 	
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+		this->animations.at(0)->Render(this->x+BOMGUN_TO_CENTERX, this->y+BOMGUN_TO_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 		if (IS_BBOX_DEBUGGING)
 		{
-			RenderBoundingBox();
+			RenderBoundingBox(BOMGUN_TO_CENTERX,BOMGUN_TO_CENTERY);
 		}
 }
 
 void CBombGun::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
+}
+
+void CBombGun::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	left = x;
+	top = y;
+	right = x + 26;
+	bottom = y + 26;
 }
 
 

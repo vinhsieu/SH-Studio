@@ -79,9 +79,9 @@ void Game::Update(DWORD dt)
 	{
 		x->Update(dt);
 	}
-	//object.push_back(mBrick);
+	
 	ninja->Update(dt,&obj);
-	//dagger->Update(dt);
+	DebugOut(L"dt= %lu\n", dt);
 }
 
 int Game::Run()
@@ -89,7 +89,7 @@ int Game::Run()
 	MSG msg;
 	int done = 0;
 	DWORD frameStart = GetTickCount();
-	DWORD tickPerFrame = 1 / MAX_FRAME_RATE;
+	DWORD tickPerFrame = 100 / MAX_FRAME_RATE;
 
 	while (!done)
 	{

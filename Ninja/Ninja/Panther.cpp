@@ -35,16 +35,24 @@ void CPanther::LoadAni()
 void CPanther::Render()
 {
 	
-		this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+		this->animations.at(0)->Render(this->x+PANTHER_TO_CENTEX, this->y+PANTHER_TO_CENTEY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 		if (IS_BBOX_DEBUGGING)
 		{
-			RenderBoundingBox();
+			RenderBoundingBox(PANTHER_TO_CENTEX,PANTHER_TO_CENTEY);
 		}
 }
 
 void CPanther::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
+}
+
+void CPanther::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	left = x;
+	top = y;
+	right = x + 26;
+	bottom = y + 17;
 }
 
 

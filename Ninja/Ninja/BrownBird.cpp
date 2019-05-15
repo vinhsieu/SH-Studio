@@ -36,16 +36,24 @@ void CBrownBird::LoadAni()
 void CBrownBird::Render()
 {
 	
-	this->animations.at(0)->Render(this->x, this->y, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+	this->animations.at(0)->Render(this->x+BROWNBIRD_TO_CENTERX, this->y+BROWNBIRD_TO_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	if (IS_BBOX_DEBUGGING)
 	{
-		RenderBoundingBox();
+		RenderBoundingBox(BROWNBIRD_TO_CENTERX,BROWNBIRD_TO_CENTERY);
 	}
 }
 
 void CBrownBird::Update(DWORD dt)
 {
 	CGameObject::Update(dt);
+}
+
+void CBrownBird::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+{
+	left = x;
+	top = y;
+	right = x +18;
+	bottom = y + 15;
 }
 
 CBrownBird::~CBrownBird()

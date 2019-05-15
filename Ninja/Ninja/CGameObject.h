@@ -65,7 +65,7 @@ public:
 	void SetState(int state) { this->currentState = state; }
 	void AddAnimation(int aniId);
 
-	void RenderBoundingBox();
+	void RenderBoundingBox(int ToCenterX,int ToCenterY);
 
 	eType GetType();
 	void SetID(int id);

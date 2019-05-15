@@ -28,20 +28,20 @@ void GameMap::Draw()
 	{
 		for (int j = 0; j < matrix[i].size(); j++)// cot
 		{
-			D3DXVECTOR3 position(j * tileSize +tileSize/2, i * tileSize+tileSize / 2, 0);
+			D3DXVECTOR3 position(j * tileSize /*+tileSize/2*/, i * tileSize/*+tileSize / 2*/, 0);
 			if (mCamera != NULL)
 			{
 				RECT objRECT;
 				objRECT.left = position.x/*- tileSize / 2*/;
 				objRECT.top = position.y/*- tileSize / 2*/;
-				objRECT.right = objRECT.left + tileSize / 2;
-				objRECT.bottom = objRECT.top + tileSize / 2;
+				objRECT.right = objRECT.left + tileSize /*/ 2*/;
+				objRECT.bottom = objRECT.top + tileSize /*/ 2*/;
 
 				//neu nam ngoai camera thi khong Draw
 				if (isContain(objRECT, mCamera->GetBound()) == false)
 					continue;
 			}
-			sprites->Get(matrix[i][j] + ID_TEX_MAP)->Draw(position.x, position.y, 0, mCamera->Tranform());
+			sprites->Get(matrix[i][j] + ID_TEX_MAP)->Draw(position.x + tileSize / 2, position.y + tileSize / 2, 0, mCamera->Tranform());
 
 			//DebugOut(L"[INFO]Toa Do Back Ground: %f, %f\n", position.x, position.y);
 

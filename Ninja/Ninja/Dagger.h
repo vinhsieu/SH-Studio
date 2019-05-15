@@ -9,6 +9,10 @@
 #define ANI_DAGGER_NOTATT 1000
 #define ANI_DAGGER_ATT 1001
 
+
+#define DAGGER_T0_CENTERX 10
+#define DAGGER_T0_CENTERY 17
+
 class CDagger : public CGameObject
 {
 public:

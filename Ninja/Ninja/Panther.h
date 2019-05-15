@@ -2,6 +2,9 @@
 #include "CGameObject.h"
 #include"define.h"
 #include"Texture.h"
+
+#define PANTHER_TO_CENTEX 14
+#define PANTHER_TO_CENTEY 9
 class CPanther :
 	public CGameObject
 {
@@ -10,6 +13,7 @@ public:
 	void LoadAni();
 	void Render();
 	void Update(DWORD dt);
+	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	~CPanther();
 };
 

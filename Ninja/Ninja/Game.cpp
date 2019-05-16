@@ -14,8 +14,8 @@ void Game::GameInit(HWND hWnd)
 	keyboard = new CKeyHandler();
 	keyboard->InitKeyBoard(keyboard);
 	mGrid = new Grid();
-	mGrid->SetFile(L"Resources/Map/Map1_Object.txt");
-	mGrid->ReloadGrid();
+	mGrid->SetGridPath(L"Resources/Map/Map1_Object.txt");
+	
 	LoadResources();
 }
 
@@ -74,7 +74,7 @@ void Game::Render()
 
 void Game::Update(DWORD dt)
 {
-	mGrid->GetListObject(obj);
+	mGrid->ListObject(obj);
 	for (auto x : obj)
 	{
 		x->Update(dt);

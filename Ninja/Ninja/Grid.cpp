@@ -6,29 +6,31 @@ Grid::Grid()
 {
 }
 
-void Grid::SetFile(LPCWSTR filePath)
+void Grid::SetGridPath(LPCWSTR filePath)
 {
-	this->filePath = filePath;
+	this->gridPath = filePath;
+	ReadGrid();
 }
 
-void Grid::ReloadGrid()
+void Grid::ReadGrid()
 {
 	for (int i = 0; i < GRID_CELL_MAX_ROW; i++)
+	{
 		for (int j = 0; j < GRID_CELL_MAX_COLUMN; j++)
 		{
 			cells[i][j].clear();
 		}
+	}
 
-
-	int id, type, direction, w, h, model, n;
+	int id, type, direction, w, h, n;
 	float x, y;
 
-	ifstream inp(filePath, ios::in);
+	ifstream inp(gridPath, ios::in);
 	inp >> n;
 	for (int i = 0; i < n; i++)
 	{
-		inp >> id >> type >> direction >> x >> y >> w >> h /*>> model*/;
-		Insert(id, type, direction, x, y, w, h, NULL);
+		inp >> id >> type >> direction >> x >> y >> w >> h;
+		Insert(id, type, direction, x, y, w, h);
 	}
 	inp.close();
 }
@@ -36,7 +38,7 @@ void Grid::ReloadGrid()
 
 
 
-CGameObject * Grid::GetNewObject(int type, float x, float y, float w, float h, int model)
+CGameObject * Grid::NewObject(int type, float x, float y, float w, float h)
 {
 	switch (type)
 	{
@@ -59,26 +61,31 @@ CGameObject * Grid::GetNewObject(int type, float x, float y, float w, float h, i
 	}
 }
 
-void Grid::Insert(int id, int type, int direction, float x, float y, int w, int h, int Model)
+void Grid::Insert(int id, int type, int direction, float x, float y, int w, int h)
 {
 	int top = (int)(y / GRID_CELL_HEIGHT);
 	int bottom = (int)((y + h) / GRID_CELL_HEIGHT);
 	int left = (int)(x / GRID_CELL_WIDTH);
 	int right = (int)((x + w) / GRID_CELL_WIDTH);
 
-	CGameObject * obj = GetNewObject(type, x, y, w, h, Model);
+	CGameObject * obj = NewObject(type, x, y, w, h);
 	if (obj == NULL)
+	{
 		return;
-
+	}
 	obj->SetID(id);
 	obj->SetDirection(direction);
 
 	for (int i = top; i <= bottom; i++)
+	{
 		for (int j = left; j <= right; j++)
+		{
 			cells[i][j].push_back(obj);
+		}
+	}
 }
 
-void Grid::GetListObject(vector<CGameObject*>& ListObj)
+void Grid::ListObject(vector<CGameObject*>& ListObj)
 {
 	ListObj.clear();
 
@@ -99,10 +106,6 @@ void Grid::GetListObject(vector<CGameObject*>& ListObj)
 				{
 					if (mapObject.find(cells[i][j].at(k)->GetID()) == mapObject.end()) // ko tìm thấy
 						mapObject[cells[i][j].at(k)->GetID()] = cells[i][j].at(k);
-				}
-				else
-				{
-					//	cells[i][j].erase(cells[i][j].begin() + k); // xóa luôn
 				}
 			}
 	}

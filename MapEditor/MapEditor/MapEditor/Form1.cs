@@ -50,8 +50,8 @@ namespace MapEditor
             pictureBox_Map.Size = System.Drawing.Size.Empty;
             pictureBox_Map.Size = System.Drawing.Size.Empty;
 
-            cPanel1.HorizontalScroll.LargeChange = 5;
-            cPanel1.VerticalScroll.LargeChange = 5;
+            panel1.HorizontalScroll.LargeChange = 5;
+            panel1.VerticalScroll.LargeChange = 5;
             label3.Text = string.Empty;
             objects = new Dictionary<int, CObject>();
 
@@ -84,7 +84,7 @@ namespace MapEditor
                 pictureBox_Map.Width = pictureBox_Map.BackgroundImage.Width;
                 //panel1.Width = pictureBox_Map.BackgroundImage.Width;
                 pictureBox_Map.Height = pictureBox_Map.BackgroundImage.Height;
-                label3.Text = pictureBox_Map.Width + " X " + pictureBox_Map.Height;
+                
 
 
                 pictureBox_Map.Image = new Bitmap(widthMap, heightMap);//layer draw cells
@@ -251,6 +251,7 @@ namespace MapEditor
 
                 pictureBox_Map.Invalidate();
             }
+            label3.Text = e.Location.ToString();
         }
 
         private void pictureBox_Map_MouseUp(object sender, MouseEventArgs e)

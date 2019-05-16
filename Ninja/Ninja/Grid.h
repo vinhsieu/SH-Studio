@@ -13,8 +13,8 @@
 #include"Panther.h"
 #include"Brick.h"
 
-#define GRID_CELL_MAX_ROW 20 // số dòng tối đa;
-#define GRID_CELL_MAX_COLUMN 100 // số cột tối đa
+#define GRID_CELL_MAX_ROW 10 // số dòng tối đa=MapHeight/GridCell
+#define GRID_CELL_MAX_COLUMN 50 // số cột tối đa=MapWidth/GridCell
 
 #define GRID_CELL_HEIGHT (SCREEN_HEIGHT/4.0f)
 #define GRID_CELL_WIDTH (SCREEN_WIDTH/4.0f)
@@ -23,16 +23,16 @@
 class Grid
 {
 	vector<CGameObject *> cells[GRID_CELL_MAX_ROW][GRID_CELL_MAX_COLUMN];
-	LPCWSTR filePath;
+	LPCWSTR gridPath;
 
 public:
 	Grid();
-	void SetFile(LPCWSTR filePath);
-	void ReloadGrid();
+	void SetGridPath(LPCWSTR filePath);
+	void ReadGrid();
 
-	CGameObject *GetNewObject(int type, float x, float y, float w, float h, int model);
-	void Insert(int id, int type, int direction, float x, float y, int w, int h, int Model);
-	void GetListObject(vector<CGameObject*>& ListObj);
+	CGameObject *NewObject(int type, float x, float y, float w, float h);
+	void Insert(int id, int type, int direction, float x, float y, int w, int h);
+	void ListObject(vector<CGameObject*>& ListObj);
 
 	~Grid();
 };

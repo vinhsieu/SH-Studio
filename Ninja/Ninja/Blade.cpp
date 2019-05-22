@@ -71,7 +71,7 @@ void CBlade::GetBoundingBox(float & left, float & top, float & right, float & bo
 {
 	left = x;
 	top = y;
-	right = x + 22;
+	right = x + 18;
 	bottom = y + 33;
 }
 

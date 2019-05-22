@@ -22,8 +22,6 @@ void Game::GameInit(HWND hWnd)
 
 void Game::LoadResources()
 {
-	
-	//ninja->LoadAni();
 	gamemap = new GameMap(L"NinjaGaidenMapStage3-1BG_1.png", L"Resources/Map/Map1_Matrix.txt");
 }
 
@@ -74,8 +72,11 @@ void Game::Render()
 void Game::Update(DWORD dt)
 {
 	mGrid->ListObject(obj);
+	objDynamic.clear();
+	objStatic.clear();
 	for (auto x : obj)
 	{
+
 		x->Update(dt);
 	}
 	

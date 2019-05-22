@@ -3,7 +3,7 @@
 #include"define.h"
 #include"Texture.h"
 
-#define BLADE_TO_CENTERX 11
+#define BLADE_TO_CENTERX 9
 #define BLADE_TO_CENTERY 17
 #define BLADE_VX 0.01f
 class CBlade:public CGameObject

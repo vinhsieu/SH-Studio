@@ -11,6 +11,15 @@
 #define ID_TEX_NINJA 0
 #define ID_TEX_BACKGROUND 1
 #define IS_BBOX_DEBUGGING 0
+#ifndef SAFE_DELETE
+#define SAFE_DELETE(ptr) \
+if(ptr) \
+{\
+	delete (ptr); \
+	ptr = nullptr; \
+} \
+
+#endif
 enum eType
 {
 	NINJA = 01,

@@ -17,10 +17,10 @@ class Game
 	Ninja * ninja;
 	GameMap *gamemap;
 	CKeyHandler * keyboard;
-	//CDagger * dagger;
 	Grid *mGrid;
-	//Brick *mBrick;
 	CCamera * mCamera = CCamera::GetInstance();
+	vector<LPGAMEOBJECT> objStatic;
+	vector<LPGAMEOBJECT> objDynamic;
 	vector<LPGAMEOBJECT> obj;
 public:
 	

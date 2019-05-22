@@ -7,9 +7,9 @@
 
 CDagger::CDagger(float x, float y, int Direction)
 {
-	this->x = x;
-	this->y = y;
-	this->nx = Direction;
+	this->x =this->xBackup= x;
+	this->y =this->yBackup= y;
+	this->nx =this->nxBackup= Direction;
 	this->vx = DAGGER_SPEED_X;
 	this->type = eType::Dagger;
 	LoadAni();

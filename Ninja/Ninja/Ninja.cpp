@@ -2,16 +2,21 @@
 #include"debug.h"
 
 Ninja * Ninja::_instance = NULL;
-int temp;
+
 Ninja::Ninja()
 {
 	CGameObject::CGameObject();
+	this->Health = 100;
 	isAttach = -1;//Not attach, 1 attach
 	isSit = -2;// Not Sit , 2 sit
 	this->type = eType::NINJA;
-	this->x = 150;
+	this->x = 0;
+	canControl = true;
 	isCollisionAxisYWithBrick = true;
-	
+	mapWeapon[eType::BASICWEAPON] = new CBasicWeapon();
+	mapWeapon[eType::BlueShuriken] = new CBlueShuriken();
+	LoadAni();
+	//DebugOut(L"this/n1111111111111111111111111111111111111");
 }
 
 void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -19,77 +24,23 @@ void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 	vy += NINJA_GRAVITY*dt;
 	
-	//DebugOut(L"vy= %f ,dy= %f, dt= %lu\n\n", this->vy, this->dy, dt);
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	vector<LPGAMEOBJECT> list_Brick;
-	list_Brick.clear();
-	for (UINT i = 0; i < coObjects->size(); i++)
+	
+	if (GetTickCount() - untouchable_start > NINJA_UNTOUCHABLE_TIME)
 	{
-		if (coObjects->at(i)->GetType() == eType::BRICK)
-			list_Brick.push_back(coObjects->at(i));
+		untouchable_start = 0;
+		untouchable = false;
+		canControl = true;
+		CheckCollisionWithEmemy(coObjects);
 	}
-	
-	CalcPotentialCollisions(&list_Brick, coEvents);
-	
-	
-	
-	if (coEvents.size() == 0)
+	CheckCollisionWithBrick(coObjects);
+
+	if (mapWeapon[eType::BASICWEAPON]->GetisAttaching()==false)
 	{
-		isCollisionAxisYWithBrick = false;
-		x += dx;
-		y += dy;
-		 // đang ko va chạm trục y
-	    //DebugOut(L"Khong Co Va Cham\n");
+		mapWeapon[eType::BASICWEAPON]->Update(dt,coObjects);
 	}
-	else
-
+	if (mapWeapon[eType::BlueShuriken]->GetisAttaching()==false)
 	{
-		isCollisionAxisYWithBrick = true;
-		//DebugOut(L"Co Va Cham\n");
-		float min_tx, min_ty, nx = 0, ny;
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-
-		//DebugOut(L" min_tx = %f, min_ty=%f,nx = %f, ny=%f\n", min_tx, min_ty, nx, ny);
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
-		
-		if (ny == -1)
-		{
-		}
-		else
-			y += dy;
-
-		if (ny == -1)
-		{
-			vy = 0.1f;
-			dy = vy * dt;
-
-			/*if (isJumping)
-			{
-				isJumping = false;
-				y = y - PULL_UP_SIMON_AFTER_JUMPING;
-			}*/
-		}
-
-
-		if (ny != 0)
-		{
-			isCollisionAxisYWithBrick = true;
-			//		DebugOut(L"%d : Col y = true - dt=%d - y = %f - dy = %f\n", GetTickCount(), dt,y, dy);
-		}
-		else
-		{
-			//	DebugOut(L"%d : Col y = false - dt=%d\n", GetTickCount(), dt);
-			isCollisionAxisYWithBrick = false;// đang ko va chạm trục y
-		}
-
-		//if (ny == -1)
-			
+		mapWeapon[eType::BlueShuriken]->Update(dt,coObjects);
 	}
 	// simple screen edge collision!!!
 	//if (vx > 0 && x > 290) x = 290;
@@ -114,7 +65,14 @@ void Ninja::Render()
 			ani = NINJA_ANI_IDLE;
 			break;
 		case -1:		//not sit, attach
-			ani = NINJA_ANI_ATTACH;
+			if (isUsingExtraWeapon)
+			{
+				ani = NINJA_ANI_EXTRA_WEAPON;
+			}
+			else
+			{
+				ani = NINJA_ANI_ATTACH;
+			}
 			break;
 		case 1:			//sit, not attach
 			ani = NINJA_ANI_IDLE_SIT;
@@ -134,7 +92,7 @@ void Ninja::Render()
 		}
 		
 	}
-	if (isCollisionAxisYWithBrick==false)
+	if (isCollisionAxisYWithBrick==false && !untouchable)
 	{
 		if (isAttach == 1)
 		{
@@ -142,11 +100,42 @@ void Ninja::Render()
 		}
 		else ani = NINJA_ANI_JUMP;
 	}
-	if (animations.at(ani)->Render(x+NINJA_TO_CENTERX, y+NINJA_TO_CENTERY, isAttach,isLeft,CCamera::GetInstance()->Tranform()) == -1)
+
+	if (canControl==false)
 	{
-		isAttach = -1;
+		ani = NINJA_ANI_BEING_HURT;
 	}
-     //RenderBoundingBox(NINJA_TO_CENTERX,NINJA_TO_CENTERY);
+
+
+	int isLoop=0; //Co Lap Hay Khong(Ap dung cho Attach)
+
+
+	if (isAttach == 1 || canControl == false)
+	{
+		isLoop = 1; //1 la khong lap
+	}
+	int alpha = 255;
+	if (untouchable) alpha = 128;
+	if (animations.at(ani)->Render(x+NINJA_TO_CENTERX, y+NINJA_TO_CENTERY, isLoop,isLeft,CCamera::GetInstance()->Tranform(),alpha)==-1)
+	{
+		canControl = true;
+		isAttach = -1;
+		isUsingExtraWeapon=0;
+		//animations.at(NINJA_ANI_IDLE)->Render(x + NINJA_TO_CENTERX, y + NINJA_TO_CENTERY, isLoop, isLeft, CCamera::GetInstance()->Tranform(), alpha);
+	}
+	
+	if (mapWeapon[eType::BASICWEAPON]->GetisAttaching()==false)
+	{
+		mapWeapon[eType::BASICWEAPON]->Render();
+	}
+	if (mapWeapon[eType::BlueShuriken]->GetisAttaching()==false)
+	{
+		mapWeapon[eType::BlueShuriken]->Render();
+	}
+	if (IS_BBOX_DEBUGGING)
+	{
+		RenderBoundingBox(NINJA_TO_CENTERX, NINJA_TO_CENTERY);
+	}
 }
 
 void Ninja::SetState(int State)
@@ -176,6 +165,7 @@ void Ninja::SetState(int State)
 		if (isCollisionAxisYWithBrick!=false)
 		{
 			vy = -NINJA_JUMP_SPEED_Y;
+			isCollisionAxisYWithBrick = true;
 		}
 	case NINJA_STATE_IDLE:
 		vx = 0;
@@ -186,10 +176,19 @@ void Ninja::SetState(int State)
 		isSit = 2;
 		break;
 	case NINJA_STATE_ATTACH:
-		
 		isAttach = 1;
+		Attach();
 		break;
-
+	case NINJA_STATE_BEING_HURT:
+		//x -= 20;
+		vy = -NINJA_BEING_HURT_SPEED_Y;
+		vx = -0.4*NINJA_WALKING_SPEED*nx;
+		break;
+	case NINJA_STATE_EXTRA_WEAPON:
+		isAttach = 1;
+		isUsingExtraWeapon = 1;
+		Attach();
+		break;
 	}
 }
 
@@ -201,20 +200,24 @@ void Ninja::LoadAni()
 
 	LPDIRECT3DTEXTURE9 texNinja = texture->Get(eType::NINJA);
 
-	//Run Right
+	if (animations->Get(400) != NULL)
+	{
+		return;
+	}
+	//Run
 	sprites->Add(10000, 0, 5, 22, 37, texNinja);
 	sprites->Add(10001, 338, 5, 360, 37, texNinja);
 	sprites->Add(10002, 368, 5, 390, 37, texNinja);
 	sprites->Add(10003, 399, 5, 421, 37, texNinja);
 
 
-	//ATTACH RIGHT
+	//ATTACH
 	sprites->Add(10033, 4, 5, 26, 37, texNinja);
 	sprites->Add(10034, 25, 160, 47, 192, texNinja);
 	sprites->Add(10035, 48, 5, 106, 37, texNinja);
 	sprites->Add(10036, 106, 5, 140, 37, texNinja);
 
-	//SIT ATTACH RIGHT
+	//SIT ATTACH
 	sprites->Add(10037, 35, 44, 53, 76, texNinja);
 	sprites->Add(10038, 75, 156, 132, 188, texNinja);
 	sprites->Add(10039, 93, 44, 129, 76, texNinja);
@@ -228,10 +231,16 @@ void Ninja::LoadAni()
 	sprites->Add(10050, 1, 44, 23, 76, texNinja);
 	//Sit left
 	sprites->Add(10051, 108, 192, 130, 224, texNinja);
+	
+	//Attach Extra Weapon
+
+	sprites->Add(10061, 164, 6, 182, 37, texNinja);
+	sprites->Add(10062, 185, 8, 215, 37, texNinja);
+	sprites->Add(10063, 223, 8, 253, 37, texNinja);
 
 	LPANIMATION ani;
 	//idle right
-	ani = new CAnimation(100);
+	ani = new CAnimation(75);
 	ani->Add(10000);
 	animations->Add(400, ani);
 
@@ -250,7 +259,7 @@ void Ninja::LoadAni()
 	animations->Add(600, ani);
 
 	//ATTACH RIGHT
-	ani = new CAnimation(100);
+	ani = new CAnimation(75);
 	ani->Add(10033);
 	ani->Add(10034);
 	ani->Add(10035);
@@ -271,16 +280,30 @@ void Ninja::LoadAni()
 	ani = new CAnimation(200);
 	ani->Add(10035);
 	animations->Add(704, ani);
-	AddAnimation(400);
-	AddAnimation(500);
+	//Being hit
+	ani = new CAnimation(300);
+	ani->Add(10021);
+	animations->Add(802, ani);
+	//Attach Extra Weapon
+	ani = new CAnimation(75);
+	ani->Add(10061);
+	ani->Add(10062);
+	ani->Add(10063);
+	animations->Add(803, ani);
+
+
+	AddAnimation(400); // idle right 0
+	AddAnimation(500);// walk right 2
 	AddAnimation(600);
 	AddAnimation(701);
 	AddAnimation(801);
 	AddAnimation(702);
 	AddAnimation(704);
-	//this->animations.push_back(animations->Get(400)); // idle right 0
+	AddAnimation(802);
+	AddAnimation(803);
+	//this->animations.push_back(animations->Get(400)); 
 	//animations->Add->AddAnimation(400);		
-	//this->animations.push_back(animations->Get(500));		// walk right 2
+	//this->animations.push_back(animations->Get(500));		
 	//this->animations.push_back(animations->Get(600));      //Jump Ani 4
 	//this->animations.push_back(animations->Get(701));       //Attach left 6
 	//this->animations.push_back(animations->Get(801));      //Sit idle right 8
@@ -289,22 +312,117 @@ void Ninja::LoadAni()
 	//SetPosition(0.0f, 150.0f);
 }
 
-void Ninja::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void Ninja::Attach()
 {
-	if (isAttach == 1)
+    DebugOut(L"isUsingExtraWeapon: %d \n", isUsingExtraWeapon);
+	if (mapWeapon[eType::BASICWEAPON]->GetisAttaching())
 	{
-		left = x;
-		top = y;
-		right = left+40;
-		bottom = top + 32;
+		
+		mapWeapon[eType::BASICWEAPON]->Attach();
+	}
+	if (mapWeapon[eType::BlueShuriken]->GetisAttaching()&&isUsingExtraWeapon==1)
+	{
+
+		mapWeapon[eType::BlueShuriken]->Attach();
+	}
+	
+}
+
+void Ninja::CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+	
+	coEvents.clear();
+	
+	vector<LPGAMEOBJECT> list_Brick;
+	list_Brick.clear();
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		if (coObjects->at(i)->GetType() == eType::BRICK)
+			list_Brick.push_back(coObjects->at(i));
+	}
+
+	CalcPotentialCollisions(&list_Brick, coEvents);
+
+	//DebugOut(L"coObjects: %d ,coEvents: %d\n",coObjects->size(), coEvents.size());
+	
+	if (coEvents.size() == 0)
+	{
+		isCollisionAxisYWithBrick = false;
+		x += dx;
+		y += dy;
+		// đang ko va chạm trục y
+	   //DebugOut(L"Khong Co Va Cham\n");
 	}
 	else
 	{
+		float min_tx, min_ty, nx = 0, ny;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+
+			
+				isCollisionAxisYWithBrick = true;
+				x += min_tx * dx + nx * 0.4f;
+
+
+				if (ny == -1)
+				{
+					y += min_ty * dy + ny * 0.4f;
+				}
+				else
+				{
+					y += dy;
+				}
+			
+			
+		}
+
+	}
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
+void Ninja::CheckCollisionWithEmemy(vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	vector<LPGAMEOBJECT> list_Enemy;
+	list_Enemy.clear();
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		if (coObjects->at(i)->GetType() != eType::BRICK)
+			list_Enemy.push_back(coObjects->at(i));
+
+	}
+	
+
+	for (UINT i = 0; i < list_Enemy.size(); i++)
+	{
+
+		if (AABBcollision(list_Enemy.at(i))&& list_Enemy.at(i)->GetHealth()!=0)
+		{
+			SubHealth(2);
+			StartUntouchable();
+			SetState(NINJA_STATE_BEING_HURT);
+			return;
+			//DebugOut(L"co va cham\n");
+		}
+	}
+
+	
+}
+
+void Ninja::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+{
 		left = x;
 		top = y;
-		right = left + 20;
-		bottom = top + 32;
-	}
+		right = left + 16;
+		bottom = top + 30;
 }
 
 Ninja * Ninja::GetInstance()

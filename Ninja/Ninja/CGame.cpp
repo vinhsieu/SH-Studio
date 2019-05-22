@@ -5,6 +5,16 @@
 CGame * CGame::_instance = NULL;
 
 
+bool CGame::isContain(RECT rect1, RECT rect2)
+{
+	if (rect1.left > rect2.right || rect1.right < rect2.left || rect1.top > rect2.bottom || rect1.bottom < rect2.top)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 void CGame::Init(HWND hWnd)
 {
 	LPDIRECT3D9 d3d = Direct3DCreate9(D3D_SDK_VERSION);
@@ -46,8 +56,6 @@ void CGame::Init(HWND hWnd)
 
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top, int right, int bottom, int flipX, D3DXVECTOR2 transform,int alpha)
 {
-	/*x = x + 16;
-	y = y + 16;*/
 	D3DXMATRIX oldMatrix;
 	D3DXMATRIX mMatrix;
 	D3DXVECTOR2 Scale = D3DXVECTOR2(1.0, 1.0);
@@ -105,7 +113,6 @@ void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy
 	}
 	if (dx == 0.0f && dy == 0.0f)
 	{
-		
 		return;		// moving object is not moving > obvious no collision
 	}
 	if (dx > 0.0f)
@@ -155,13 +162,21 @@ void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy
 	}
 
 
-	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f) return;
-
+	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f)
+	{
+		DebugOut(L"txentry: %f, tyentry:%f\n",tx_entry,ty_entry);
+		return;
+	}
 	t_entry = max(tx_entry, ty_entry);
 	t_exit = min(tx_exit, ty_exit);
 
-	if (t_entry > t_exit) return;
+	if (t_entry > t_exit)
+	{
 
+		
+		return;
+	}
+	
 	t = t_entry;
 
 	if (tx_entry > ty_entry)

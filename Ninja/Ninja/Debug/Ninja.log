@@ -1,2 +1,3 @@
-﻿  Game.cpp
-  Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\Ninja\SH-Studio\Ninja\Debug\Ninja.exe
+﻿  Ninja.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\ninja.cpp(185): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\SH-Studio-ec996b502f18b897684276431aa63ff202b3bfef\Ninja\Debug\Ninja.exe

@@ -41,6 +41,12 @@ protected:
 	float x;
 	float y;
 
+	float xBackup;
+	float yBackup;
+	int nxBackup;
+	int HealthBackup;
+
+
 	float dx;
 	float dy;
 
@@ -49,9 +55,6 @@ protected:
 	// Van Toc
 	float vx;
 	float vy;
-
-	
-
 
 	int nx; // Direction
 
@@ -67,9 +70,13 @@ public:
 
 	void RenderBoundingBox(int ToCenterX,int ToCenterY);
 
+
+	void SubHealth(int th);
+
 	eType GetType();
 	void SetID(int id);
 	void SetDirection(int Direction);
+	int GetDirection();
 
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
@@ -78,6 +85,10 @@ public:
 	int GetHealth();
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 	int GetID();
+
+	void SetDefault();
+
+	bool AABBcollision(LPGAMEOBJECT gameobj);
 
 
 	LPCOLLISIONEVENT SweptAABBEx(CGameObject * coO);
@@ -98,6 +109,7 @@ public:
 	virtual float GetVx() { return vx; }
 	virtual void LoadAni();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	
 	~CGameObject();
 };
 

@@ -36,6 +36,8 @@ void CKeyHandler::ProcessKeyBoard()
 		}
 	}
 
+
+
 	keyHandler->KeyState((BYTE *)&keyState);
 
 	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
@@ -104,7 +106,10 @@ void CKeyHandler::InitKeyBoard(LPKEYEVENTHANDLER handler)
 }
 void CKeyHandler::KeyState(BYTE * state)
 {
-	CCamera * mCamera = CCamera::GetInstance();
+	if (!ninja->canControl)
+	{
+		return;
+	}
 	if (this->isKeyDown(DIK_RIGHT))
 	{
 		ninja->SetState(NINJA_STATE_WALKING_RIGHT);
@@ -124,7 +129,10 @@ void CKeyHandler::KeyState(BYTE * state)
 }
 void CKeyHandler::OnKeyDown(int KeyCode)
 {
-	
+	if (!ninja->canControl)
+	{
+		return;
+	}
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	switch (KeyCode)
 	{
@@ -137,6 +145,10 @@ void CKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_BACK:
 		ninja->SetState(NINJA_STATE_ATTACH);
 		break;
+	case DIK_F:
+		ninja->SetPosition(50.0f, 10.0f);
+	case DIK_S:
+		ninja->SetState(NINJA_STATE_EXTRA_WEAPON);
 	}
 }
 void CKeyHandler::OnKeyUp(int KeyCode)

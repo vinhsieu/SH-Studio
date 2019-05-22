@@ -14,7 +14,7 @@
 class Game
 {
 	CGame * Cgame;
-	Ninja * ninja=Ninja::GetInstance();
+	Ninja * ninja;
 	GameMap *gamemap;
 	CKeyHandler * keyboard;
 	//CDagger * dagger;

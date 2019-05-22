@@ -13,6 +13,7 @@ void Game::GameInit(HWND hWnd)
 	CTexture::GetInstance();
 	keyboard = new CKeyHandler();
 	keyboard->InitKeyBoard(keyboard);
+	ninja = Ninja::GetInstance();
 	mGrid = new Grid();
 	mGrid->SetGridPath(L"Resources/Map/Map1_Object.txt");
 	
@@ -22,9 +23,7 @@ void Game::GameInit(HWND hWnd)
 void Game::LoadResources()
 {
 	
-	//dagger = new CDagger(150,150,1);
-	//mBrick = new Brick(0.0f, 164.0f, 200.0f, 16.0f);
-	ninja->LoadAni();
+	//ninja->LoadAni();
 	gamemap = new GameMap(L"NinjaGaidenMapStage3-1BG_1.png", L"Resources/Map/Map1_Matrix.txt");
 }
 
@@ -81,7 +80,7 @@ void Game::Update(DWORD dt)
 	}
 	
 	ninja->Update(dt,&obj);
-	DebugOut(L"dt= %lu\n", dt);
+	
 }
 
 int Game::Run()

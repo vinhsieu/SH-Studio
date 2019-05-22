@@ -7,6 +7,7 @@
 class CBrownBird :
 	public CGameObject
 {
+	DWORD deltaTimeChangeDirection;
 public:
 	CBrownBird(float x, float y, int Direction);
 	void LoadAni();

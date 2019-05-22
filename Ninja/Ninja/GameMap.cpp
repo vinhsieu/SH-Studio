@@ -1,5 +1,5 @@
 #include "GameMap.h"
-
+#include"CGame.h"
 
 
 GameMap::GameMap(LPCWSTR filename, LPCWSTR matrixName)
@@ -26,7 +26,7 @@ void GameMap::Draw()
 
 	for (int i = 0; i < matrix.size(); i++)// hang
 	{
-		for (int j = 0; j < matrix[i].size(); j++)// cot
+		for (int j = 0; j < matrix[i].size()-1; j++)// cot
 		{
 			D3DXVECTOR3 position(j * tileSize /*+tileSize/2*/, i * tileSize/*+tileSize / 2*/, 0);
 			if (mCamera != NULL)
@@ -38,7 +38,7 @@ void GameMap::Draw()
 				objRECT.bottom = objRECT.top + tileSize /*/ 2*/;
 
 				//neu nam ngoai camera thi khong Draw
-				if (isContain(objRECT, mCamera->GetBound()) == false)
+				if (CGame::GetInstance()->isContain(objRECT, mCamera->GetBound()) == false)
 					continue;
 			}
 			sprites->Get(matrix[i][j] + ID_TEX_MAP)->Draw(position.x + tileSize / 2, position.y + tileSize / 2, 0, mCamera->Tranform());
@@ -51,15 +51,7 @@ void GameMap::Draw()
 	
 }
 
-bool GameMap::isContain(RECT rect1, RECT rect2)
-{
-	if (rect1.left > rect2.right || rect1.right < rect2.left || rect1.top > rect2.bottom || rect1.bottom < rect2.top)
-	{
-		return false;
-	}
 
-	return true;
-}
 
 void GameMap::LoadMap(LPCWSTR filename, D3DCOLOR transcolor)
 {
@@ -120,7 +112,7 @@ void GameMap::LoadMatrix(LPCWSTR filePath)
 	}
 	
 
-	DebugOut(L"[INFO]  matrix xong\n");
+	//DebugOut(L"[INFO]  matrix xong\n");
 
 }
 

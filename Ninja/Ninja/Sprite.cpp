@@ -14,10 +14,10 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEX
 
 }
 
-void CSprite::Draw(float x, float y, int isLeft ,D3DXVECTOR2 transform)
+void CSprite::Draw(float x, float y, int isLeft ,D3DXVECTOR2 transform,int alpha)
 {
 	CGame *game = CGame::GetInstance();
-	game->Draw(x, y, this->texture,this->left,this->top,this->right,this->bottom, isLeft, transform,255);
+	game->Draw(x, y, this->texture,this->left,this->top,this->right,this->bottom, isLeft, transform,alpha);
 
 }
 CSprites * CSprites::_instance=NULL;
@@ -66,7 +66,7 @@ void CAnimation::Add(int spriteId, DWORD Time)
 	frames.push_back(frame);
 }
 
-int CAnimation::Render(float x, float y,int isAttach, int isLeft, D3DXVECTOR2 trans)
+int CAnimation::Render(float x, float y,int isAttach, int isLeft, D3DXVECTOR2 trans,int alpha)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -83,8 +83,9 @@ int CAnimation::Render(float x, float y,int isAttach, int isLeft, D3DXVECTOR2 tr
 			lastFrameTime = now;
 			if (currentFrame == frames.size())
 			{
-				if (isAttach == 1)
+				if (isAttach == 1)//1 la khong loop
 				{
+					frames[0]->GetSprite()->Draw(x, y, isLeft, trans, alpha);// Tranh tinh trang nhay o frame cuoi
 					currentFrame = -1;
 					return -1;
 				}
@@ -92,7 +93,8 @@ int CAnimation::Render(float x, float y,int isAttach, int isLeft, D3DXVECTOR2 tr
 			}
 		}
 	}
-	frames[currentFrame]->GetSprite()->Draw(x, y, isLeft,trans);
+	frames[currentFrame]->GetSprite()->Draw(x, y, isLeft,trans,alpha);
+
 }
 
 void CAnimations::Add(int id, LPANIMATION ani)

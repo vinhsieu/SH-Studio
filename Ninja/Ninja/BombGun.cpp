@@ -4,9 +4,9 @@
 
 CBombGun::CBombGun(float x, float y, int Direction)
 {
-	this->x = x;
-	this->y = y;
-	this->nx = Direction;
+	this->x =this->xBackup= x;
+	this->y =this->yBackup= y;
+	this->nx =this->nxBackup= Direction;
 	this->vx = 0.0f;
 	this->type = eType::BombGun;
 	LoadAni();
@@ -54,6 +54,8 @@ void CBombGun::GetBoundingBox(float & left, float & top, float & right, float & 
 	right = x + 26;
 	bottom = y + 26;
 }
+
+
 
 
 CBombGun::~CBombGun()

@@ -3,7 +3,7 @@
 
 
 #define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 240
+#define SCREEN_HEIGHT 208
 #define MAX_FRAME_RATE 30
 #define WINDOW_CLASS_NAME L"BT1"
 #define MAIN_WINDOW_TITLE L"BT1"
@@ -22,10 +22,12 @@ enum eType
 	GATE = 21,
 
 	// object(Bat Dau 40)
-	STAIR=40,
+	STAIR = 40,
 
 
 	// weapon(Bat Dau 60)
+	BASICWEAPON = 60,
+	BlueShuriken = 61,
 
 
 	// item(Bat Dau 80)

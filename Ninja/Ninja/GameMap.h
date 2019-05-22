@@ -24,7 +24,7 @@ public:
 	void Draw();
 	int numtileWidth,numtileHeight;
 	int tileSize = 16;
-	bool isContain(RECT rect1, RECT rect2);
+	
 
 private:
 	void LoadMap(LPCWSTR filePath, D3DCOLOR transcolor);

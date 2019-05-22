@@ -52,6 +52,9 @@
     <Filter Include="GameComponents\Sound">
       <UniqueIdentifier>{8a731da8-47d6-407b-b10b-7c1fd879d85f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Weapon">
+      <UniqueIdentifier>{28b620c2-b1f9-4562-bccb-caff92938234}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -120,6 +123,15 @@
     <ClInclude Include="Brick.h">
       <Filter>Objects\Ground</Filter>
     </ClInclude>
+    <ClInclude Include="BasicWeapon.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CWeapon.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CBlueShuriken.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -187,6 +199,15 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Objects\Ground</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicWeapon.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CWeapon.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CBlueShuriken.cpp">
+      <Filter>Objects\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

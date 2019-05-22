@@ -7,11 +7,12 @@
 
 CBrownBird::CBrownBird(float x, float y, int Direction)
 {
-	this->x = x;
-	this->y = y;
-	this->nx = Direction;
+	this->x =this->xBackup= x;
+	this->y =this->yBackup= y;
+	this->nx =this->nxBackup= Direction;
 	//this->vx = DAGGER_SPEED_X;
 	this->type = eType::BrownBird;
+	//deltaTimeChangeDirection
 	LoadAni();
 }
 
@@ -45,6 +46,18 @@ void CBrownBird::Render()
 
 void CBrownBird::Update(DWORD dt)
 {
+	/*DWORD now = GetTickCount();
+	DWORD deltaTime = now - frameStart;
+
+	if (delta >= deltaTimeChangeDirection)
+	{
+		frameStart = now;
+		keyboard->ProcessKeyBoard();
+		Update(dt);
+		Render();
+	}
+	else
+		Sleep(tickPerFrame - dt);*/
 	CGameObject::Update(dt);
 }
 

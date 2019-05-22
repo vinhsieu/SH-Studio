@@ -4,9 +4,11 @@
 
 CBlade::CBlade(float x, float y, int Direction)
 {
-	this->x = x;
-	this->y = y;
-	this->nx = Direction;
+	CGameObject::CGameObject();
+	this->x =this->xBackup= x;
+	this->y =this->yBackup= y;
+	this->nx =this->nxBackup= Direction;
+	this->HealthBackup = this->Health;
 	this->type = eType::Blade;
 	this->vx = BLADE_VX;
 	LoadAni();
@@ -35,18 +37,31 @@ void CBlade::LoadAni()
 
 void CBlade::Render()
 {
+	if (this->Health == 0)
+	{
+		return;
+	}
 	this->animations.at(0)->Render(this->x + BLADE_TO_CENTERX, this->y + BLADE_TO_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
 	
 
 	if (IS_BBOX_DEBUGGING)
 	{
-		RenderBoundingBox(BLADE_TO_CENTERX,BLADE_TO_CENTERY);
+		RenderBoundingBox(BLADE_TO_CENTERX, BLADE_TO_CENTERY);
 	}
+	//DebugOut(L"x= %f,y= %f,nx=%d\n", this->x, this->y,this->nx);
+	
 }
 
 void CBlade::Update(DWORD dt)
 {
-	vx = vx * nx;
+	if (this->Health == 0)
+	{
+		return;
+	}
+	if (nx*vx<0 )
+	{
+		vx *= -1;
+	}
 	CGameObject::Update(dt);
 	x = x + dx;
 	y = y + dy;
@@ -56,9 +71,11 @@ void CBlade::GetBoundingBox(float & left, float & top, float & right, float & bo
 {
 	left = x;
 	top = y;
-	right = x + 26;
+	right = x + 22;
 	bottom = y + 33;
 }
+
+
 
 
 CBlade::~CBlade()

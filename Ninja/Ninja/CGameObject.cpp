@@ -29,6 +29,16 @@ void CGameObject::RenderBoundingBox(int ToCenterX, int ToCenterY)
 	CGame::GetInstance()->Draw(x+ToCenterX, y+ToCenterY, bbox, rect.left, rect.top, rect.right, rect.bottom,0,CCamera::GetInstance()->Tranform(),200);
 }
 
+void CGameObject::SubHealth(int th)
+{
+	
+	this->Health -= th;
+	if (this->Health < 0)
+	{
+		this->Health = 0;
+	}
+}
+
 eType CGameObject::GetType()
 {
 	return this->type;
@@ -44,6 +54,11 @@ void CGameObject::SetDirection(int Direction)
 	this->nx = Direction;
 }
 
+int CGameObject::GetDirection()
+{
+	return this->nx;
+}
+
 
 
 int CGameObject::GetHealth()
@@ -54,6 +69,31 @@ int CGameObject::GetHealth()
 int CGameObject::GetID()
 {
 	return this->id;
+}
+
+void CGameObject::SetDefault()
+{
+	this->x = xBackup;
+	this->y = yBackup;
+	this->nx = nxBackup;
+	this->Health = HealthBackup;
+}
+
+bool CGameObject::AABBcollision(LPGAMEOBJECT  gameobj)
+{
+	RECT rect1,rect2;
+	float left, top, right, bottom;
+	gameobj->GetBoundingBox(left, top, right, bottom);
+	rect1.left = left;
+	rect1.top = top;
+	rect1.right = right;
+	rect1.bottom = bottom;
+	this->GetBoundingBox(left, top, right, bottom);
+	rect2.left = left;
+	rect2.top = top;
+	rect2.right = right;
+	rect2.bottom = bottom;
+	return CGame::GetInstance()->isContain(rect1, rect2);
 }
 
 LPCOLLISIONEVENT CGameObject::SweptAABBEx(CGameObject * coO)
@@ -144,7 +184,8 @@ CGameObject::CGameObject()
 	x = y = 0;
 	vx = vy = 0;
 	nx = 1;
-	Health = 100;
+	Health = 1;
+
 	//isAttach = -1;
 }
 

@@ -5,7 +5,7 @@
 
 #define BLADE_TO_CENTERX 11
 #define BLADE_TO_CENTERY 17
-#define BLADE_VX 0.2f
+#define BLADE_VX 0.01f
 class CBlade:public CGameObject
 {
 public:
@@ -14,6 +14,7 @@ public:
 	void Render();
 	void Update(DWORD dt);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	
 	~CBlade();
 };
 

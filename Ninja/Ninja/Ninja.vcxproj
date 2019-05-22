@@ -149,14 +149,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BasicWeapon.h" />
     <ClInclude Include="Blade.h" />
     <ClInclude Include="BombGun.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrownBird.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CBlueShuriken.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CWeapon.h" />
     <ClInclude Include="Dagger.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Footballguy.h" />
@@ -173,14 +176,17 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BasicWeapon.cpp" />
     <ClCompile Include="Blade.cpp" />
     <ClCompile Include="BombGun.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrownBird.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CBlueShuriken.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CWeapon.cpp" />
     <ClCompile Include="Dagger.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Footballguy.cpp" />

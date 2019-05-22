@@ -10,9 +10,8 @@
 #include"Camera.h"
 #include"GameMap.h"
 #include"Game.h"
+#include"define.h"
 
-#define SCREEN_WIDTH 320
-#define SCREEN_HEIGHT 238
 #define MAX_FRAME_RATE 30
 #define WINDOW_CLASS_NAME L"BT1"
 #define MAIN_WINDOW_TITLE L"BT1"
@@ -62,7 +61,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 		CreateWindow(
 			WINDOW_CLASS_NAME,
 			MAIN_WINDOW_TITLE,
-			WS_OVERLAPPEDWINDOW,  //WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,
+			WS_OVERLAPPEDWINDOW,  /*WS_EX_TOPMOST | WS_VISIBLE | WS_POPUP,*/
 			CW_USEDEFAULT,
 			CW_USEDEFAULT,
 			ScreenWidth,
@@ -86,7 +85,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 }
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
+	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, 320, 240);
 	game = new Game();
 	game->GameInit(hWnd);
 	game->Run();

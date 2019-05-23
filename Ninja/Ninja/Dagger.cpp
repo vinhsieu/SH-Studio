@@ -1,5 +1,5 @@
 #include "Dagger.h"
-
+#include"Ninja.h"
 
 
 
@@ -10,8 +10,10 @@ CDagger::CDagger(float x, float y, int Direction)
 	this->x =this->xBackup= x;
 	this->y =this->yBackup= y;
 	this->nx =this->nxBackup= Direction;
+	this->HealthBackup = Health;
 	this->vx = DAGGER_SPEED_X;
 	this->type = eType::Dagger;
+	mWeapon = new Dagger_Throw();
 	LoadAni();
 }
 
@@ -46,25 +48,68 @@ void CDagger::LoadAni()
 
 void CDagger::Render()
 {
+	if (this->Health == 0)
+	{
+		return;
+	}
 	
+
+
 	if (isAttach = -1)
 	{
-		this->animations.at(0)->Render(this->x+DAGGER_T0_CENTERX, this->y+DAGGER_T0_CENTERY, isAttach, this->nx,CCamera::GetInstance()->Tranform());
+		this->animations.at(0)->Render(this->x+DAGGER_T0_CENTERX, this->y+DAGGER_T0_CENTERY, 0, AniDirection,CCamera::GetInstance()->Tranform());
 	}
 	else
 	{
-		this->animations.at(1)->Render(this->x+DAGGER_T0_CENTERX, this->y+DAGGER_T0_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+		
+		this->animations.at(1)->Render(this->x+DAGGER_T0_CENTERX, this->y+DAGGER_T0_CENTERY, 0, AniDirection, CCamera::GetInstance()->Tranform());
+	}
+	if (!mWeapon->GetisFinished())
+	{
+		mWeapon->Render();
 	}
 	if (IS_BBOX_DEBUGGING)
 	{
-		RenderBoundingBox(DAGGER_SPEED_X,DAGGER_SPEED_Y);
+		RenderBoundingBox(DAGGER_T0_CENTERX, DAGGER_T0_CENTERY);
 	}
 }
 
 void CDagger::Update(DWORD dt)
 {
-	CGameObject::Update(dt);
+	if (this->Health == 0)
+	{
+		return;
+	}
 
+	if (nx*vx < 0)
+	{
+		vx *= -1;
+	}
+
+	float tempX, tempY;
+	Ninja::GetInstance()->GetPosition(tempX, tempY);
+	if (tempX - this->x < 0)
+	{
+		AniDirection = -1;
+	}
+	else
+	{
+		AniDirection = 1;
+	}
+	if (mWeapon->GetisFinished() && abs(tempX - this->x) < DAGGER_ACTIVE_WEAPON)
+	{
+		isAttach = 1;
+		mWeapon->Attach(x,y,nx);
+	}
+	if (!mWeapon->GetisFinished())
+	{
+		mWeapon->Update(dt);
+	}
+	//DebugOut(L"isAttach: %d\n",this->isAttach);
+	CGameObject::Update(dt);
+	x += dx;
+	y += dy;
+	
 }
 
 void CDagger::GetBoundingBox(float & left, float & top, float & right, float & bottom)

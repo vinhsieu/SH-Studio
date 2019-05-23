@@ -1,5 +1,5 @@
 #include "BrownBird.h"
-
+#include"Ninja.h"
 
 
 
@@ -10,9 +10,9 @@ CBrownBird::CBrownBird(float x, float y, int Direction)
 	this->x =this->xBackup= x;
 	this->y =this->yBackup= y;
 	this->nx =this->nxBackup= Direction;
-	//this->vx = DAGGER_SPEED_X;
+	this->HealthBackup=this->Health;
 	this->type = eType::BrownBird;
-	//deltaTimeChangeDirection
+	lastTimeChangeDirection= GetTickCount();
 	LoadAni();
 }
 
@@ -21,6 +21,7 @@ void CBrownBird::LoadAni()
 	CTexture * texture = CTexture::GetInstance();
 	CSprites * sprites = CSprites::GetInstance();
 	CAnimations * animations = CAnimations::GetInstance();
+
 
 	LPDIRECT3DTEXTURE9 tex = texture->Get(eType::Ememy_Texture);
 	sprites->Add(600, 478, 73, 494, 90, tex);
@@ -36,8 +37,22 @@ void CBrownBird::LoadAni()
 
 void CBrownBird::Render()
 {
-	
-	this->animations.at(0)->Render(this->x+BROWNBIRD_TO_CENTERX, this->y+BROWNBIRD_TO_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+	if (this->Health == 0)
+	{
+		return;
+	}
+	float tempX, tempY;
+	int AniDirection;
+	Ninja::GetInstance()->GetPosition(tempX, tempY);
+	if (tempX - this->x<0)
+	{
+		AniDirection = -1;
+	}
+	else
+	{
+		AniDirection = 1;
+	}
+	this->animations.at(0)->Render(this->x+BROWNBIRD_TO_CENTERX, this->y+BROWNBIRD_TO_CENTERY, 0,AniDirection, CCamera::GetInstance()->Tranform());
 	if (IS_BBOX_DEBUGGING)
 	{
 		RenderBoundingBox(BROWNBIRD_TO_CENTERX,BROWNBIRD_TO_CENTERY);
@@ -46,19 +61,22 @@ void CBrownBird::Render()
 
 void CBrownBird::Update(DWORD dt)
 {
-	/*DWORD now = GetTickCount();
-	DWORD deltaTime = now - frameStart;
-
-	if (delta >= deltaTimeChangeDirection)
+	if (this->Health == 0)
 	{
-		frameStart = now;
-		keyboard->ProcessKeyBoard();
-		Update(dt);
-		Render();
+		return;
 	}
-	else
-		Sleep(tickPerFrame - dt);*/
+	Ninja::GetInstance()->GetPosition(xNinja, yNinja);
+	DWORD now = GetTickCount();
+	if (now - lastTimeChangeDirection > DELTA_TIME_CHANGE_DIRECTION)
+	{
+		this->vx = (xNinja - this->x) / (60*dt);
+		this->vy = (yNinja - this->y) / (60*dt);
+		lastTimeChangeDirection = now;
+	}
+
 	CGameObject::Update(dt);
+	this->x += dx;
+	this->y += dy;
 }
 
 void CBrownBird::GetBoundingBox(float & left, float & top, float & right, float & bottom)

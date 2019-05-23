@@ -132,6 +132,15 @@
     <ClInclude Include="CBlueShuriken.h">
       <Filter>Objects\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="DSutil.h">
+      <Filter>GameComponents\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="dxutil.h">
+      <Filter>GameComponents\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Dagger_Throw.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -207,6 +216,15 @@
       <Filter>Objects\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="CBlueShuriken.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="DSutil.cpp">
+      <Filter>GameComponents\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="dxutil.cpp">
+      <Filter>GameComponents\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Dagger_Throw.cpp">
       <Filter>Objects\Weapon</Filter>
     </ClCompile>
   </ItemGroup>

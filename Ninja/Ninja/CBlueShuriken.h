@@ -16,7 +16,7 @@ public:
 	void Attach();
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	void ModifyPositionFitNinja();
+	void ModifyPositionFitHost();
 	void LoadAni();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void CheckCollision(vector<LPGAMEOBJECT>* coObjects);

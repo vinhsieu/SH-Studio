@@ -11,11 +11,11 @@ public:
 	~CWeapon();
 
 	virtual void Attach();
-	virtual void ModifyPositionFitNinja();
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	virtual void ModifyPositionFitHost();
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects=NULL);
 	virtual void CheckCollision(vector<LPGAMEOBJECT>* coObjects);
 	bool CheckOutOfCamera();
-	bool GetisAttaching();
+	bool GetisFinished();
 	
 };
 

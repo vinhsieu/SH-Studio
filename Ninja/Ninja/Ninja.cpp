@@ -13,10 +13,9 @@ Ninja::Ninja()
 	this->x = 0;
 	canControl = true;
 	isCollisionAxisYWithBrick = true;
-	mapWeapon[eType::BASICWEAPON] = new CBasicWeapon();
-	mapWeapon[eType::BlueShuriken] = new CBlueShuriken();
+	DefaultWeapon= new CBasicWeapon();
+	ExtraWeapon = new CBlueShuriken();
 	LoadAni();
-	//DebugOut(L"this/n1111111111111111111111111111111111111");
 }
 
 void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -34,21 +33,24 @@ void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CheckCollisionWithBrick(coObjects);
 
-	if (mapWeapon[eType::BASICWEAPON]->GetisAttaching()==false)
+
+	//Update + Render Vu Khi
+	if (DefaultWeapon->GetisFinished()==false)
 	{
-		mapWeapon[eType::BASICWEAPON]->Update(dt,coObjects);
+	        DefaultWeapon->Update(dt,coObjects);
+			DefaultWeapon->Render();
 	}
-	if (mapWeapon[eType::BlueShuriken]->GetisAttaching()==false)
+	if (ExtraWeapon->GetisFinished()==false)
 	{
-		mapWeapon[eType::BlueShuriken]->Update(dt,coObjects);
+		ExtraWeapon->Update(dt,coObjects);
+		ExtraWeapon->Render();
 	}
 	// simple screen edge collision!!!
 	//if (vx > 0 && x > 290) x = 290;
 	if (vx < 0 && x < 0) x = 0;
 	CCamera * mCamera = CCamera::GetInstance();
 	mCamera->SetPosition(x,104);
-	//DebugOut(L"vy= %f\n\n", this->vy);
-	//DebugOut(L"[INFO]Toa Do Ninja: %f, %f\n", x, y);
+	
 }
 
 void Ninja::Render()
@@ -121,16 +123,14 @@ void Ninja::Render()
 		canControl = true;
 		isAttach = -1;
 		isUsingExtraWeapon=0;
-		//animations.at(NINJA_ANI_IDLE)->Render(x + NINJA_TO_CENTERX, y + NINJA_TO_CENTERY, isLoop, isLeft, CCamera::GetInstance()->Tranform(), alpha);
 	}
-	
-	if (mapWeapon[eType::BASICWEAPON]->GetisAttaching()==false)
+	if (DefaultWeapon->GetisFinished() == false)
 	{
-		mapWeapon[eType::BASICWEAPON]->Render();
+		DefaultWeapon->Render();
 	}
-	if (mapWeapon[eType::BlueShuriken]->GetisAttaching()==false)
+	if (ExtraWeapon->GetisFinished() == false)
 	{
-		mapWeapon[eType::BlueShuriken]->Render();
+		ExtraWeapon->Render();
 	}
 	if (IS_BBOX_DEBUGGING)
 	{
@@ -314,16 +314,13 @@ void Ninja::LoadAni()
 
 void Ninja::Attach()
 {
-    DebugOut(L"isUsingExtraWeapon: %d \n", isUsingExtraWeapon);
-	if (mapWeapon[eType::BASICWEAPON]->GetisAttaching())
+	if (DefaultWeapon->GetisFinished() && isUsingExtraWeapon == 0)
 	{
-		
-		mapWeapon[eType::BASICWEAPON]->Attach();
+		DefaultWeapon->Attach();
 	}
-	if (mapWeapon[eType::BlueShuriken]->GetisAttaching()&&isUsingExtraWeapon==1)
+	if (ExtraWeapon->GetisFinished()&&isUsingExtraWeapon==1)
 	{
-
-		mapWeapon[eType::BlueShuriken]->Attach();
+		ExtraWeapon->Attach();
 	}
 	
 }

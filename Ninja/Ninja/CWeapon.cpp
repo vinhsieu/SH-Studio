@@ -18,7 +18,7 @@ void CWeapon::Attach()
 	lastAttach = GetTickCount();
 }
 
-void CWeapon::ModifyPositionFitNinja()
+void CWeapon::ModifyPositionFitHost()
 {
 }
 
@@ -71,7 +71,7 @@ bool CWeapon::CheckOutOfCamera()
 	return CGame::GetInstance()->isContain(camera,weapon);
 }
 
-bool CWeapon::GetisAttaching()
+bool CWeapon::GetisFinished()
 {
 	return isFinished;
 }

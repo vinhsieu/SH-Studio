@@ -18,11 +18,11 @@ CBlueShuriken::~CBlueShuriken()
 void CBlueShuriken::Attach()
 {
 	isFinished = false;
-	lastAttach = GetTickCount();
+	//lastAttach = GetTickCount();
 	this->Health = 1;
 	Ninja::GetInstance()->GetPosition(this->x, this->y);
 	this->SetDirection(Ninja::GetInstance()->GetDirection());
-	ModifyPositionFitNinja();
+	ModifyPositionFitHost();
 }
 
 void CBlueShuriken::Render()
@@ -53,7 +53,6 @@ void CBlueShuriken::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			vx *= -1;
 		}
-		DebugOut(L"yU:%f\n", this->y);
 		CGameObject::Update(dt);
 		
 		CheckCollision(coObjects);
@@ -61,7 +60,7 @@ void CBlueShuriken::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 }
 
-void CBlueShuriken::ModifyPositionFitNinja()
+void CBlueShuriken::ModifyPositionFitHost()
 {
 	if (this->nx == 1)
 	{
@@ -133,12 +132,10 @@ void CBlueShuriken::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 			list_Enemy[i]->SubHealth(2);
 			this->Health = 0;
 			isFinished = true;
-			DebugOut(L"H: %d\n", this->Health);
 			return;
 			
 		}
 	}
-	DebugOut(L"y:%f\n", this->y);
 	x += dx;//Update neu nhu khong co va cham
 	y += dy;
 }

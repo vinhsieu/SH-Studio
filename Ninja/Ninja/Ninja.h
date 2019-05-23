@@ -11,7 +11,7 @@
 #define NINJA_GRAVITY			0.002f
 #define NINJA_BEING_HURT_SPEED_Y 0.2f
 #define NINJA_BEING_HURT_SPEED_X 0.5f
-#define NINJA_UNTOUCHABLE_TIME  2000
+#define NINJA_UNTOUCHABLE_TIME  1000
 
 
 #define NINJA_STATE_IDLE			0
@@ -47,7 +47,8 @@ private:
 	int isSit;
 	bool untouchable;
 	int isUsingExtraWeapon;
-	unordered_map<eType, CWeapon*> mapWeapon;
+	CWeapon *DefaultWeapon;
+	CWeapon *ExtraWeapon;
 	DWORD untouchable_start;
 public:
 	bool canControl;// Co the dieu khien ninja khi bi hurt hay khong ?

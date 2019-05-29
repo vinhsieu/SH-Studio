@@ -1,14 +1,26 @@
 ﻿#include "Grid.h"
 #include"CGame.h"
 
+unordered_map<int,vector<CWeapon*>> listEnemyBullet;
+Grid * Grid::_instance = NULL;
 
 Grid::Grid()
 {
 }
 
+Grid * Grid::GetInstance()
+{
+	if (_instance == NULL)
+	{
+		_instance = new Grid();
+	}
+	return _instance;
+}
+
 void Grid::SetGridPath(LPCWSTR filePath)
 {
 	this->gridPath = filePath;
+	listEnemyBullet.clear();
 	ReadGrid();
 }
 
@@ -41,6 +53,11 @@ void Grid::BuildGrid()//Save grid(chua lam)
 
 }
 
+void Grid::AddObj(int idHost, CWeapon* obj)// Them Vao Grid (truong hop sung ban ngang
+{
+	listEnemyBullet[idHost].push_back(obj);
+}
+
 void Grid::ReloadOutOfCameraGrid(vector<LPGAMEOBJECT> ListObj)
 {
 		for (int j = 0; j < GRID_CELL_MAX_COLUMN; j++)
@@ -68,27 +85,30 @@ void Grid::ReloadOutOfCameraGrid(vector<LPGAMEOBJECT> ListObj)
 
 }
 
-
-CGameObject * Grid::NewObject(int type,int direction, float x, float y, float w, float h)
+CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y, float w, float h)
 {
 	switch (type)
 	{
 		case eType::Dagger:
-			return new CDagger(x, y, direction);
+			return new CDagger(x, y, Multifuntion);
 		case eType::BombGun:
-			return new CBombGun(x, y, direction);
+			return new CBombGun(id,x, y, Multifuntion);
 		case eType::Blade:
-			return new CBlade(x, y, direction);
+			return new CBlade(x, y, Multifuntion);
 		case eType::BrownBird:
-			return new CBrownBird(x, y, direction);
+			return new CBrownBird(x, y, Multifuntion);
 		case eType::Footballguy:
-			return new CFootballguy(x, y, direction);
+			return new CFootballguy(x, y, Multifuntion);
 		case eType::GunRage:
-			return new CGunRage(x, y, direction);
+			return new CGunRage(id,x, y, Multifuntion);
 		case eType::Panther:
-			return new CPanther(x, y, direction);
+			return new CPanther(x, y, Multifuntion);
 		case eType::BRICK:
 			return new CBrick(x, y, w, h);
+		case eType::Black_Bird:
+			return new BlackBird(x, y, Multifuntion);
+		case eType::ButterFly:
+			return new Butterfly(x, y, Multifuntion);
 	}
 }
 
@@ -99,7 +119,7 @@ void Grid::Insert(int id, int type, int direction, float x, float y, int w, int 
 	int left = (int)(x / GRID_CELL_WIDTH);
 	int right = (int)((x + w) / GRID_CELL_WIDTH);
 
-	CGameObject * obj = NewObject(type,direction, x, y, w, h);
+	CGameObject * obj = NewObject(id,type,direction, x, y, w, h);
 	if (obj == NULL)
 	{
 		return;
@@ -142,7 +162,7 @@ void Grid::ListObject(vector<CGameObject*>& ListObj)
 		gObj.top = gTop;
 		gObj.right = gRight;
 		gObj.bottom = gBottom;
-		if (CGame::GetInstance()->isContain(camera->GetBound(), gObj))
+		if (CGame::GetInstance()->isContain(camera->GetBound(), gObj))// Nam trong vung camera
 		{
 			mapObject[x->GetID()] = x;
 		}
@@ -163,13 +183,34 @@ void Grid::ListObject(vector<CGameObject*>& ListObj)
 				//}
 			}
 	}
-	
-	
+
+	for (auto x : listEnemyBullet)//Xu li cac bullet cua Enemy
+	{
+		for (auto y : listEnemyBullet[x.first])
+		{
+			if (mapObject.find(x.first) == mapObject.end())//Kiem tra Host Co duoc Update ko ,Con ban,Da ton tai sẵn hay chưa
+			{
+				if (!y->GetisFinished() && mapObject.find(y->GetID()) == mapObject.end())//Kiem tra da them vao grid hay chua
+				{
+					ListObj.push_back(y);
+				}
+			}
+			else
+			{
+				if (!mapObject[x.first]->GetHealth() && !y->GetisFinished() && mapObject.find(y->GetID()) == mapObject.end())
+				{
+					ListObj.push_back(y);
+				}
+			}
+		}
+		
+	}
 
 	for (auto& x : mapObject)
 	{
 		ListObj.push_back(x.second);
 	}
+	
 	ReloadOutOfCameraGrid(ListObj);
 }
 

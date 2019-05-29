@@ -7,17 +7,19 @@
 #include"Texture.h"
 #include"Sprite.h"
 #include "KeyBoard.h"
-#include"Dagger.h"
-#include"Brick.h"
+#include"Sound.h"
 #include"Grid.h"
-
+#include"EffectManager.h"
+#include"ItemsManager.h"
 class Game
 {
+	EffectManager *listEffect;
 	CGame * Cgame;
 	Ninja * ninja;
 	GameMap *gamemap;
 	CKeyHandler * keyboard;
 	Grid *mGrid;
+	ItemsManager * listItem;
 	CCamera * mCamera = CCamera::GetInstance();
 	vector<LPGAMEOBJECT> objStatic;
 	vector<LPGAMEOBJECT> objDynamic;

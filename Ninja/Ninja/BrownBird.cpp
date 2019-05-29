@@ -4,7 +4,6 @@
 
 
 
-
 CBrownBird::CBrownBird(float x, float y, int Direction)
 {
 	this->x =this->xBackup= x;
@@ -73,7 +72,15 @@ void CBrownBird::Update(DWORD dt)
 		this->vy = (yNinja - this->y) / (60*dt);
 		lastTimeChangeDirection = now;
 	}
-
+	if (abs(vx) < 0.08)
+	{
+		vx = (vx*0.08) / abs(vx);
+	}
+	if (abs(vy) < 0.03)
+	{
+		vy = (vy*0.03) / abs(vy);
+	}
+	
 	CGameObject::Update(dt);
 	this->x += dx;
 	this->y += dy;
@@ -85,6 +92,15 @@ void CBrownBird::GetBoundingBox(float & left, float & top, float & right, float 
 	top = y;
 	right = x +18;
 	bottom = y + 15;
+}
+
+void CBrownBird::SubHealth(int th)
+{
+	if (this->Health != 0)
+	{
+		EffectManager::GetInstance()->AddEffect(this->x, this->y,BROWNBIRD_TO_CENTERX * 2, BROWNBIRD_TO_CENTERY * 2);
+	}
+	CGameObject::SubHealth(th);
 }
 
 CBrownBird::~CBrownBird()

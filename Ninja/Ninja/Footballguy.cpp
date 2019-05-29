@@ -62,6 +62,17 @@ void CFootballguy::GetBoundingBox(float & left, float & top, float & right, floa
 	bottom = y + 33;
 }
 
+void CFootballguy::SubHealth(int th)
+{
+	if (this->Health != 0)
+	{
+		EffectManager::GetInstance()->AddEffect(this->x, this->y,FOOTBALLGUY_TO_CENTERX * 2, FOOTBALLGUY_TO_CENTERY * 2);
+	}
+	CGameObject::SubHealth(th);
+
+
+}
+
 
 CFootballguy::~CFootballguy()
 {

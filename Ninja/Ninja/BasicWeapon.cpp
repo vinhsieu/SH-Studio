@@ -1,6 +1,6 @@
 #include "BasicWeapon.h"
 #include"Ninja.h"
-
+#include"Sound.h"
 
 CBasicWeapon::CBasicWeapon()
 {
@@ -16,6 +16,7 @@ void CBasicWeapon::Attach()
 {
 	isFinished = false;
 	lastAttach = GetTickCount();
+	Sound::GetInstance()->Play(eSound::sound_Normal_Attack);
 }
 
 void CBasicWeapon::Render()
@@ -38,7 +39,7 @@ void CBasicWeapon::GetBoundingBox(float & left, float & top, float & right, floa
 {
 	left = this->x;
 	top = this->y;
-	right = left + 20;
+	right = left + 16;
 	bottom = top + 8;
 }
 

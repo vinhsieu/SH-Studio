@@ -1,6 +1,7 @@
 ﻿#include "Ninja.h"
 #include"debug.h"
-
+#include"Sound.h"
+#include"ItemsManager.h"
 Ninja * Ninja::_instance = NULL;
 
 Ninja::Ninja()
@@ -14,7 +15,6 @@ Ninja::Ninja()
 	canControl = true;
 	isCollisionAxisYWithBrick = true;
 	DefaultWeapon= new CBasicWeapon();
-	ExtraWeapon = new CBlueShuriken();
 	LoadAni();
 }
 
@@ -32,7 +32,7 @@ void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CheckCollisionWithEmemy(coObjects);
 	}
 	CheckCollisionWithBrick(coObjects);
-
+	CheckCollisionWithItems();
 
 	//Update + Render Vu Khi
 	if (DefaultWeapon->GetisFinished()==false)
@@ -40,13 +40,16 @@ void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	        DefaultWeapon->Update(dt,coObjects);
 			DefaultWeapon->Render();
 	}
-	if (ExtraWeapon->GetisFinished()==false)
+	if (ExtraWeapon != NULL)
 	{
-		ExtraWeapon->Update(dt,coObjects);
-		ExtraWeapon->Render();
+		if (ExtraWeapon->GetisFinished() == false)
+		{
+			ExtraWeapon->Update(dt, coObjects);
+			ExtraWeapon->Render();
+		}
 	}
-	// simple screen edge collision!!!
-	//if (vx > 0 && x > 290) x = 290;
+
+	//Camera Chay Theo Ninja
 	if (vx < 0 && x < 0) x = 0;
 	CCamera * mCamera = CCamera::GetInstance();
 	mCamera->SetPosition(x,104);
@@ -124,13 +127,18 @@ void Ninja::Render()
 		isAttach = -1;
 		isUsingExtraWeapon=0;
 	}
+
+	//xu li weapon
 	if (DefaultWeapon->GetisFinished() == false)
 	{
 		DefaultWeapon->Render();
 	}
-	if (ExtraWeapon->GetisFinished() == false)
+	if (ExtraWeapon != NULL)
 	{
-		ExtraWeapon->Render();
+		if (ExtraWeapon->GetisFinished() == false)
+		{
+			ExtraWeapon->Render();
+		}
 	}
 	if (IS_BBOX_DEBUGGING)
 	{
@@ -166,6 +174,7 @@ void Ninja::SetState(int State)
 		{
 			vy = -NINJA_JUMP_SPEED_Y;
 			isCollisionAxisYWithBrick = true;
+			Sound::GetInstance()->Play(eSound::sound_Jump_Climb);
 		}
 	case NINJA_STATE_IDLE:
 		vx = 0;
@@ -185,7 +194,7 @@ void Ninja::SetState(int State)
 		vx = -0.4*NINJA_WALKING_SPEED*nx;
 		break;
 	case NINJA_STATE_EXTRA_WEAPON:
-		isAttach = 1;
+		//isAttach = 1;
 		isUsingExtraWeapon = 1;
 		Attach();
 		break;
@@ -318,11 +327,19 @@ void Ninja::Attach()
 	{
 		DefaultWeapon->Attach();
 	}
-	if (ExtraWeapon->GetisFinished()&&isUsingExtraWeapon==1)
+	if (ExtraWeapon != NULL)
 	{
-		ExtraWeapon->Attach();
+		if (ExtraWeapon->GetisFinished() && isUsingExtraWeapon == 1)
+		{
+			ExtraWeapon->Attach();
+		}
 	}
 	
+}
+
+bool Ninja::getUntouchable()
+{
+	return this->untouchable;
 }
 
 void Ninja::CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
@@ -381,7 +398,7 @@ void Ninja::CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void Ninja::CheckCollisionWithEmemy(vector<LPGAMEOBJECT>* coObjects)
+void Ninja::CheckCollisionWithEmemy(vector<LPGAMEOBJECT>* coObjects)// chua them sweepXAABB
 {
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -392,7 +409,7 @@ void Ninja::CheckCollisionWithEmemy(vector<LPGAMEOBJECT>* coObjects)
 	list_Enemy.clear();
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i)->GetType() != eType::BRICK)
+		if (coObjects->at(i)->GetType() != eType::BRICK && coObjects->at(i)->GetType()!=eType::ButterFly)
 			list_Enemy.push_back(coObjects->at(i));
 
 	}
@@ -412,6 +429,47 @@ void Ninja::CheckCollisionWithEmemy(vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	
+}
+
+void Ninja::CheckCollisionWithItems()
+{
+	vector<LPGAMEOBJECT> listItem;
+	ItemsManager::GetInstance()->GetListItem(listItem);
+
+	for (auto x : listItem)
+	{
+		if (AABBcollision(x) && x->GetHealth() != 0)
+		{
+			x->SubHealth(1);
+			switch (x->GetType())
+			{
+			case eType::Item_BlueShuriken:
+				SAFE_DELETE(ExtraWeapon);
+				ExtraWeapon = new CBlueShuriken();
+				continue;
+			case eType::Item_RedShuriken:
+				SAFE_DELETE(ExtraWeapon);
+				ExtraWeapon = new CRedShuriken();
+				continue;
+			case eType::Item_Blue_Point:
+				this->Point += 500;
+				continue;
+			case eType::Item_Red_Point:
+				this->Point += 1000;
+				continue;
+			case eType::Item_Heath:
+				this->Health += 6;
+			case eType::Item_Freeze_Time:
+				continue;
+			case eType::Item_BlueStack:
+				this->NumberOfBullet += 5;
+				continue;
+			case eType::Item_RedStack:
+				this->NumberOfBullet += 10;
+				continue;
+			}
+		}
+	}
 }
 
 void Ninja::GetBoundingBox(float & left, float & top, float & right, float & bottom)

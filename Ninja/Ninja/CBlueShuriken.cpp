@@ -1,6 +1,6 @@
 #include "CBlueShuriken.h"
 #include"Ninja.h"
-
+#include"Sound.h"
 
 CBlueShuriken::CBlueShuriken()
 {
@@ -22,6 +22,8 @@ void CBlueShuriken::Attach()
 	this->Health = 1;
 	Ninja::GetInstance()->GetPosition(this->x, this->y);
 	this->SetDirection(Ninja::GetInstance()->GetDirection());
+
+	Sound::GetInstance()->Play(eSound::sound_Blue_Shuriken);
 	ModifyPositionFitHost();
 }
 
@@ -29,7 +31,7 @@ void CBlueShuriken::Render()
 {
 	if (!isFinished)
 	{
-		animations[0]->Render(this->x, this->y, 0, 1, CCamera::GetInstance()->Tranform());
+		animations[0]->Render(this->x+ CBLUESHURIKEN_TO_CENTER_X, this->y+ CBLUESHURIKEN_TO_CENTER_Y, 0, 1, CCamera::GetInstance()->Tranform());
 		if (IS_BBOX_DEBUGGING)
 		{
 			RenderBoundingBox(CBLUESHURIKEN_TO_CENTER_X, CBLUESHURIKEN_TO_CENTER_Y);
@@ -130,6 +132,7 @@ void CBlueShuriken::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 		if (AABBcollision(list_Enemy.at(i))&& list_Enemy.at(i)->GetHealth()!=0)
 		{
 			list_Enemy[i]->SubHealth(2);
+			Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
 			this->Health = 0;
 			isFinished = true;
 			return;

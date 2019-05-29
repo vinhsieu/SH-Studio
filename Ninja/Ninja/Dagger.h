@@ -11,7 +11,7 @@
 #define ANI_DAGGER_NOTATT 1000
 #define ANI_DAGGER_ATT 1001
 
-#define DAGGER_ACTIVE_WEAPON 128
+#define DAGGER_ACTIVE_WEAPON 100
 
 #define DAGGER_T0_CENTERX 10
 #define DAGGER_T0_CENTERY 17
@@ -27,6 +27,7 @@ public:
 	void Render();
 	void Update(DWORD dt);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	void SubHealth(int th);
 	~CDagger();
 };
 

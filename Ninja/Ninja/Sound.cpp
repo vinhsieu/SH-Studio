@@ -1,6 +1,6 @@
 
 #include "Sound.h"
- 
+#include <tchar.h>
 Sound* Sound::__Instance = NULL;
 
 Sound::Sound()
@@ -13,42 +13,33 @@ Sound::Sound()
 
 void Sound::LoadResourceSound()
 {
-	AddSound(eSound::soundWhip, L"Resources/sound/usingwhip.wav");
-	AddSound(eSound::soundHolyWater, L"Resources/sound/holywater.wav");
-	AddSound(eSound::soundHit, L"Resources/sound/hit.wav");
-	AddSound(eSound::soundCollectItem, L"Resources/sound/collectitem.wav");
-	AddSound(eSound::soundCollectWeapon, L"Resources/sound/collectweapon.wav");
-	AddSound(eSound::soundHolyCross, L"Resources/sound/holycross.wav");
-	AddSound(eSound::soundBoomerang, L"Resources/sound/08-boomerang.wav");
+	AddSound(eSound::sound_Ninja_Die, L"Resources/sound/01_Player_Die.wav");
+	AddSound(eSound::sound_Jump_Climb, L"Resources/sound/02_Jump&Climb.wav");
+	AddSound(eSound::sound_Get_Attach, L"Resources/sound/03_Get_Attack.wav");
+	AddSound(eSound::sound_Enemy_Die, L"Resources/sound/04_Enemy_Die.wav");
+	AddSound(eSound::sound_Get_Item, L"Resources/sound/05_Get_Item.wav");
+	AddSound(eSound::sound_Get_Health_Item, L"Resources/sound/06_Get_Health_Item.wav");
 
 
 
-	AddSound(eSound::soundStopTimer, L"Resources/sound/stoptimer.wav");
-	AddSound(eSound::soundDagger, L"Resources/sound/usingdagger.wav");
-	AddSound(eSound::soundDisplayMonney, L"Resources/sound/display_monney.wav");
-	AddSound(eSound::soundAxe, L"Resources/sound/Axe.wav");
-	AddSound(eSound::soundStopWatch, L"Resources/sound/StopWatch.wav");
-	AddSound(eSound::soundInvisibilityPotion_Begin, L"Resources/sound/InvisibilityPotion_Begin.wav");
-	AddSound(eSound::soundInvisibilityPotion_End, L"Resources/sound/InvisibilityPotion_End.wav");
+	AddSound(eSound::sound_Blue_Shuriken, L"Resources/sound/07_Blue_Shuriken.wav");
+	AddSound(eSound::sound_Red_Shuriken, L"Resources/sound/08_Red_Shuriken.wav");
+	AddSound(eSound::sound_Hadoken, L"Resources/sound/09_Hadoken.wav");
+	AddSound(eSound::sound_Time_tick_when_stop, L"Resources/sound/10_Time_tick_when_stop.wav");
+	AddSound(eSound::sound_GunRage_Attack, L"Resources/sound/11_GunRage_Attack.wav");
+	AddSound(eSound::sound_BombGun_Attack, L"Resources/sound/12_BombGun_Attack.wav");
+	AddSound(eSound::sound_Freeze, L"Resources/sound/13_Freeze.wav");
 	 
 
-	AddSound(eSound::soundHurting, L"Resources/sound/hurting.wav");
-	AddSound(eSound::soundOpenDoor, L"Resources/sound/opendoor.wav");
-	AddSound(eSound::soundBrokenBrick, L"Resources/sound/broken_brick.wav");
-	AddSound(eSound::soundSplashwater, L"Resources/sound/splashwater.wav");
-	AddSound(eSound::soundFallingDownWaterSurface, L"Resources/sound/fallingdownwatersurface.wav");
-	AddSound(eSound::soundGetScoreTimer, L"Resources/sound/getscoretime.wav");
-	AddSound(eSound::soundGetScoreHeart, L"Resources/sound/getscoreheart-[AudioTrimmer.com].wav");
+	AddSound(eSound::sound_Normal_Attack, L"Resources/sound/14_Normal_Attack.wav");
+	AddSound(eSound::sound_Boss_Die, L"Resources/sound/15_Boss_Die.wav");
+	AddSound(eSound::sound_Boss_Jump_Hit_Wall, L"Resources/sound/16_Boss_Jump_Hit_Wall.wav");
 
 
-
-	AddSound(eSound::musicState1, L"Resources/music/Stage_01_Vampire_Killer.wav");
-	AddSound(eSound::musicLifeLost, L"Resources/music/Life_Lost.wav");
-
-	AddSound(eSound::music_PhantomBat, L"Resources/music/Boss_Battle_Poison_Mind.wav");
-	AddSound(eSound::musicStateClear, L"Resources/music/Stage_Clear.wav");
-	AddSound(eSound::musicGame_Start_Prologue, L"Resources/music/Game_Start_Prologue.wav");
-
+	AddSound(eSound::music_Scence_1, L"Resources/sound/51_Scence_3.1.wav");
+	AddSound(eSound::music_Scence_2, L"Resources/sound/52_Scence_3.2.wav");
+	AddSound(eSound::music_Boss, L"Resources/sound/53_Scence_Boss.wav");
+	
 }
 
 bool Sound::isPlaying(eSound type)
@@ -95,7 +86,7 @@ void Sound::Stop(eSound type)
 void Sound::Init()
 {
 	dsound = new CSoundManager();
-	dsound->Initialize(Game::GetInstance()->GetWindowHandle(), DSSCL_PRIORITY);
+	dsound->Initialize(CGame::GetInstance()->hWnd, DSSCL_PRIORITY);
 	dsound->SetPrimaryBufferFormat(2, 22050, 16);
 }
 

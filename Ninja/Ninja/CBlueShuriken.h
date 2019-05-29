@@ -4,7 +4,7 @@
 
 #define CBLUESHURIKEN_TO_CENTER_X 5
 #define CBLUESHURIKEN_TO_CENTER_Y 4
-#define CBLUESHURIKEN_SPEED 0.5f
+#define CBLUESHURIKEN_SPEED 0.3f
 class CBlueShuriken :
 	public CWeapon
 {

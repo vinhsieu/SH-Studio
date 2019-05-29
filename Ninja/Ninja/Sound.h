@@ -9,34 +9,27 @@
 
 enum eSound
 {
-	soundWhip = 1,
-	soundHit = 2,
-	soundCollectItem = 3,
-	soundCollectWeapon = 4,
-	soundStopTimer = 5,
-	soundDagger = 6,
-	soundDisplayMonney = 7,
-	soundHurting = 8,
-	soundOpenDoor = 9,
-	soundBrokenBrick = 10,
-	soundHolyWater = 11,
-	soundSplashwater = 12,
-	soundFallingDownWaterSurface = 13,
-	soundGetScoreTimer = 14,
-	soundGetScoreHeart = 15,
-	soundAxe = 16,
-	soundStopWatch = 17,
-	soundInvisibilityPotion_Begin = 18,
-	soundInvisibilityPotion_End = 19,
-	soundHolyCross = 20,
-	soundBoomerang = 21,
+	sound_Ninja_Die = 1,
+	sound_Jump_Climb = 2,
+	sound_Get_Attach = 3,
+	sound_Enemy_Die = 4,
+	sound_Get_Item = 5,
+	sound_Get_Health_Item = 6,
+	sound_Blue_Shuriken = 7,
+	sound_Red_Shuriken = 8,
+	sound_Hadoken = 9,
+	sound_Time_tick_when_stop = 10,
+	sound_GunRage_Attack = 11,
+	sound_BombGun_Attack = 12,
+	sound_Freeze = 13,
+	sound_Normal_Attack = 14,
+	sound_Boss_Die = 15,
+	sound_Boss_Jump_Hit_Wall = 16,
+	
 
-
-	musicState1 = 51,
-	musicLifeLost = 52,
-	music_PhantomBat = 53,
-	musicStateClear = 54,
-	musicGame_Start_Prologue = 55
+	music_Scence_1 = 51,
+	music_Scence_2 = 52,
+	music_Boss = 53,
 };
 
 

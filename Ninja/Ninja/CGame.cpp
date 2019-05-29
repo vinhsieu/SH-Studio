@@ -164,7 +164,6 @@ void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy
 
 	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f)
 	{
-		DebugOut(L"txentry: %f, tyentry:%f\n",tx_entry,ty_entry);
 		return;
 	}
 	t_entry = max(tx_entry, ty_entry);

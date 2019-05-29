@@ -1,7 +1,6 @@
 #pragma once
 #include "CGameObject.h"
 #include"define.h"
-#include"Texture.h"
 
 #define PANTHER_TO_CENTEX 14
 #define PANTHER_TO_CENTEY 9
@@ -14,6 +13,7 @@ public:
 	void Render();
 	void Update(DWORD dt);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	void SubHealth(int th);
 	~CPanther();
 };
 

@@ -6,7 +6,7 @@ Dagger_Throw::Dagger_Throw()
 {
 	isFinished = true;
 	LoadAni();
-	this->vx = 0.01f; 
+	this->lastAttach = GetTickCount();
 }
 
 
@@ -16,14 +16,19 @@ Dagger_Throw::~Dagger_Throw()
 
 void Dagger_Throw::Attach(float Hx, float Hy, int HDirection)
 {
-	if (!isFinished)
+	DWORD now = GetTickCount();
+	if (!isFinished||now-lastAttach<Dagger_Delay_Between_Shoots)
 	{
 		return;
 	}
+	this->lastAttach = now;
 	isFinished = false;
 	this->Health = 1;
 	ModifyPositionFitHost(Hx, Hy, HDirection);
 	vy = -Dagger_Throw_Start_SpeedY;
+	float xNinja,yNinja;
+	Ninja::GetInstance()->GetPosition(xNinja, yNinja);
+	this->vx = (xNinja - this->x) / (60 * dt);
 }
 
 void Dagger_Throw::Render()
@@ -60,12 +65,12 @@ void Dagger_Throw::ModifyPositionFitHost(float x, float y, int Direction)
 	if (Direction == 1)
 	{
 		this->x = x + 26;
-		this->y = y + 3;
+		this->y = y + 10;
 	}
 	else
 	{
 		this->x = x;
-		this->y = y + 3;
+		this->y = y + 10;
 	}
 }
 

@@ -55,6 +55,15 @@ void CPanther::GetBoundingBox(float & left, float & top, float & right, float & 
 	bottom = y + 17;
 }
 
+void CPanther::SubHealth(int th)
+{
+	if (this->Health != 0)
+	{
+		EffectManager::GetInstance()->AddEffect(this->x, this->y, PANTHER_TO_CENTEX * 2, PANTHER_TO_CENTEY * 2);
+	}
+	CGameObject::SubHealth(th);
+}
+
 
 CPanther::~CPanther()
 {

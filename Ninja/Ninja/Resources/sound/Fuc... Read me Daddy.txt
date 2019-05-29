@@ -1,0 +1,21 @@
+﻿01 Tiếng Ninja chết
+02 Tiếng nhảy và Tiếng chạm vào tượng khi leo
+04 Tiếng bị quái đánh
+05 Tiếng lúc giết quái
+06 Tiếng lụm đồ
+08 Tiếng lụm bình máu và Tiếng chưởng Hadoken, Shuriken trúng item
+10 Tiếng phóng Blue Shuriken
+11 Tiếng phóng Red Shuriken
+12 Tiếng chưởng lửa Hadoken
+14 Tiếng tích tắc đếm khi lụm item ngưng động thời gian 
+18 Tiếng súng của GunRage
+19 Tiếng bắn của BombGun
+21 Tiếng nhấn nút Pause
+22 Tiếng Ninja đánh thường
+31 Tiếng Boss chết
+32 Tiếng Boss va vào tường khi nhảy
+40 Nhạc nền màn 3.1
+41 Nhạc nền màn 3.2
+42 Nhạc nền đấu Boss
+
+

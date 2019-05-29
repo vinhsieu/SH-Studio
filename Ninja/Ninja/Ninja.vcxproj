@@ -91,14 +91,18 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxerr.lib;dsound.lib;dxguid.lib;winmm.lib;dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -150,60 +154,98 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BasicWeapon.h" />
+    <ClInclude Include="BlackBird.h" />
     <ClInclude Include="Blade.h" />
     <ClInclude Include="BombGun.h" />
+    <ClInclude Include="BombGun_Fired.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrownBird.h" />
+    <ClInclude Include="Butterfly.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBlueShuriken.h" />
+    <ClInclude Include="CEnemyDie.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CRedShuriken.h" />
     <ClInclude Include="CWeapon.h" />
     <ClInclude Include="Dagger.h" />
     <ClInclude Include="Dagger_Throw.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="DSutil.h" />
     <ClInclude Include="dxutil.h" />
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Footballguy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GunRage.h" />
+    <ClInclude Include="GunRage_Shoot.h" />
+    <ClInclude Include="ItemBluePoint.h" />
+    <ClInclude Include="ItemBlueShuriken.h" />
+    <ClInclude Include="ItemBlueStack.h" />
+    <ClInclude Include="ItemFreezeTime.h" />
+    <ClInclude Include="ItemHadoken.h" />
+    <ClInclude Include="ItemHealth.h" />
+    <ClInclude Include="ItemRedPoint.h" />
+    <ClInclude Include="ItemRedShuriken.h" />
+    <ClInclude Include="ItemRedStack.h" />
+    <ClInclude Include="Items.h" />
+    <ClInclude Include="ItemsManager.h" />
     <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="Ninja.h" />
     <ClInclude Include="Panther.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stairs.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicWeapon.cpp" />
+    <ClCompile Include="BlackBird.cpp" />
     <ClCompile Include="Blade.cpp" />
     <ClCompile Include="BombGun.cpp" />
+    <ClCompile Include="BombGun_Fired.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrownBird.cpp" />
+    <ClCompile Include="Butterfly.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBlueShuriken.cpp" />
+    <ClCompile Include="CEnemyDie.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CRedShuriken.cpp" />
     <ClCompile Include="CWeapon.cpp" />
     <ClCompile Include="Dagger.cpp" />
     <ClCompile Include="Dagger_Throw.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="DSutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Footballguy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GunRage.cpp" />
+    <ClCompile Include="GunRage_Shoot.cpp" />
+    <ClCompile Include="ItemBluePoint.cpp" />
+    <ClCompile Include="ItemBlueShuriken.cpp" />
+    <ClCompile Include="ItemBlueStack.cpp" />
+    <ClCompile Include="ItemFreezeTime.cpp" />
+    <ClCompile Include="ItemHadoken.cpp" />
+    <ClCompile Include="ItemHealth.cpp" />
+    <ClCompile Include="ItemRedPoint.cpp" />
+    <ClCompile Include="ItemRedShuriken.cpp" />
+    <ClCompile Include="ItemRedStack.cpp" />
+    <ClCompile Include="Items.cpp" />
+    <ClCompile Include="ItemsManager.cpp" />
     <ClCompile Include="KeyBoard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ninja.cpp" />
     <ClCompile Include="Panther.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stairs.cpp" />
     <ClCompile Include="Texture.cpp" />

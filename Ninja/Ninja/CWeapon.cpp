@@ -1,5 +1,5 @@
 #include "CWeapon.h"
-
+#include"Sound.h"
 
 
 CWeapon::CWeapon()
@@ -50,6 +50,7 @@ void CWeapon::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 		if (AABBcollision(list_Enemy.at(i)))
 		{
 			list_Enemy[i]->SubHealth(2);
+			Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
 			//return;
 			//DebugOut(L"co va cham\n");
 		}

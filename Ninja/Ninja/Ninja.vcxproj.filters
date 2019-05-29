@@ -55,6 +55,12 @@
     <Filter Include="Objects\Weapon">
       <UniqueIdentifier>{28b620c2-b1f9-4562-bccb-caff92938234}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Effect">
+      <UniqueIdentifier>{7c8cca33-b5b7-47c8-b30e-2da2955b0934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\Items">
+      <UniqueIdentifier>{cab770fc-ba21-4c6f-a8b3-8c27e22cfb7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -141,6 +147,63 @@
     <ClInclude Include="Dagger_Throw.h">
       <Filter>Objects\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="BombGun_Fired.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="GunRage_Shoot.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>GameComponents\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnemyDie.h">
+      <Filter>Objects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>Objects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Items.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Butterfly.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackBird.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBlueShuriken.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsManager.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRedShuriken.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemFreezeTime.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBlueStack.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBluePoint.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHadoken.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHealth.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRedPoint.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemRedStack.h">
+      <Filter>Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="CRedShuriken.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -225,6 +288,63 @@
       <Filter>GameComponents\Sound</Filter>
     </ClCompile>
     <ClCompile Include="Dagger_Throw.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="BombGun_Fired.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="GunRage_Shoot.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>GameComponents\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="CEnemyDie.cpp">
+      <Filter>Objects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>Objects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Items.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Butterfly.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackBird.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBlueShuriken.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsManager.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRedShuriken.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemFreezeTime.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBlueStack.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRedStack.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemBluePoint.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHadoken.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemHealth.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemRedPoint.cpp">
+      <Filter>Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="CRedShuriken.cpp">
       <Filter>Objects\Weapon</Filter>
     </ClCompile>
   </ItemGroup>

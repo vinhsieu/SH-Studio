@@ -6,11 +6,12 @@
 #define Dagger_Throw_Start_SpeedY 0.3f
 #define Dagger_Throw_To_Center_X 4
 #define Dagger_Throw_To_Center_Y 7
-#define Dagger_Throw_Speed_X
+#define Dagger_Delay_Between_Shoots 1000
 
 class Dagger_Throw :
 	public CWeapon
 {
+	
 public:
 	Dagger_Throw();
 	~Dagger_Throw();

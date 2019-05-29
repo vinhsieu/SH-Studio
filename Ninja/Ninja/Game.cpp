@@ -10,19 +10,20 @@ void Game::GameInit(HWND hWnd)
 {
 	Cgame = CGame::GetInstance();
 	Cgame->Init(hWnd);
-	CTexture::GetInstance();
 	keyboard = new CKeyHandler();
 	keyboard->InitKeyBoard(keyboard);
 	ninja = Ninja::GetInstance();
 	mGrid = new Grid();
 	mGrid->SetGridPath(L"Resources/Map/Map1_Object.txt");
-	
+	listEffect = EffectManager::GetInstance();
+	listItem = ItemsManager::GetInstance();
 	LoadResources();
 }
 
 void Game::LoadResources()
 {
 	gamemap = new GameMap(L"NinjaGaidenMapStage3-1BG_1.png", L"Resources/Map/Map1_Matrix.txt");
+	Sound::GetInstance()->Play(eSound::music_Scence_1, true);
 }
 
 void Game::Render()
@@ -59,8 +60,10 @@ void Game::Render()
 			{
 				x->Render();
 			}
+			listItem->Render();
+			listEffect->Render();
 			ninja->Render();
-			d3ddv->StretchRect(back, &p, bb, &des, D3DTEXF_NONE);
+			//d3ddv->StretchRect(back, &p, bb, &des, D3DTEXF_NONE);
 			spriteHandler->End();
 			d3ddv->EndScene();
 		}
@@ -72,6 +75,7 @@ void Game::Render()
 void Game::Update(DWORD dt)
 {
 	mGrid->ListObject(obj);
+	listItem->Update(dt, &obj);
 	objDynamic.clear();
 	objStatic.clear();
 	for (auto x : obj)
@@ -79,7 +83,7 @@ void Game::Update(DWORD dt)
 
 		x->Update(dt);
 	}
-	
+	listEffect->Update(dt);
 	ninja->Update(dt,&obj);
 	
 }
@@ -89,7 +93,7 @@ int Game::Run()
 	MSG msg;
 	int done = 0;
 	DWORD frameStart = GetTickCount();
-	DWORD tickPerFrame = 100 / MAX_FRAME_RATE;
+	DWORD tickPerFrame = 50 / MAX_FRAME_RATE;
 
 	while (!done)
 	{

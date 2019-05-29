@@ -1,7 +1,6 @@
 #include "Blade.h"
 
 
-
 CBlade::CBlade(float x, float y, int Direction)
 {
 	CGameObject::CGameObject();
@@ -73,6 +72,17 @@ void CBlade::GetBoundingBox(float & left, float & top, float & right, float & bo
 	top = y;
 	right = x + 18;
 	bottom = y + 33;
+}
+
+void CBlade::SubHealth(int th)
+{
+	if (this->Health != 0)
+	{
+		EffectManager::GetInstance()->AddEffect(this->x, this->y, BLADE_TO_CENTERX * 2, BLADE_TO_CENTERY * 2);
+	}
+	CGameObject::SubHealth(th);
+	
+
 }
 
 

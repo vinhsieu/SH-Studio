@@ -4,7 +4,6 @@
 
 
 
-
 CDagger::CDagger(float x, float y, int Direction)
 {
 	this->x =this->xBackup= x;
@@ -35,9 +34,9 @@ void CDagger::LoadAni()
 	ani->Add(500);
 	ani->Add(501);
 	animations->Add(1000, ani);
-	//Danh
-	ani = new CAnimation(100);
-	ani->Add(501);
+	
+	ani = new CAnimation(225);
+	ani->Add(500);
 	ani->Add(502);
 	animations->Add(1001, ani);
 	AddAnimation(1000);
@@ -53,16 +52,20 @@ void CDagger::Render()
 		return;
 	}
 	
+	CSprites *sprite = CSprites::GetInstance();
 
-
-	if (isAttach = -1)
+	if (isAttach == -1)
 	{
+		//sprite->Get(502)->Draw(this->x + DAGGER_T0_CENTERX, this->y + DAGGER_T0_CENTERY, AniDirection, CCamera::GetInstance()->Tranform());
+
 		this->animations.at(0)->Render(this->x+DAGGER_T0_CENTERX, this->y+DAGGER_T0_CENTERY, 0, AniDirection,CCamera::GetInstance()->Tranform());
 	}
 	else
 	{
-		
-		this->animations.at(1)->Render(this->x+DAGGER_T0_CENTERX, this->y+DAGGER_T0_CENTERY, 0, AniDirection, CCamera::GetInstance()->Tranform());
+		if (this->animations.at(1)->Render(this->x + DAGGER_T0_CENTERX, this->y + DAGGER_T0_CENTERY, 0, AniDirection, CCamera::GetInstance()->Tranform()) == -1)
+		{
+			this->isAttach = -1;
+		}
 	}
 	if (!mWeapon->GetisFinished())
 	{
@@ -88,6 +91,7 @@ void CDagger::Update(DWORD dt)
 
 	float tempX, tempY;
 	Ninja::GetInstance()->GetPosition(tempX, tempY);
+
 	if (tempX - this->x < 0)
 	{
 		AniDirection = -1;
@@ -96,16 +100,20 @@ void CDagger::Update(DWORD dt)
 	{
 		AniDirection = 1;
 	}
-	if (mWeapon->GetisFinished() && abs(tempX - this->x) < DAGGER_ACTIVE_WEAPON)
+	DebugOut(L"abs(tempX - this->x)=%f\n", fabs(tempX - this->x));
+	if (mWeapon->GetisFinished() && fabs(tempX - this->x) < DAGGER_ACTIVE_WEAPON)
 	{
 		isAttach = 1;
 		mWeapon->Attach(x,y,nx);
+	}
+	else
+	{
+		isAttach = -1;
 	}
 	if (!mWeapon->GetisFinished())
 	{
 		mWeapon->Update(dt);
 	}
-	//DebugOut(L"isAttach: %d\n",this->isAttach);
 	CGameObject::Update(dt);
 	x += dx;
 	y += dy;
@@ -118,6 +126,15 @@ void CDagger::GetBoundingBox(float & left, float & top, float & right, float & b
 	top = y;
 	right = x + 26;
 	bottom = y + 33;
+}
+
+void CDagger::SubHealth(int th)
+{
+	if (this->Health != 0)
+	{
+		EffectManager::GetInstance()->AddEffect(this->x, this->y,DAGGER_T0_CENTERX * 2, DAGGER_T0_CENTERY * 2);
+	}
+	CGameObject::SubHealth(th);
 }
 
 CDagger::~CDagger()

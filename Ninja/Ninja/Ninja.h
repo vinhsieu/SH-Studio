@@ -5,13 +5,14 @@
 #include"CWeapon.h"
 #include"BasicWeapon.h"
 #include"CBlueShuriken.h"
+#include"CRedShuriken.h"
 
 #define NINJA_WALKING_SPEED		0.1f
 #define NINJA_JUMP_SPEED_Y		0.4f
 #define NINJA_GRAVITY			0.002f
 #define NINJA_BEING_HURT_SPEED_Y 0.2f
 #define NINJA_BEING_HURT_SPEED_X 0.5f
-#define NINJA_UNTOUCHABLE_TIME  1000
+#define NINJA_UNTOUCHABLE_TIME  750
 
 
 #define NINJA_STATE_IDLE			0
@@ -46,6 +47,10 @@ private:
 	bool isCollisionAxisYWithBrick;
 	int isSit;
 	bool untouchable;
+
+	int Point;
+	int NumberOfBullet;
+
 	int isUsingExtraWeapon;
 	CWeapon *DefaultWeapon;
 	CWeapon *ExtraWeapon;
@@ -59,8 +64,10 @@ public:
 	void LoadAni();
 	void Attach(); // kich hoat vu khi
 	void StartUntouchable() { untouchable = true; untouchable_start = GetTickCount(); canControl = false; }
+	bool getUntouchable();
 	void CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects);
 	void CheckCollisionWithEmemy(vector<LPGAMEOBJECT>* coObjects);
+	void CheckCollisionWithItems();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	static Ninja * GetInstance();
 };

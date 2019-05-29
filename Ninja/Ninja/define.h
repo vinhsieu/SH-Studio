@@ -40,7 +40,17 @@ enum eType
 
 
 	// item(Bat Dau 80)
-
+	Black_Bird = 80,
+	ButterFly = 81,
+	Item_BlueShuriken=82,
+	Item_RedShuriken=83,
+	Item_Freeze_Time=84,
+	Item_BlueStack=85,
+	Item_RedStack=86,
+	Item_Hadoken=87,
+	Item_Heath=88,
+	Item_Blue_Point=89,
+	Item_Red_Point=90,
 
 	// other (Bat Dau 100)
 	Map1 = 100,

@@ -61,6 +61,8 @@ int CGameObject::GetDirection()
 
 
 
+
+
 int CGameObject::GetHealth()
 {
 	return Health;
@@ -177,6 +179,55 @@ void CGameObject::FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPC
 		coEventsResult.push_back(coEvents[min_ix]);
 	if (min_iy >= 0)
 		coEventsResult.push_back(coEvents[min_iy]);
+}
+
+void CGameObject::CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
+{
+	//Objects dua vao chi duoc dua vao brick
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	vector<LPGAMEOBJECT> list_Brick;
+	list_Brick.clear();
+	for (UINT i = 0; i < coObjects->size(); i++)
+	{
+		if (coObjects->at(i)->GetType() == eType::BRICK)
+			list_Brick.push_back(coObjects->at(i));
+	}
+
+	CalcPotentialCollisions(&list_Brick, coEvents);
+
+	//DebugOut(L"coObjects: %d ,coEvents: %d\n",coObjects->size(), coEvents.size());
+
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+		// ?ang ko va ch?m tr?c y
+	   //DebugOut(L"Khong Co Va Cham\n");
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			x += min_tx * dx + nx * 0.4f;
+			if (ny == -1)
+			{
+				y += min_ty * dy + ny * 0.4f;
+			}
+			else
+			{
+				y += dy;
+			}
+		}
+
+	}
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 CGameObject::CGameObject()

@@ -6,6 +6,8 @@
 #include<vector>
 #include "Camera.h"
 #include"define.h"
+#include"Texture.h"
+#include"EffectManager.h"
 
 using namespace std;
 #define ID_TEX_BBOX -100
@@ -71,7 +73,7 @@ public:
 	void RenderBoundingBox(int ToCenterX,int ToCenterY);
 
 
-	void SubHealth(int th);
+	virtual void SubHealth(int th);
 
 	eType GetType();
 	void SetID(int id);
@@ -81,7 +83,6 @@ public:
 	void SetPosition(float x, float y);
 	void SetSpeed(float vx, float vy);
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
-	
 	int GetHealth();
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 	int GetID();
@@ -101,7 +102,7 @@ public:
 		float &nx,
 		float &ny);
 
-
+	virtual void CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects);
 	CGameObject();
 	virtual void Update(DWORD);
 	virtual void Render();

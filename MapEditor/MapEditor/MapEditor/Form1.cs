@@ -58,10 +58,6 @@ namespace MapEditor
             selectObjects = new List<CObject>();
 
             pen = new Pen(Color.SeaGreen);
-            //cbbType.SelectedIndex = 0;
-            //cbbName.SelectedIndex = 0;
-            //cbbExport.SelectedIndex = 0;
-            //cbbDirection.SelectedIndex = 0;
         }
 
         private void button_ChooseFile_Click(object sender, EventArgs e)
@@ -208,7 +204,12 @@ namespace MapEditor
 
                 for (int i = 0; i < selectObjects.Count; ++i)
                 {
-                    e.Graphics.DrawRectangle(new Pen(Color.Red) { Width = 6 }, selectObjects[i].region);
+                    Rectangle temp = selectObjects[i].region;
+                    temp.X = (int)(temp.X * zoom);
+                    temp.Y = (int)(temp.Y * zoom);
+                    temp.Width = (int)(temp.Width * zoom);
+                    temp.Height = (int)(temp.Height * zoom);
+                    e.Graphics.DrawRectangle(new Pen(Color.Blue) { Width = 3 }, temp);
                 }
             }
             Rectangle temp1 = GetRectangle();
@@ -262,17 +263,19 @@ namespace MapEditor
                 Rectangle rect = GetRectangle();
                 if (rect.Width > 0 && rect.Height > 0)
                 {
-                    objects.Add(id, new CObject(id++, rect, comboBox_Name.SelectedItem.ToString(), comboBox_Type.SelectedIndex, comboBox_Direction.SelectedIndex ));
-                    AddGridView(rect, comboBox_Name.Text, comboBox_Type.Text, comboBox_Direction.Text);
-
+                    objects.Add(id, new CObject(id++, rect, comboBox_Name.SelectedItem.ToString(), comboBox_MultiFunc.SelectedItem.ToString(), textBox_ReverseLo_Start.Text, textBox_ReverseLo_End.Text));
+                    AddGridView(rect, comboBox_Name.Text, comboBox_MultiFunc.Text,textBox_ReverseLo_Start.Text,textBox_ReverseLo_End.Text);
+                    textBox_ReverseLo_Start.Text = "-1";
+                    textBox_ReverseLo_End.Text = "-1";
                     pictureBox_Map.Invalidate();
                     textBox_NumObject.Text = objects.Count.ToString();
                 }
             }
         }
-        private void AddGridView(Rectangle rect, string name, string type, string direction)
+        private void AddGridView(Rectangle rect, string name, string MultiFunc,string ReverseLo_Start,string ReverseLo_End)
         {
-            dataGridView_Object.Rows.Add(name, type, direction, rect.ToString());
+            string ReverseLocation = ReverseLo_Start + " , " + ReverseLo_End;
+            dataGridView_Object.Rows.Add(name,MultiFunc, rect.ToString(),ReverseLocation);
             dataGridView_Object.Rows[dataGridView_Object.RowCount - 1].Tag = id - 1;
         }
         
@@ -331,10 +334,12 @@ namespace MapEditor
             int numObject = objects.Count();
             System.IO.File.WriteAllText("output.txt",string.Empty);
             System.IO.File.AppendAllText("output.txt", numObject.ToString() + Environment.NewLine);
-            for (int i=0;i<numObject;i++)
+            int tempid = 1;
+            foreach (var item in objects)
             {
-                string line = objects[i].Output();
+                string line = tempid.ToString() + " " + item.Value.Output();
                 System.IO.File.AppendAllText("output.txt", line + Environment.NewLine);
+                tempid++;
             }
             MessageBox.Show("Da Xuat Ra file output.txt trong debug");
         }
@@ -352,6 +357,13 @@ namespace MapEditor
                 }
                 pictureBox_Map.Invalidate();
             }
+        }
+
+        private void dataGridView_Object_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            objects.Remove((int)e.Row.Tag);
+            pictureBox_Map.Invalidate();
+            textBox_NumObject.Text = objects.Count.ToString();
         }
     }
 }

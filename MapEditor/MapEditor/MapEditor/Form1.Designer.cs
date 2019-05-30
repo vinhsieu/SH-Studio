@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.openImage = new System.Windows.Forms.OpenFileDialog();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox_Map = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_ExportGrid = new System.Windows.Forms.Button();
@@ -43,14 +44,8 @@
             this.button_Delete = new System.Windows.Forms.Button();
             this.textBox_NumObject = new System.Windows.Forms.TextBox();
             this.dataGridView_Object = new System.Windows.Forms.DataGridView();
-            this.NameObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Direction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comboBox_Type = new System.Windows.Forms.ComboBox();
-            this.comboBox_Direction = new System.Windows.Forms.ComboBox();
+            this.comboBox_MultiFunc = new System.Windows.Forms.ComboBox();
             this.comboBox_Name = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -64,16 +59,21 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button_ChooseFile = new System.Windows.Forms.Button();
-            this.pictureBox_Map = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox_ReverseLo_Start = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox_ReverseLo_End = new System.Windows.Forms.TextBox();
+            this.NameObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Multifunc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReverseLoca = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Object)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -97,6 +97,30 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Map";
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pictureBox_Map);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 16);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1121, 366);
+            this.panel1.TabIndex = 1;
+            // 
+            // pictureBox_Map
+            // 
+            this.pictureBox_Map.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox_Map.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.pictureBox_Map.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox_Map.Name = "pictureBox_Map";
+            this.pictureBox_Map.Size = new System.Drawing.Size(489, 126);
+            this.pictureBox_Map.TabIndex = 0;
+            this.pictureBox_Map.TabStop = false;
+            this.pictureBox_Map.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Map_Paint);
+            this.pictureBox_Map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Map_MouseDown);
+            this.pictureBox_Map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Map_MouseMove);
+            this.pictureBox_Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Map_MouseUp);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.groupBox2);
@@ -109,6 +133,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox_ReverseLo_End);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.textBox_ReverseLo_Start);
             this.groupBox2.Controls.Add(this.button_ExportGrid);
             this.groupBox2.Controls.Add(this.button_ZoomOut);
             this.groupBox2.Controls.Add(this.button_ZoomIn);
@@ -118,10 +145,8 @@
             this.groupBox2.Controls.Add(this.button_Delete);
             this.groupBox2.Controls.Add(this.textBox_NumObject);
             this.groupBox2.Controls.Add(this.dataGridView_Object);
-            this.groupBox2.Controls.Add(this.comboBox_Type);
-            this.groupBox2.Controls.Add(this.comboBox_Direction);
+            this.groupBox2.Controls.Add(this.comboBox_MultiFunc);
             this.groupBox2.Controls.Add(this.comboBox_Name);
-            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
@@ -134,9 +159,9 @@
             // 
             // button_ExportGrid
             // 
-            this.button_ExportGrid.Location = new System.Drawing.Point(785, 79);
+            this.button_ExportGrid.Location = new System.Drawing.Point(792, 65);
             this.button_ExportGrid.Name = "button_ExportGrid";
-            this.button_ExportGrid.Size = new System.Drawing.Size(75, 23);
+            this.button_ExportGrid.Size = new System.Drawing.Size(50, 23);
             this.button_ExportGrid.TabIndex = 16;
             this.button_ExportGrid.Text = "Export Grid";
             this.button_ExportGrid.UseVisualStyleBackColor = true;
@@ -144,9 +169,9 @@
             // 
             // button_ZoomOut
             // 
-            this.button_ZoomOut.Location = new System.Drawing.Point(87, 103);
+            this.button_ZoomOut.Location = new System.Drawing.Point(98, 103);
             this.button_ZoomOut.Name = "button_ZoomOut";
-            this.button_ZoomOut.Size = new System.Drawing.Size(75, 23);
+            this.button_ZoomOut.Size = new System.Drawing.Size(81, 23);
             this.button_ZoomOut.TabIndex = 15;
             this.button_ZoomOut.Text = "Zoom Out";
             this.button_ZoomOut.UseVisualStyleBackColor = true;
@@ -154,9 +179,9 @@
             // 
             // button_ZoomIn
             // 
-            this.button_ZoomIn.Location = new System.Drawing.Point(6, 103);
+            this.button_ZoomIn.Location = new System.Drawing.Point(9, 103);
             this.button_ZoomIn.Name = "button_ZoomIn";
-            this.button_ZoomIn.Size = new System.Drawing.Size(75, 23);
+            this.button_ZoomIn.Size = new System.Drawing.Size(83, 23);
             this.button_ZoomIn.TabIndex = 14;
             this.button_ZoomIn.Text = "Zoom In";
             this.button_ZoomIn.UseVisualStyleBackColor = true;
@@ -165,7 +190,7 @@
             // checkBox_fillColor
             // 
             this.checkBox_fillColor.AutoSize = true;
-            this.checkBox_fillColor.Location = new System.Drawing.Point(795, 108);
+            this.checkBox_fillColor.Location = new System.Drawing.Point(792, 99);
             this.checkBox_fillColor.Name = "checkBox_fillColor";
             this.checkBox_fillColor.Size = new System.Drawing.Size(65, 17);
             this.checkBox_fillColor.TabIndex = 13;
@@ -177,7 +202,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(765, 23);
+            this.label10.Location = new System.Drawing.Point(765, 12);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(36, 16);
             this.label10.TabIndex = 12;
@@ -185,7 +210,7 @@
             // 
             // button_Clear
             // 
-            this.button_Clear.Location = new System.Drawing.Point(818, 50);
+            this.button_Clear.Location = new System.Drawing.Point(818, 36);
             this.button_Clear.Name = "button_Clear";
             this.button_Clear.Size = new System.Drawing.Size(56, 23);
             this.button_Clear.TabIndex = 11;
@@ -195,7 +220,7 @@
             // 
             // button_Delete
             // 
-            this.button_Delete.Location = new System.Drawing.Point(765, 50);
+            this.button_Delete.Location = new System.Drawing.Point(765, 36);
             this.button_Delete.Name = "button_Delete";
             this.button_Delete.Size = new System.Drawing.Size(50, 23);
             this.button_Delete.TabIndex = 10;
@@ -205,7 +230,7 @@
             // 
             // textBox_NumObject
             // 
-            this.textBox_NumObject.Location = new System.Drawing.Point(818, 22);
+            this.textBox_NumObject.Location = new System.Drawing.Point(818, 11);
             this.textBox_NumObject.Name = "textBox_NumObject";
             this.textBox_NumObject.Size = new System.Drawing.Size(56, 20);
             this.textBox_NumObject.TabIndex = 9;
@@ -220,70 +245,42 @@
             this.dataGridView_Object.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_Object.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NameObject,
-            this.Type,
-            this.Direction,
-            this.Location});
+            this.Multifunc,
+            this.Location,
+            this.ReverseLoca});
             this.dataGridView_Object.Cursor = System.Windows.Forms.Cursors.Default;
             this.dataGridView_Object.Location = new System.Drawing.Point(186, 9);
             this.dataGridView_Object.Name = "dataGridView_Object";
-            this.dataGridView_Object.ReadOnly = true;
             this.dataGridView_Object.RowHeadersVisible = false;
+            this.dataGridView_Object.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_Object.Size = new System.Drawing.Size(573, 112);
             this.dataGridView_Object.TabIndex = 7;
             this.dataGridView_Object.SelectionChanged += new System.EventHandler(this.dataGridView_Object_SelectionChanged);
+            this.dataGridView_Object.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_Object_UserDeletingRow);
             // 
-            // NameObject
+            // comboBox_MultiFunc
             // 
-            this.NameObject.FillWeight = 70.17551F;
-            this.NameObject.HeaderText = "Name";
-            this.NameObject.Name = "NameObject";
-            this.NameObject.ReadOnly = true;
-            // 
-            // Type
-            // 
-            this.Type.FillWeight = 76.65892F;
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
-            this.Type.ReadOnly = true;
-            // 
-            // Direction
-            // 
-            this.Direction.FillWeight = 81.21828F;
-            this.Direction.HeaderText = "Direction";
-            this.Direction.Name = "Direction";
-            this.Direction.ReadOnly = true;
-            // 
-            // Location
-            // 
-            this.Location.FillWeight = 171.9473F;
-            this.Location.HeaderText = "Location";
-            this.Location.Name = "Location";
-            this.Location.ReadOnly = true;
-            // 
-            // comboBox_Type
-            // 
-            this.comboBox_Type.AutoCompleteCustomSource.AddRange(new string[] {
+            this.comboBox_MultiFunc.AutoCompleteCustomSource.AddRange(new string[] {
             "Static",
             "Dynamic"});
-            this.comboBox_Type.FormattingEnabled = true;
-            this.comboBox_Type.Items.AddRange(new object[] {
-            "Static",
-            "Dynamic"});
-            this.comboBox_Type.Location = new System.Drawing.Point(73, 48);
-            this.comboBox_Type.Name = "comboBox_Type";
-            this.comboBox_Type.Size = new System.Drawing.Size(107, 21);
-            this.comboBox_Type.TabIndex = 6;
-            // 
-            // comboBox_Direction
-            // 
-            this.comboBox_Direction.FormattingEnabled = true;
-            this.comboBox_Direction.Items.AddRange(new object[] {
-            "Left",
-            "Right"});
-            this.comboBox_Direction.Location = new System.Drawing.Point(73, 76);
-            this.comboBox_Direction.Name = "comboBox_Direction";
-            this.comboBox_Direction.Size = new System.Drawing.Size(107, 21);
-            this.comboBox_Direction.TabIndex = 5;
+            this.comboBox_MultiFunc.FormattingEnabled = true;
+            this.comboBox_MultiFunc.Items.AddRange(new object[] {
+            "ItemBluePoint",
+            "ItemRedPoint",
+            "ItemBlueShuriken",
+            "ItemRedShuriken",
+            "ItemFreezeTime",
+            "ItemHadoken",
+            "ItemHealth",
+            "ItemBlueStack",
+            "ItemRedStack",
+            "NONE",
+            "RIGHT",
+            "LEFT"});
+            this.comboBox_MultiFunc.Location = new System.Drawing.Point(73, 48);
+            this.comboBox_MultiFunc.Name = "comboBox_MultiFunc";
+            this.comboBox_MultiFunc.Size = new System.Drawing.Size(107, 21);
+            this.comboBox_MultiFunc.TabIndex = 6;
             // 
             // comboBox_Name
             // 
@@ -298,21 +295,13 @@
             "BombGun",
             "Footballguy",
             "GunRage",
-            "GATE"});
+            "GATE",
+            "BlackBird",
+            "Butterfly"});
             this.comboBox_Name.Location = new System.Drawing.Point(73, 21);
             this.comboBox_Name.Name = "comboBox_Name";
             this.comboBox_Name.Size = new System.Drawing.Size(107, 21);
             this.comboBox_Name.TabIndex = 4;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(6, 77);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(61, 16);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Direction";
             // 
             // label7
             // 
@@ -320,9 +309,9 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(6, 49);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(40, 16);
+            this.label7.Size = new System.Drawing.Size(64, 16);
             this.label7.TabIndex = 1;
-            this.label7.Text = "Type";
+            this.label7.Text = "MultiFunc";
             // 
             // label6
             // 
@@ -451,29 +440,54 @@
             this.button_ChooseFile.UseVisualStyleBackColor = true;
             this.button_ChooseFile.Click += new System.EventHandler(this.button_ChooseFile_Click);
             // 
-            // pictureBox_Map
+            // textBox_ReverseLo_Start
             // 
-            this.pictureBox_Map.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox_Map.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.pictureBox_Map.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox_Map.Name = "pictureBox_Map";
-            this.pictureBox_Map.Size = new System.Drawing.Size(489, 126);
-            this.pictureBox_Map.TabIndex = 0;
-            this.pictureBox_Map.TabStop = false;
-            this.pictureBox_Map.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Map_Paint);
-            this.pictureBox_Map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Map_MouseDown);
-            this.pictureBox_Map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Map_MouseMove);
-            this.pictureBox_Map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Map_MouseUp);
+            this.textBox_ReverseLo_Start.Location = new System.Drawing.Point(73, 77);
+            this.textBox_ReverseLo_Start.Name = "textBox_ReverseLo_Start";
+            this.textBox_ReverseLo_Start.Size = new System.Drawing.Size(48, 20);
+            this.textBox_ReverseLo_Start.TabIndex = 17;
+            this.textBox_ReverseLo_Start.Text = "-1";
             // 
-            // panel1
+            // label9
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.pictureBox_Map);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 16);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1121, 366);
-            this.panel1.TabIndex = 1;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(3, 80);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(68, 15);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "ReverLo_X";
+            // 
+            // textBox_ReverseLo_End
+            // 
+            this.textBox_ReverseLo_End.Location = new System.Drawing.Point(129, 77);
+            this.textBox_ReverseLo_End.Name = "textBox_ReverseLo_End";
+            this.textBox_ReverseLo_End.Size = new System.Drawing.Size(50, 20);
+            this.textBox_ReverseLo_End.TabIndex = 19;
+            this.textBox_ReverseLo_End.Text = "-1";
+            // 
+            // NameObject
+            // 
+            this.NameObject.FillWeight = 70.17551F;
+            this.NameObject.HeaderText = "Name";
+            this.NameObject.Name = "NameObject";
+            // 
+            // Multifunc
+            // 
+            this.Multifunc.FillWeight = 76.65892F;
+            this.Multifunc.HeaderText = "MultiFunc";
+            this.Multifunc.Name = "Multifunc";
+            // 
+            // Location
+            // 
+            this.Location.FillWeight = 171.9473F;
+            this.Location.HeaderText = "Location";
+            this.Location.Name = "Location";
+            // 
+            // ReverseLoca
+            // 
+            this.ReverseLoca.HeaderText = "Reverse";
+            this.ReverseLoca.Name = "ReverseLoca";
             // 
             // Form
             // 
@@ -485,20 +499,19 @@
             this.Text = "MapEditor";
             this.panel3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map)).EndInit();
             this.panel2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Object)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Map)).EndInit();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.OpenFileDialog openImage;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -519,23 +532,24 @@
         private System.Windows.Forms.Button button_Delete;
         private System.Windows.Forms.TextBox textBox_NumObject;
         private System.Windows.Forms.DataGridView dataGridView_Object;
-        private System.Windows.Forms.ComboBox comboBox_Type;
-        private System.Windows.Forms.ComboBox comboBox_Direction;
+        private System.Windows.Forms.ComboBox comboBox_MultiFunc;
         private System.Windows.Forms.ComboBox comboBox_Name;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckBox checkBox_fillColor;
         private System.Windows.Forms.Button button_ZoomOut;
         private System.Windows.Forms.Button button_ZoomIn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameObject;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Direction;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
         private System.Windows.Forms.Button button_ExportGrid;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox_Map;
+        private System.Windows.Forms.TextBox textBox_ReverseLo_End;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox_ReverseLo_Start;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NameObject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Multifunc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReverseLoca;
     }
 }
 

@@ -13,12 +13,13 @@ namespace MapEditor
         private int id;
         public Rectangle region;
        
-        public int type;
         public int idName;
-        public int direction;
+        public int multiFunc;
+        public string ReverseLo_Start;
+        public string ReverseLo_End;
         public int ID { get => id; }
 
-        public CObject(int id, Rectangle region, string idName, int type, int direction)
+        public CObject(int id, Rectangle region, string idName, string MultiFunc, string ReverseLo_Start, string ReverseLo_End)
         {
             this.id = id;
             this.region = region;
@@ -54,25 +55,56 @@ namespace MapEditor
                 case "STAIR":
                     this.idName = (int)eType.STAIR;
                     break;
+                case "BlackBird":
+                    this.idName = (int)eType.Black_Bird;
+                    break;
+                case "Butterfly":
+                    this.idName = (int)eType.ButterFly;
+                    break;
             }
-            switch(direction)
+            switch(MultiFunc)
             {
-                case 0:
-                    this.direction = -1;
+                case "RIGHT":
+                    this.multiFunc = 1;
                     break;
-                case 1:
-                    this.direction = 1;
+                case "LEFT":
+                    this.multiFunc = -1;
                     break;
-
+                case "ItemBluePoint":
+                    this.multiFunc = (int)eType.Item_Blue_Point;
+                    break;
+                case "ItemRedPoint":
+                    this.multiFunc = (int)eType.Item_Red_Point;
+                    break;
+                case "ItemBlueShuriken":
+                    this.multiFunc = (int)eType.Item_BlueShuriken;
+                    break;
+                case "ItemRedShuriken":
+                    this.multiFunc = (int)eType.Item_RedShuriken;
+                    break;
+                case "ItemBlueStack":
+                    this.multiFunc = (int)eType.Item_BlueStack;
+                    break;
+                case "ItemRedStack":
+                    this.multiFunc = (int)eType.Item_RedStack;
+                    break;
+                case "ItemHealth":
+                    this.multiFunc = (int)eType.Item_Heath;
+                    break;
+                case "ItemHadoken":
+                    this.multiFunc = (int)eType.Item_Hadoken;
+                    break;
+                case "ItemFreezeTime":
+                    this.multiFunc = (int)eType.Item_RedStack;
+                    break;
             }
-           
-            this.type = type;
-            
+            this.ReverseLo_Start = ReverseLo_Start;
+            this.ReverseLo_End = ReverseLo_End;
         }
         public string Output()
         {
             string output;
-            output = (id+1).ToString() + " " + idName.ToString() + " " + direction.ToString() + " " + region.X.ToString() + " " + region.Y.ToString() + " " + region.Width.ToString()+" "+region.Height.ToString();
+            output = idName.ToString() + " " + multiFunc.ToString() + " " + region.X.ToString() + " " + region.Y.ToString() + " " + region.Width.ToString()+" "+region.Height.ToString()+" "+ReverseLo_Start+" "+ReverseLo_End;
             return output;
         }
     }
@@ -91,17 +123,29 @@ namespace MapEditor
 
 
         // weapon(Bat Dau 60)
+        BASICWEAPON = 60,
+        BlueShuriken = 61,
 
 
         // item(Bat Dau 80)
-
+        Black_Bird = 80,
+        ButterFly = 81,
+        Item_BlueShuriken = 82,
+        Item_RedShuriken = 83,
+        Item_Freeze_Time = 84,
+        Item_BlueStack = 85,
+        Item_RedStack = 86,
+        Item_Hadoken = 87,
+        Item_Heath = 88,
+        Item_Blue_Point = 89,
+        Item_Red_Point = 90,
 
         // other (Bat Dau 100)
         Map1 = 100,
         Map2 = 101,
         Map3 = 102,
+        BBOX = 103,
 
-        // Effect(Bat Dau 100)
 
 
         // Enemy(Bat Dau 120)
@@ -118,6 +162,6 @@ namespace MapEditor
         BOSS = 140
 
         // Intro(Bat Dau 160)
-
+        // Effect(Bat Dau 180)
     };
 }

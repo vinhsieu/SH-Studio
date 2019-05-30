@@ -204,6 +204,9 @@
     <ClInclude Include="CRedShuriken.h">
       <Filter>Objects\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -346,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="CRedShuriken.cpp">
       <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

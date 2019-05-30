@@ -34,15 +34,15 @@ void Grid::ReadGrid()
 		}
 	}
 
-	int id, type, direction, w, h, n;
+	int id, type, Multifunc, w, h, n,xStart,xEnd;
 	float x, y;
 
 	ifstream inp(gridPath, ios::in);
 	inp >> n;
 	for (int i = 0; i < n; i++)
 	{
-		inp >> id >> type >> direction >> x >> y >> w >> h;
-		Insert(id, type, direction, x, y, w, h);
+		inp >> id >> type >> Multifunc >> x >> y >> w >> h >> xStart >> xEnd;
+		Insert(id, type, Multifunc, x, y, w, h, xStart,xEnd);
 	}
 	inp.close();
 }
@@ -53,7 +53,7 @@ void Grid::BuildGrid()//Save grid(chua lam)
 
 }
 
-void Grid::AddObj(int idHost, CWeapon* obj)// Them Vao Grid (truong hop sung ban ngang
+void Grid::AddObj(int idHost, CWeapon* obj)// Them Vao Grid (truong hop sung ban ngang ra khoi Host)
 {
 	listEnemyBullet[idHost].push_back(obj);
 }
@@ -85,16 +85,16 @@ void Grid::ReloadOutOfCameraGrid(vector<LPGAMEOBJECT> ListObj)
 
 }
 
-CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y, float w, float h)
+CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y, float w, float h,float xStart,float xEnd)
 {
 	switch (type)
 	{
 		case eType::Dagger:
-			return new CDagger(x, y, Multifuntion);
+			return new CDagger(x, y, Multifuntion, xStart, xEnd);
 		case eType::BombGun:
 			return new CBombGun(id,x, y, Multifuntion);
 		case eType::Blade:
-			return new CBlade(x, y, Multifuntion);
+			return new CBlade(x, y, Multifuntion,xStart,xEnd);
 		case eType::BrownBird:
 			return new CBrownBird(x, y, Multifuntion);
 		case eType::Footballguy:
@@ -112,14 +112,14 @@ CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y
 	}
 }
 
-void Grid::Insert(int id, int type, int direction, float x, float y, int w, int h)
+void Grid::Insert(int id, int type, int direction, float x, float y, int w, int h, float xStart, float xEnd)
 {
 	int top = (int)(y / GRID_CELL_HEIGHT);
 	int bottom = (int)((y + h) / GRID_CELL_HEIGHT);
 	int left = (int)(x / GRID_CELL_WIDTH);
 	int right = (int)((x + w) / GRID_CELL_WIDTH);
 
-	CGameObject * obj = NewObject(id,type,direction, x, y, w, h);
+	CGameObject * obj = NewObject(id,type,direction, x, y, w, h,xStart,xEnd);
 	if (obj == NULL)
 	{
 		return;

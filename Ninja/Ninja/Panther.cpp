@@ -1,12 +1,15 @@
 #include "Panther.h"
-
+#include"Ninja.h"
 
 
 CPanther::CPanther(float x, float y, int Direction)
 {
+	CGameObject::CGameObject();
 	this->x = this->xBackup = x;
 	this->y = this->yBackup = y;
 	this->nx = this->nxBackup = Direction;
+	this->HealthBackup = Health;
+	this->isActive = false;
 	//this->vx = DAGGER_SPEED_X;
 	this->type = eType::Panther;
 	LoadAni();
@@ -34,17 +37,40 @@ void CPanther::LoadAni()
 
 void CPanther::Render()
 {
-	
-		this->animations.at(0)->Render(this->x+PANTHER_TO_CENTEX, this->y+PANTHER_TO_CENTEY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
-		if (IS_BBOX_DEBUGGING)
-		{
-			RenderBoundingBox(PANTHER_TO_CENTEX,PANTHER_TO_CENTEY);
-		}
+	if (!isActive)
+	{
+		return;
+	}
+	this->animations.at(0)->Render(this->x+PANTHER_TO_CENTEX, this->y+PANTHER_TO_CENTEY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+	if (IS_BBOX_DEBUGGING)
+	{
+		RenderBoundingBox(PANTHER_TO_CENTEX,PANTHER_TO_CENTEY);
+	}
 }
 
 void CPanther::Update(DWORD dt)
 {
-	CGameObject::Update(dt);
+	if (this->Health == 0)
+	{
+		return;
+	}
+	if (nx*vx < 0)
+	{
+		vx *= -1;
+	}
+	float xNinja, yNinja;
+	Ninja::GetInstance()->GetPosition(xNinja, yNinja);
+	if (((this->x - xNinja)*nx < 0&& fabs(this->x - xNinja)<PANTHER_ACTIVE_AREA))
+	{
+		isActive = true;
+	}
+	if (isActive)
+	{
+		CGameObject::Update(dt);
+		x += dx;
+		y += dy;
+	}
+	
 }
 
 void CPanther::GetBoundingBox(float & left, float & top, float & right, float & bottom)

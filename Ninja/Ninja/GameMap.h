@@ -13,8 +13,8 @@ using namespace std;
 class GameMap
 {
 public:
-	GameMap(LPCWSTR filename,  LPCWSTR matrixName);
-
+	GameMap(eType idMap,  LPCWSTR matrixName);
+	eType idMap;
 	int GetWidth();
 	int GetHeight();
 	int GetTileWidth();
@@ -27,7 +27,7 @@ public:
 	
 
 private:
-	void LoadMap(LPCWSTR filePath, D3DCOLOR transcolor);
+	void LoadMap(eType idMap, D3DCOLOR transcolor);
 	void LoadMatrix(LPCWSTR filePath);
 	LPDIRECT3DSURFACE9 mMap;
 	CCamera * mCamera;

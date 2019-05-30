@@ -20,9 +20,9 @@ class CDagger : public CGameObject
 {
 	Dagger_Throw * mWeapon;
 	int AniDirection;
-
+	float xStart, xEnd;
 public:
-	CDagger(float x, float y, int Direction);
+	CDagger(float x, float y, int Direction,float xStart, float xEnd);
 	void LoadAni();
 	void Render();
 	void Update(DWORD dt);

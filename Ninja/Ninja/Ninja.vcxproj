@@ -196,6 +196,7 @@
     <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="Ninja.h" />
     <ClInclude Include="Panther.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stairs.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ninja.cpp" />
     <ClCompile Include="Panther.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stairs.cpp" />

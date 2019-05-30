@@ -3,7 +3,7 @@
 #include"Sound.h"
 #include"ItemsManager.h"
 Ninja * Ninja::_instance = NULL;
-
+bool AllowSetNewState = true;
 Ninja::Ninja()
 {
 	CGameObject::CGameObject();
@@ -70,14 +70,14 @@ void Ninja::Render()
 			ani = NINJA_ANI_IDLE;
 			break;
 		case -1:		//not sit, attach
-			if (isUsingExtraWeapon)
+			/*if (isUsingExtraWeapon)
 			{
 				ani = NINJA_ANI_EXTRA_WEAPON;
 			}
 			else
-			{
+			{*/
 				ani = NINJA_ANI_ATTACH;
-			}
+			//}
 			break;
 		case 1:			//sit, not attach
 			ani = NINJA_ANI_IDLE_SIT;
@@ -90,14 +90,21 @@ void Ninja::Render()
 	}
 	else
 	{
-		if (isAttach < 0) ani = NINJA_ANI_WALKING;
+		if (isAttach < 0)
+		{
+			ani = NINJA_ANI_WALKING;
+		}
 		else
 		{
 			ani = NINJA_ANI_ATTACH;
 		}
 		
 	}
-	if (isCollisionAxisYWithBrick==false && !untouchable)
+	if (isUsingExtraWeapon)
+	{
+		ani = NINJA_ANI_EXTRA_WEAPON;
+	}
+	if (isCollisionAxisYWithBrick==false/* && !untouchable*/)
 	{
 		if (isAttach == 1)
 		{
@@ -115,19 +122,25 @@ void Ninja::Render()
 	int isLoop=0; //Co Lap Hay Khong(Ap dung cho Attach)
 
 
-	if (isAttach == 1 || canControl == false)
+	if (isAttach == 1||isUsingExtraWeapon || canControl == false)
 	{
 		isLoop = 1; //1 la khong lap
 	}
 	int alpha = 255;
 	if (untouchable) alpha = 128;
+	AllowSetNewState = false;// Tranh tinh trang anh hien thi khac chuc nang
 	if (animations.at(ani)->Render(x+NINJA_TO_CENTERX, y+NINJA_TO_CENTERY, isLoop,isLeft,CCamera::GetInstance()->Tranform(),alpha)==-1)
 	{
 		canControl = true;
 		isAttach = -1;
 		isUsingExtraWeapon=0;
 	}
-
+	AllowSetNewState = true;
+	if (ani == NINJA_ANI_ATTACH_ON_JUMP)
+	{
+		isAttach = -1;
+		isUsingExtraWeapon = 0;
+	}
 	//xu li weapon
 	if (DefaultWeapon->GetisFinished() == false)
 	{
@@ -148,6 +161,10 @@ void Ninja::Render()
 
 void Ninja::SetState(int State)
 {
+	if (!AllowSetNewState)
+	{
+		return;
+	}
 	CGameObject::SetState(State);
 	switch (State)
 	{
@@ -189,12 +206,10 @@ void Ninja::SetState(int State)
 		Attach();
 		break;
 	case NINJA_STATE_BEING_HURT:
-		//x -= 20;
 		vy = -NINJA_BEING_HURT_SPEED_Y;
-		vx = -0.4*NINJA_WALKING_SPEED*nx;
+		vx = -0.4*NINJA_WALKING_SPEED*nx;// Giat ve phia sau huong dang di(van co loi)
 		break;
 	case NINJA_STATE_EXTRA_WEAPON:
-		//isAttach = 1;
 		isUsingExtraWeapon = 1;
 		Attach();
 		break;
@@ -286,8 +301,9 @@ void Ninja::LoadAni()
 	ani->Add(10039);
 	animations->Add(702, ani);
 	//Attach on Jump right
-	ani = new CAnimation(200);
+	ani = new CAnimation(800);
 	ani->Add(10035);
+	//ani->Add(10036);
 	animations->Add(704, ani);
 	//Being hit
 	ani = new CAnimation(300);

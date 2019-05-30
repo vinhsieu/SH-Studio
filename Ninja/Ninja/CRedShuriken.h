@@ -3,6 +3,7 @@
 
 #define CREDSHURIKEN_TO_CENTER_X 8
 #define CREDSHURIKEN_TO_CENTER_Y 8
+#define CREDSHURIKEN_SPEED 0.3f
 class CRedShuriken :
 	public CWeapon
 {

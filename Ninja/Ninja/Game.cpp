@@ -22,7 +22,8 @@ void Game::GameInit(HWND hWnd)
 
 void Game::LoadResources()
 {
-	gamemap = new GameMap(L"NinjaGaidenMapStage3-1BG_1.png", L"Resources/Map/Map1_Matrix.txt");
+	//NinjaGaidenMapStage3 - 1BG_1.png
+	gamemap = new GameMap(eType::Map1, L"Resources/Map/Map1_Matrix.txt");
 	Sound::GetInstance()->Play(eSound::music_Scence_1, true);
 }
 

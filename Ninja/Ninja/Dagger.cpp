@@ -4,11 +4,13 @@
 
 
 
-CDagger::CDagger(float x, float y, int Direction)
+CDagger::CDagger(float x, float y, int Direction, float xStart, float xEnd)
 {
 	this->x =this->xBackup= x;
 	this->y =this->yBackup= y;
 	this->nx =this->nxBackup= Direction;
+	this->xStart = xStart;
+	this->xEnd = xEnd;
 	this->HealthBackup = Health;
 	this->vx = DAGGER_SPEED_X;
 	this->type = eType::Dagger;
@@ -83,7 +85,10 @@ void CDagger::Update(DWORD dt)
 	{
 		return;
 	}
-
+	if (x - xStart < 0 || x + 26 - xEnd>0)
+	{
+		nx *= -1;
+	}
 	if (nx*vx < 0)
 	{
 		vx *= -1;

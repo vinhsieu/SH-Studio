@@ -6,7 +6,7 @@
 CRedShuriken::CRedShuriken()
 {
 	isFinished = true;
-	this->vx = CBLUESHURIKEN_SPEED;
+	this->vx = CREDSHURIKEN_SPEED;
 	LoadAni();
 }
 
@@ -27,14 +27,13 @@ void CRedShuriken::Attach()
 	//lastAttach = GetTickCount();
 	this->Health = 1;
 	Ninja::GetInstance()->GetPosition(this->x, this->y);
+	this->SetDirection(Ninja::GetInstance()->GetDirection());
+	ModifyPositionFitHost();
 	if (nx*vx < 0)
 	{
 		vx *= -1;
 	}
-	this->SetDirection(Ninja::GetInstance()->GetDirection());
-
 	Sound::GetInstance()->Play(eSound::sound_Red_Shuriken);
-	ModifyPositionFitHost();
 }
 
 void CRedShuriken::Render()
@@ -77,7 +76,6 @@ void CRedShuriken::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	
 	CGameObject::Update(dt);
-	DebugOut(L"dx: %f,dy:%f\n", this->dx,this->dy);
 	CheckCollision(coObjects);
 	
 }
@@ -140,6 +138,8 @@ void CRedShuriken::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 	if (AABBcollision(Ninja::GetInstance()))
 	{
 		isFinished = true;
+
+		//this->vx = 0;// Update som hon Attack nen Set ve 0 de khoi Collis voi Ninja
 		return;
 	}
 
@@ -151,6 +151,7 @@ void CRedShuriken::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 			list_Enemy[i]->SubHealth(2);
 			Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
 			this->Health = 0;
+			//this->vx = 0;// Update som hon Attack nen Set ve 0 de khoi Collis voi Ninja
 			isFinished = true;
 			return;
 

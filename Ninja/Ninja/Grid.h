@@ -37,8 +37,8 @@ public:
 	void BuildGrid();
 	void AddObj(int idHost,CWeapon* objHost);
 	void ReloadOutOfCameraGrid(vector<LPGAMEOBJECT> ListObj);
-	CGameObject *NewObject(int id,int type,int direction, float x, float y, float w, float h);
-	void Insert(int id, int type, int direction, float x, float y, int w, int h);
+	CGameObject *NewObject(int id,int type,int direction, float x, float y, float w, float h, float xStart, float xEnd);
+	void Insert(int id, int type, int direction, float x, float y, int w, int h, float xStart, float xEnd);
 	void ListObject(vector<CGameObject*>& ListObj);
 
 	~Grid();

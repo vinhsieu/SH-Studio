@@ -2,9 +2,10 @@
 #include"CGame.h"
 
 
-GameMap::GameMap(LPCWSTR filename, LPCWSTR matrixName)
+GameMap::GameMap(eType idMap, LPCWSTR matrixName)
 {
-	LoadMap(filename, NULL);
+	this->idMap = idMap;
+	LoadMap(idMap, NULL);
 	LoadMatrix(matrixName);
 }
 
@@ -41,7 +42,7 @@ void GameMap::Draw()
 				if (CGame::GetInstance()->isContain(objRECT, mCamera->GetBound()) == false)
 					continue;
 			}
-			sprites->Get(matrix[i][j] + ID_TEX_MAP)->Draw(position.x + tileSize / 2, position.y + tileSize / 2, 0, mCamera->Tranform());
+			sprites->Get(matrix[i][j] + idMap*20)->Draw(position.x + tileSize / 2, position.y + tileSize / 2, 0, mCamera->Tranform());
 
 			//DebugOut(L"[INFO]Toa Do Back Ground: %f, %f\n", position.x, position.y);
 
@@ -53,7 +54,7 @@ void GameMap::Draw()
 
 
 
-void GameMap::LoadMap(LPCWSTR filename, D3DCOLOR transcolor)
+void GameMap::LoadMap(eType idMap, D3DCOLOR transcolor)
 {
 	
 	D3DXIMAGE_INFO info;
@@ -70,7 +71,7 @@ void GameMap::LoadMap(LPCWSTR filename, D3DCOLOR transcolor)
 	CTexture * texture = CTexture::GetInstance();
 	this->numtileHeight = 13;
 	this->numtileWidth = 80 ;
-	LPDIRECT3DTEXTURE9 texMAP = texture->Get(eType::Map1);
+	LPDIRECT3DTEXTURE9 texMAP = texture->Get(idMap);
 
 	for (int i = 0; i < this->numtileHeight*this->numtileWidth; i++)
 	{
@@ -79,7 +80,7 @@ void GameMap::LoadMap(LPCWSTR filename, D3DCOLOR transcolor)
 		int top = (i / this->numtileWidth) * 16;
 		int bottom = top + 16;
 		
-		sprites->Add(ID_TEX_MAP + i, left, top, right, bottom, texMAP);
+		sprites->Add((int)idMap*20 + i, left, top, right, bottom, texMAP);
 		
 		
 	}

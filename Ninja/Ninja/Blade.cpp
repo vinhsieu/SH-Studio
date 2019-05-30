@@ -1,9 +1,12 @@
 #include "Blade.h"
+#include"Ninja.h"
 
-
-CBlade::CBlade(float x, float y, int Direction)
+CBlade::CBlade(float x, float y, int Direction, int xStart, int xEnd)
 {
 	CGameObject::CGameObject();
+	this->xStart = xStart;
+	this->xEnd = xEnd;
+	this->isActive = false;
 	this->x =this->xBackup= x;
 	this->y =this->yBackup= y;
 	this->nx =this->nxBackup= Direction;
@@ -36,7 +39,7 @@ void CBlade::LoadAni()
 
 void CBlade::Render()
 {
-	if (this->Health == 0)
+	if (this->Health == 0||!isActive)
 	{
 		return;
 	}
@@ -53,9 +56,23 @@ void CBlade::Render()
 
 void CBlade::Update(DWORD dt)
 {
+	float xNinja, yNinja;
+	Ninja::GetInstance()->GetPosition(xNinja, yNinja);
+	if (((this->x - xNinja)*nx < 0 && fabs(this->x - xNinja) < BLADE_ACTIVE_AREA))
+	{
+		isActive = true;
+	}
+	if (!isActive)
+	{
+		return;
+	}
 	if (this->Health == 0)
 	{
 		return;
+	}
+	if (x - xStart < 0 || x + 18 - xEnd>0)
+	{
+		nx *= -1;
 	}
 	if (nx*vx<0 )
 	{

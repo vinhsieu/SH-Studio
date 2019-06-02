@@ -53,6 +53,35 @@ void Grid::BuildGrid()//Save grid(chua lam)
 
 }
 
+void Grid::Clear()
+{
+	//for (auto x : listEnemyBullet)// Xoa Tat Ca Bullet cua quai
+	//{
+	//	for (auto y : x.second)
+	//	{
+	//		delete y;
+	//	}
+	//}
+	listEnemyBullet.clear();
+	for (int i = 0; i < GRID_CELL_MAX_ROW; i++)
+	{
+		for (int j = 0; j < GRID_CELL_MAX_COLUMN; j++)
+		{
+			cells[i][j].clear();
+		}
+	}
+	/*for (int i = 0; i < GRID_CELL_MAX_ROW; i++)
+	{
+		for (int j = 0; j < GRID_CELL_MAX_COLUMN; j++)
+		{
+			for (auto x : cells[i][j])
+			{
+				delete x;
+			}
+		}
+	}*/
+}
+
 void Grid::AddObj(int idHost, CWeapon* obj)// Them Vao Grid (truong hop sung ban ngang ra khoi Host)
 {
 	listEnemyBullet[idHost].push_back(obj);
@@ -64,7 +93,7 @@ void Grid::ReloadOutOfCameraGrid(vector<LPGAMEOBJECT> ListObj)
 		{
 				for (int k = 0; k < cells[0][j].size(); k++)
 				{
-					if (cells[0][j].at(k)->GetType() != eType::BRICK)
+					if (cells[0][j].at(k)->GetType() != eType::BRICK &&cells[0][j].at(k)->GetType() != eType::STAIR)
 					{
 					 bool isExsting = false;
 					 for (auto x : ListObj)
@@ -109,6 +138,8 @@ CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y
 			return new BlackBird(x, y, Multifuntion);
 		case eType::ButterFly:
 			return new Butterfly(x, y, Multifuntion);
+		case eType::STAIR:
+			return new Stairs(x, y, w, h,Multifuntion);
 	}
 }
 
@@ -153,7 +184,7 @@ void Grid::ListObject(vector<CGameObject*>& ListObj)
 	listnow = ListObj;
 	ListObj.clear();
 	
-	for (auto x : listnow)
+	for (auto x : listnow)// Cac object van nam trong camera
 	{
 		RECT gObj;
 		float gLeft, gTop, gRight, gBottom;

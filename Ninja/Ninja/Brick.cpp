@@ -12,13 +12,22 @@ CBrick::CBrick(float X, float Y, int W, int H)
 	this->type = eType::BRICK;
 }
 
+void CBrick::getStartEnd(float &xStart, float &xEnd)
+{
+	xStart = this->x;
+	xEnd = this->x + this->width;
+}
+
 
 
 
 
 void CBrick::Render()
 {
-	//RenderBoundingBox(this->width/2,this->height/2);
+	if (IS_BBOX_DEBUGGING)
+	{
+		RenderBoundingBox(this->width / 2, this->height / 2);
+	}
 	//DebugOut(L"[INFO]Toa Do Brick: %f, %f\n", x, y);
 }
 

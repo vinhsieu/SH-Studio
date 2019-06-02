@@ -111,4 +111,5 @@ void CBombGun::SubHealth(int th)
 
 CBombGun::~CBombGun()
 {
+	SAFE_DELETE(mWeapon);
 }

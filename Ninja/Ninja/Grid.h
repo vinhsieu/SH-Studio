@@ -14,9 +14,10 @@
 #include"Brick.h"
 #include"BlackBird.h"
 #include"Butterfly.h"
+#include"Stairs.h"
 
 #define GRID_CELL_MAX_ROW 1 // số dòng tối đa=MapHeight/GridCell
-#define GRID_CELL_MAX_COLUMN 13 // số cột tối đa=MapWidth/GridCell
+#define GRID_CELL_MAX_COLUMN 30 // số cột tối đa=MapWidth/GridCell
 
 #define GRID_CELL_HEIGHT SCREEN_HEIGHT
 #define GRID_CELL_WIDTH (SCREEN_WIDTH/2.0f)
@@ -35,6 +36,7 @@ public:
 	void SetGridPath(LPCWSTR filePath);
 	void ReadGrid();
 	void BuildGrid();
+	void Clear();
 	void AddObj(int idHost,CWeapon* objHost);
 	void ReloadOutOfCameraGrid(vector<LPGAMEOBJECT> ListObj);
 	CGameObject *NewObject(int id,int type,int direction, float x, float y, float w, float h, float xStart, float xEnd);

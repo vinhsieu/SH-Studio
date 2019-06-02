@@ -1,29 +1,14 @@
 #pragma once
-#include"Ninja.h"
-#include"Camera.h"
+
 #include"CGame.h"
-#include"CGameObject.h"
-#include"GameMap.h"
-#include"Texture.h"
-#include"Sprite.h"
-#include "KeyBoard.h"
-#include"Sound.h"
-#include"Grid.h"
-#include"EffectManager.h"
-#include"ItemsManager.h"
+#include"SceneManager.h"
+#include"Scene_Game.h"
+#include"KeyBoard.h"
 class Game
 {
-	EffectManager *listEffect;
-	CGame * Cgame;
-	Ninja * ninja;
-	GameMap *gamemap;
+	SceneManager *mSceneManager;
+
 	CKeyHandler * keyboard;
-	Grid *mGrid;
-	ItemsManager * listItem;
-	CCamera * mCamera = CCamera::GetInstance();
-	vector<LPGAMEOBJECT> objStatic;
-	vector<LPGAMEOBJECT> objDynamic;
-	vector<LPGAMEOBJECT> obj;
 public:
 	
 	Game();

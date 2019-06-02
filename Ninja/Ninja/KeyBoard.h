@@ -5,6 +5,7 @@
 #include"debug.h"
 #include"CGame.h"
 #include"Ninja.h"
+#include"SceneManager.h"
 class CKeyEventHandler
 {
 protected:
@@ -24,7 +25,9 @@ typedef CKeyEventHandler * LPKEYEVENTHANDLER;
 class CKeyHandler : public CKeyEventHandler
 {
 	LPKEYEVENTHANDLER keyHandler;
-	Ninja *ninja = Ninja::GetInstance();
+
+	static CKeyHandler * _instance;
+
 
 
 public:
@@ -32,7 +35,8 @@ public:
 	void ProcessKeyBoard();
 	void InitKeyBoard(LPKEYEVENTHANDLER handler);
 	
-
+	CKeyHandler();
+	static CKeyHandler * GetInstance();
 
 
 	void KeyState(BYTE *state);

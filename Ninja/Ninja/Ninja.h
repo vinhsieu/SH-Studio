@@ -6,6 +6,7 @@
 #include"BasicWeapon.h"
 #include"CBlueShuriken.h"
 #include"CRedShuriken.h"
+#include"Stairs.h"
 
 #define NINJA_WALKING_SPEED		0.1f
 #define NINJA_JUMP_SPEED_Y		0.4f
@@ -23,6 +24,7 @@
 #define NINJA_STATE_SIT             500
 #define NINJA_STATE_BEING_HURT		600
 #define NINJA_STATE_EXTRA_WEAPON    700
+#define NINJA_STATE_CLIMBING		800
 //
 
 
@@ -36,6 +38,9 @@
 #define NINJA_ANI_ATTACH_ON_JUMP	6
 #define NINJA_ANI_BEING_HURT		7
 #define NINJA_ANI_EXTRA_WEAPON      8
+#define NINJA_ANI_CLIMB_IDLE		9
+#define NINJA_ANI_CLIMBING			10
+
 
 #define NINJA_TO_CENTERX 8
 #define NINJA_TO_CENTERY 15
@@ -44,18 +49,22 @@ class Ninja:public CGameObject
 {
 private:
 	static Ninja * _instance;
-	bool isCollisionAxisYWithBrick;
+	bool isCollisionAxisYWithBrick; // dang co va cham voi Brick
+	int isAllowContinueClimbing;// Tiep Tuc Leo Khi Den Ria Stairs (1 la cho ko leo xuong, -1 la ko cho leo len)
+	int isClimbing; //0 la khong leo, 1 la bu(dung yen),2 la duoc leo len
+	int NavClimbingCollision;// Huong va cham voi Stairs
+
 	int isSit;
 	bool untouchable;
 
 	int Point;
 	int NumberOfBullet;
-
 	int isUsingExtraWeapon;
 	CWeapon *DefaultWeapon;
 	CWeapon *ExtraWeapon;
 	DWORD untouchable_start;
 public:
+
 	bool canControl;// Co the dieu khien ninja khi bi hurt hay khong ?
 	Ninja();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -63,9 +72,11 @@ public:
 	void SetState(int State);
 	void LoadAni();
 	void Attach(); // kich hoat vu khi
+	void SetCanControl(bool isCanControl);
 	void StartUntouchable() { untouchable = true; untouchable_start = GetTickCount(); canControl = false; }
 	bool getUntouchable();
 	void CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects);
+	void CheckCollisionWithStair(vector<LPGAMEOBJECT>* coObjects);
 	void CheckCollisionWithEmemy(vector<LPGAMEOBJECT>* coObjects);
 	void CheckCollisionWithItems();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);

@@ -1,6 +1,6 @@
 #include "CGame.h"
 #include"debug.h"
-
+#include"define.h"
 
 CGame * CGame::_instance = NULL;
 
@@ -80,7 +80,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top
 	D3DXVECTOR3 center((right-left)/2, (bottom-top) / 2, 0);
 	D3DXVECTOR3 p(x, y, 0);
 
-	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_ARGB(alpha,255, 255, 255));
+	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_ARGB(alpha,TRAN_SCENE_COLOR, TRAN_SCENE_COLOR, TRAN_SCENE_COLOR));
 	
 	spriteHandler->SetTransform(&oldMatrix);
 }
@@ -89,6 +89,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top
 
 void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy, float sl, float st, float sr, float sb, float & t, float & nx, float & ny)
 {
+
 	float dx_entry, dx_exit, tx_entry, tx_exit;
 	float dy_entry, dy_exit, ty_entry, ty_exit;
 
@@ -96,53 +97,51 @@ void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy
 	float t_exit;
 
 	t = -1.0f;			// no collision
-	nx = ny = 0.0f;
+	nx = ny = 0;
 
 	//
 	// Broad-phase test 
 	//
 
-	float bl = dx > 0.0f ? ml : ml + dx;
-	float bt = dy > 0.0f ? mt : mt + dy;
-	float br = dx > 0.0f ? mr + dx : mr;
-	float bb = dy > 0.0f ? mb + dy : mb;
+	float bl = dx > 0 ? ml : ml + dx;
+	float bt = dy > 0 ? mt : mt + dy;
+	float br = dx > 0 ? mr + dx : mr;
+	float bb = dy > 0 ? mb + dy : mb;
 
-	if (br < sl || bl > sr || bb < st || bt > sb)
-	{
-		return;
-	}
-	if (dx == 0.0f && dy == 0.0f)
-	{
-		return;		// moving object is not moving > obvious no collision
-	}
-	if (dx > 0.0f)
+	if (br < sl || bl > sr || bb < st || bt > sb) return;
+
+
+	if (dx == 0 && dy == 0) return;		// moving object is not moving > obvious no collision
+	
+	//DebugOut(L"dx:%f,dy=%f\n", dx, dy);
+	if (dx > 0)
 	{
 		dx_entry = sl - mr;
 		dx_exit = sr - ml;
 	}
-	else
-		if (dx < 0.0f)
-		{
-			dx_entry = sr - ml;
-			dx_exit = sl - mr;
-		}
+	else if (dx < 0)
+	{
+		dx_entry = sr - ml;
+		dx_exit = sl - mr;
+	}
+	//DebugOut(L"sl: %f,mr: %f,\n", sl, mr);
 
-
-	if (dy > 0.0f)
+	if (dy > 0)
 	{
 		dy_entry = st - mb;
 		dy_exit = sb - mt;
 	}
-	else if (dy < 0.0f)
+	else if (dy < 0)
 	{
 		dy_entry = sb - mt;
 		dy_exit = st - mb;
 	}
 
-	if (dx == 0.0f)
+	//DebugOut(L"dx_entry:%f,dy_entry=%f,dx_exit:%f,dy_exit:%f\n", dx_entry, dy_entry,dx_exit,dy_exit);
+	if (dx == 0)
 	{
-		tx_entry = -99999999999.0f;
-		tx_exit = 99999999999.0f;
+		tx_entry = -99999999999;
+		tx_exit = 99999999999;
 	}
 	else
 	{
@@ -150,10 +149,10 @@ void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy
 		tx_exit = dx_exit / dx;
 	}
 
-	if (dy == 0.0f)
+	if (dy == 0)
 	{
-		ty_entry = -99999999999.0f;
-		ty_exit = 99999999999.0f;
+		ty_entry = -99999999999;
+		ty_exit = 99999999999;
 	}
 	else
 	{
@@ -161,33 +160,34 @@ void CGame::SweptAABB(float ml, float mt, float mr, float mb, float dx, float dy
 		ty_exit = dy_exit / dy;
 	}
 
-
+	//DebugOut(L"tx_entry:%f,ty_entry:%f,tx_exit:%f,ty_exit:%f,t\n", tx_entry, ty_entry,tx_exit,ty_exit);
 	if ((tx_entry < 0.0f && ty_entry < 0.0f) || tx_entry > 1.0f || ty_entry > 1.0f)
 	{
+		//DebugOut(L"ty_entry\n");
 		return;
 	}
 	t_entry = max(tx_entry, ty_entry);
 	t_exit = min(tx_exit, ty_exit);
-
-	if (t_entry > t_exit)
-	{
-
-		
-		return;
+	//DebugOut(L"t_entry: %f,t_exit:%f\n", t_entry, t_exit);
+	if (t_entry > t_exit) 
+	{ 
+		//DebugOut(L"ty_exit\n\n");
+		return; 
 	}
-	
+
 	t = t_entry;
 
 	if (tx_entry > ty_entry)
 	{
 		ny = 0.0f;
-		dx > 0.0f ? nx = -1.0f : nx = 1.0f;
+		dx > 0 ? nx = -1.0f : nx = 1.0f;
 	}
 	else
 	{
 		nx = 0.0f;
-		dy > 0.0f ? ny = -1.0f : ny = 1.0f;
+		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
+
 
 }
 

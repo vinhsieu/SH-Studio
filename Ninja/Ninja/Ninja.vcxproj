@@ -164,6 +164,7 @@
     <ClInclude Include="Butterfly.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBlueShuriken.h" />
+    <ClInclude Include="CBoard.h" />
     <ClInclude Include="CEnemyDie.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
@@ -197,6 +198,9 @@
     <ClInclude Include="Ninja.h" />
     <ClInclude Include="Panther.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scene_Game.h" />
+    <ClInclude Include="Scene_Intro.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stairs.h" />
@@ -214,6 +218,7 @@
     <ClCompile Include="Butterfly.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBlueShuriken.cpp" />
+    <ClCompile Include="CBoard.cpp" />
     <ClCompile Include="CEnemyDie.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
@@ -222,6 +227,7 @@
     <ClCompile Include="Dagger.cpp" />
     <ClCompile Include="Dagger_Throw.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="define.cpp" />
     <ClCompile Include="DSutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="EffectManager.cpp" />
@@ -247,6 +253,9 @@
     <ClCompile Include="Ninja.cpp" />
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scene_Game.cpp" />
+    <ClCompile Include="Scene_Intro.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stairs.cpp" />

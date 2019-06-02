@@ -3,6 +3,7 @@
 
 
 
+CKeyHandler * CKeyHandler::_instance = NULL;
 
 int CKeyHandler::isKeyDown(int KeyCode)
 {
@@ -38,7 +39,7 @@ void CKeyHandler::ProcessKeyBoard()
 
 
 
-	keyHandler->KeyState((BYTE *)&keyState);
+	SceneManager::GetInstance()->KeyState((BYTE *)&keyState);
 
 	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
 	result = didv->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), KeyEvents, &dwElements, 0);
@@ -54,11 +55,11 @@ void CKeyHandler::ProcessKeyBoard()
 		int KeyState = KeyEvents[i].dwData;
 		if ((KeyState & 0x80) > 0)
 		{
-			keyHandler->OnKeyDown(KeyCode);
+			SceneManager::GetInstance()->OnKeyDown(KeyCode);
 		}
 		else
 		{
-			keyHandler->OnKeyUp(KeyCode);
+			SceneManager::GetInstance()->OnKeyUp(KeyCode);
 		}
 	}
 
@@ -104,52 +105,26 @@ void CKeyHandler::InitKeyBoard(LPKEYEVENTHANDLER handler)
 	this->keyHandler = handler;
 
 }
+CKeyHandler::CKeyHandler()
+{
+	InitKeyBoard(this->keyHandler);
+}
+CKeyHandler * CKeyHandler::GetInstance()
+{
+	if (_instance == NULL)
+	{
+		_instance = new CKeyHandler();
+	}
+	return _instance;
+}
 void CKeyHandler::KeyState(BYTE * state)
 {
-	if (!ninja->canControl)
-	{
-		return;
-	}
-	if (this->isKeyDown(DIK_RIGHT))
-	{
-		ninja->SetState(NINJA_STATE_WALKING_RIGHT);
-	}
-	else if (this->isKeyDown(DIK_LEFT))
-	{
-		ninja->SetState(NINJA_STATE_WALKING_LEFT);
-	}
-	else if (this->isKeyDown(DIK_DOWN))
-	{
-		ninja->SetState(NINJA_STATE_SIT);
-	}
-	else {
-		ninja->SetState(NINJA_STATE_IDLE);
-	}
+	
 
 }
 void CKeyHandler::OnKeyDown(int KeyCode)
 {
-	if (!ninja->canControl)
-	{
-		return;
-	}
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	switch (KeyCode)
-	{
-	case DIK_SPACE:
-		ninja->SetState(NINJA_STATE_JUMP);
-		break;
-	case DIK_A:
-		ninja->SetState(NINJA_STATE_ATTACH);
-		break;
-	case DIK_BACK:
-		ninja->SetState(NINJA_STATE_ATTACH);
-		break;
-	case DIK_F:
-		ninja->SetPosition(50.0f, 10.0f);
-	case DIK_S:
-		ninja->SetState(NINJA_STATE_EXTRA_WEAPON);
-	}
+	
 }
 void CKeyHandler::OnKeyUp(int KeyCode)
 {

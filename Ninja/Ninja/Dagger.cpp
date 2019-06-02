@@ -105,7 +105,6 @@ void CDagger::Update(DWORD dt)
 	{
 		AniDirection = 1;
 	}
-	DebugOut(L"abs(tempX - this->x)=%f\n", fabs(tempX - this->x));
 	if (mWeapon->GetisFinished() && fabs(tempX - this->x) < DAGGER_ACTIVE_WEAPON)
 	{
 		isAttach = 1;
@@ -144,4 +143,5 @@ void CDagger::SubHealth(int th)
 
 CDagger::~CDagger()
 {
+	SAFE_DELETE(mWeapon);
 }

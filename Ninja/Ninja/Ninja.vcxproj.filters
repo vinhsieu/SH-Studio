@@ -61,6 +61,9 @@
     <Filter Include="Objects\Items">
       <UniqueIdentifier>{cab770fc-ba21-4c6f-a8b3-8c27e22cfb7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameComponents\Board">
+      <UniqueIdentifier>{8e6ff924-97b6-4819-a5e4-c23257a563fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -205,6 +208,18 @@
       <Filter>Objects\Weapon</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoard.h">
+      <Filter>GameComponents\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Intro.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Game.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -352,6 +367,21 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoard.cpp">
+      <Filter>GameComponents\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Intro.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Game.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="define.cpp">
+      <Filter>GameComponents</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

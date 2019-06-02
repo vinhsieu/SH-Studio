@@ -10,6 +10,7 @@ BlackBird::BlackBird(float x, float y, int TypeItem)
 	this->type = eType::Black_Bird;
 	this->HealthBackup = 0;
 	this->TypeItems = TypeItem;
+	items = ItemsManager::GetInstance()->itemGenerator(this->x, this->y, TypeItem);
 	LoadAni();
 }
 
@@ -39,7 +40,7 @@ void BlackBird::LoadAni()
 
 	LPDIRECT3DTEXTURE9 tex = texture->Get(eType::NINJA);
 
-	sprites->Add(211, 136, 133, 154, 152, tex);
+	sprites->Add(211, 118, 133, 136, 152, tex);
 	sprites->Add(212, 139, 135, 157, 152, tex);
 	LPANIMATION ani;
 	ani = new CAnimation(100);
@@ -59,7 +60,7 @@ void BlackBird::GetBoundingBox(float & left, float & top, float & right, float &
 
 void BlackBird::SubHealth(int th)
 {
-	ItemsManager::GetInstance()->AddItem(this->x, this->y, this->TypeItems);
+	ItemsManager::GetInstance()->AddItem(this->items);
 	CGameObject::SubHealth(th);
 
 }

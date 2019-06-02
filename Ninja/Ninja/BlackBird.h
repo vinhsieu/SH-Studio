@@ -6,6 +6,7 @@
 class BlackBird :
 	public CGameObject
 {
+	Items * items;
 	int TypeItems;
 public:
 	BlackBird(float x, float y, int TypeItem);

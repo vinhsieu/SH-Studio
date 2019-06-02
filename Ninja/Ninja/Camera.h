@@ -11,7 +11,9 @@ class CCamera
 	
 	int mWidth;
 	int mHeight;
-
+	 
+	float xStart;
+	float xEnd;
 	static CCamera * _instance;
 
 
@@ -26,11 +28,7 @@ public:
 
 	static CCamera * GetInstance();
 	D3DXVECTOR2 Tranform();
-	//void Following(Ninja *following);
-	//void UnFollowing();
-	//void SetTransform(CGame * game);
-	//void Update();
-
+	void SetBounding(eType Map);
 	int GetWidth();
 	int GetHeight();
 	//bool IsFollowing() const;

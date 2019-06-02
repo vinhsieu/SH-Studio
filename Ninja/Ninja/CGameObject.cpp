@@ -104,7 +104,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(CGameObject * coO)
 	float ml, mt, mr, mb;		// moving object bbox
 	float t, nx, ny;
 
-	coO->GetBoundingBox(sl, st, sr, sb);//Object
+	coO->GetBoundingBox(sl, st, sr, sb);
 
 	// deal with moving object: m speed = original m speed - collide object speed
 	float svx, svy;
@@ -115,8 +115,8 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(CGameObject * coO)
 
 	float dx = this->dx - sdx;
 	float dy = this->dy - sdy;
-	//DebugOut(L"sdx= %f, sdy=%f,dx=%f,dy=%f\n\n", sdx, sdy,dx,dy);
-	GetBoundingBox(ml, mt, mr, mb);//Ninja
+
+	GetBoundingBox(ml, mt, mr, mb);
 
 	CGame::SweptAABB(
 		ml, mt, mr, mb,
@@ -160,25 +160,17 @@ void CGameObject::FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPC
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
 
-		if (c->t <= min_tx && c->nx != 0)
-		{
-			min_tx = c->t;
-			nx = c->nx;
-			min_ix = i;
+		if (c->t < min_tx && c->nx != 0) {
+			min_tx = c->t; nx = c->nx; min_ix = i;
 		}
 
-		if (c->t <= min_ty && c->ny != 0)
-		{
-			min_ty = c->t;
-			ny = c->ny;
-			min_iy = i;
+		if (c->t < min_ty  && c->ny != 0) {
+			min_ty = c->t; ny = c->ny; min_iy = i;
 		}
 	}
 
-	if (min_ix >= 0)
-		coEventsResult.push_back(coEvents[min_ix]);
-	if (min_iy >= 0)
-		coEventsResult.push_back(coEvents[min_iy]);
+	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
+	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
 void CGameObject::CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)

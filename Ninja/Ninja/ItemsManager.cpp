@@ -76,6 +76,15 @@ void ItemsManager::AddItem(Items * Item)
 	listItem.push_back(Item);
 }
 
+void ItemsManager::Clear()
+{
+	listItem.clear();
+	/*for (auto x : listItem)
+	{
+		SAFE_DELETE(x);
+	}*/
+}
+
 ItemsManager * ItemsManager::GetInstance()
 {
 	if (_instance == NULL)

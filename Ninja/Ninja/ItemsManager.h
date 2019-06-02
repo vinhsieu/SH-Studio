@@ -22,6 +22,7 @@ public:
 	Items * itemGenerator(float xHost, float yHost, int TypeItem);
 	void AddItem(float xHost, float yHost, int TypeItem);
 	void AddItem(Items * Item);
+	void Clear();
 	static ItemsManager * GetInstance();
 	~ItemsManager();
 };

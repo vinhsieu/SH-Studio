@@ -159,4 +159,8 @@ void CGunRage::SubHealth(int th)
 
 CGunRage::~CGunRage()
 {
+	for (auto x : mWeapon)
+	{
+		SAFE_DELETE(x);
+	}
 }

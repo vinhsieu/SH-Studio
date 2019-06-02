@@ -67,6 +67,8 @@ void CTexture::LoadTexTure()
 	Add(eType::Map2, L"Resources\\Map\\Map2_TileSet.png");
 	//BBOX
 	Add(eType::BBOX, L"Resources\\bbox.png");
+	//Board
+	Add(eType::Board, L"Resources\\Board\\Board.png");
 
 
 }

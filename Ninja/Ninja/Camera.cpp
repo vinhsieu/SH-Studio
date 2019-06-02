@@ -31,6 +31,10 @@ void CCamera::SetPosition(D3DXVECTOR3 pos)
 	{
 		pos.x = 160;
 	}
+	if (pos.x > 1850)
+	{
+		pos.x = 1850;
+	}
 	pos.x = (int)pos.x;
 	pos.y = (int)pos.y;
 	mPosition = pos;
@@ -49,6 +53,18 @@ D3DXVECTOR2 CCamera::Tranform()
 {
 	return D3DXVECTOR2(SCREEN_WIDTH / 2 - mPosition.x,
 		SCREEN_HEIGHT / 2 - mPosition.y);
+}
+
+void CCamera::SetBounding(eType Map)
+{
+	switch (Map)
+	{
+	case eType::Map1:
+		this->xStart = 160;
+		this->xEnd = 2000;
+	default:
+		break;
+	}
 }
 
 

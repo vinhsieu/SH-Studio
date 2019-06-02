@@ -70,7 +70,7 @@ void CBlade::Update(DWORD dt)
 	{
 		return;
 	}
-	if (x - xStart < 0 || x + 18 - xEnd>0)
+	if ((x - xStart < 0 || x + 18 - xEnd>0)&&xStart!=-1)
 	{
 		nx *= -1;
 	}

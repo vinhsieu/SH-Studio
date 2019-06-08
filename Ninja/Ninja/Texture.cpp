@@ -65,11 +65,18 @@ void CTexture::LoadTexTure()
 	//Map
 	Add(eType::Map1, L"Resources\\Map\\Map1_TileSet.png");
 	Add(eType::Map2, L"Resources\\Map\\Map2_TileSet.png");
+	Add(eType::Map3, L"Resources\\Map\\Map3_TileSet.png");
 	//BBOX
 	Add(eType::BBOX, L"Resources\\bbox.png");
 	//Board
 	Add(eType::Board, L"Resources\\Board\\Board.png");
+	Add(eType::NOHP, L"Resources\\Board\\NoHP.bmp");
+	Add(eType::HP, L"Resources\\Board\\HP.bmp");
+	Add(eType::Spirit, L"Resources\\Board\\Spirit.png");
+	Add(eType::MainMenu, L"Resources\\Board\\mainmenu.png");
 
+	//score
+	Add(eType::font, L"Resources\\font\\font.png");
 
 }
 

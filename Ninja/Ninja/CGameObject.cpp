@@ -68,6 +68,8 @@ int CGameObject::GetHealth()
 	return Health;
 }
 
+
+
 int CGameObject::GetID()
 {
 	return this->id;

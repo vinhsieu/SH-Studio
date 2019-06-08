@@ -1,16 +1,15 @@
 #include "Dagger.h"
 #include"Ninja.h"
+#include"Grid.h"
+#include"Brick.h"
 
 
 
-
-CDagger::CDagger(float x, float y, int Direction, float xStart, float xEnd)
+CDagger::CDagger(float x, float y, int Direction)
 {
 	this->x =this->xBackup= x;
 	this->y =this->yBackup= y;
 	this->nx =this->nxBackup= Direction;
-	this->xStart = xStart;
-	this->xEnd = xEnd;
 	this->HealthBackup = Health;
 	this->vx = DAGGER_SPEED_X;
 	this->type = eType::Dagger;
@@ -85,10 +84,8 @@ void CDagger::Update(DWORD dt)
 	{
 		return;
 	}
-	if (x - xStart < 0 || x + 26 - xEnd>0)
-	{
-		nx *= -1;
-	}
+	
+
 	if (nx*vx < 0)
 	{
 		vx *= -1;
@@ -97,7 +94,7 @@ void CDagger::Update(DWORD dt)
 	float tempX, tempY;
 	Ninja::GetInstance()->GetPosition(tempX, tempY);
 
-	if (tempX - this->x < 0)
+	if (tempX - this->x < 0)//Huong Ani Khac Huong Di
 	{
 		AniDirection = -1;
 	}
@@ -118,10 +115,9 @@ void CDagger::Update(DWORD dt)
 	{
 		mWeapon->Update(dt);
 	}
+	this->vy += 0.002*dt;
 	CGameObject::Update(dt);
-	x += dx;
-	y += dy;
-	
+	CheckCollisionWithBrick();
 }
 
 void CDagger::GetBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -130,6 +126,65 @@ void CDagger::GetBoundingBox(float & left, float & top, float & right, float & b
 	top = y;
 	right = x + 26;
 	bottom = y + 33;
+}
+
+void CDagger::CheckCollisionWithBrick()
+{
+	//Objects dua vao chi duoc dua vao brick
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	vector<LPGAMEOBJECT> list_Brick;
+	list_Brick.clear();
+
+	Grid::GetInstance()->ListStatic(list_Brick);
+	CalcPotentialCollisions(&list_Brick, coEvents);
+
+	//DebugOut(L"coObjects: %d ,coEvents: %d\n",coObjects->size(), coEvents.size());
+
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+		// ?ang ko va ch?m tr?c y
+	   //DebugOut(L"Khong Co Va Cham\n");
+	}
+	else
+	{
+
+		float min_tx, min_ty, nx = 0, ny;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			CBrick *currentBrick = dynamic_cast<CBrick *>(e->obj);
+			x += min_tx * dx + nx * 0.4f;
+			if (ny == -1)
+			{
+				y += min_ty * dy + ny * 0.4f;
+			}
+			else
+			{
+				y += dy;
+			}
+			float xBrickStart = 0;
+			float xBrickEnd = 0;
+			currentBrick->getStartEnd(xBrickStart, xBrickEnd);
+			if (this->x < xBrickStart)
+			{
+				this->nx = 1;
+			}
+			if (this->x + DAGGER_T0_CENTERX * 2 > xBrickEnd)
+			{
+				this->nx = -1;
+			}
+		}
+
+	}
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void CDagger::SubHealth(int th)

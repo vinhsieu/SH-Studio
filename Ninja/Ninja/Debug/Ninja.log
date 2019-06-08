@@ -1,3 +1,119 @@
-﻿  Ninja.cpp
-e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\ninja.cpp(240): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+﻿  BasicWeapon.cpp
+  BlackBird.cpp
+  Blade.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\blade.cpp(93): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  BombGun.cpp
+  BombGun_Fired.cpp
+  Boss.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\boss.cpp(97): warning C4305: '=': truncation from 'double' to 'float'
+  Boss_bullet.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\boss_bullet.cpp(39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\boss_bullet.cpp(43): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  Brick.cpp
+  BrownBird.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\brownbird.cpp(77): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\brownbird.cpp(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Butterfly.cpp
+  CBlueShuriken.cpp
+  CBoard.cpp
+  CBoardHealth.cpp
+  CEnemyDie.cpp
+  CGame.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgame.cpp(80): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgame.cpp(143): warning C4305: '=': truncation from '__int64' to 'float'
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgame.cpp(144): warning C4305: '=': truncation from '__int64' to 'float'
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgame.cpp(154): warning C4305: '=': truncation from '__int64' to 'float'
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgame.cpp(155): warning C4305: '=': truncation from '__int64' to 'float'
+  CGameObject.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgameobject.cpp(91): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgameobject.cpp(92): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgameobject.cpp(93): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgameobject.cpp(94): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgameobject.cpp(96): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgameobject.cpp(97): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgameobject.cpp(98): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cgameobject.cpp(99): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  CRedShuriken.cpp
+  CWeapon.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cweapon.cpp(90): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cweapon.cpp(91): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cweapon.cpp(92): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\cweapon.cpp(93): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  Camera.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\camera.cpp(38): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\camera.cpp(39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\camera.cpp(97): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\camera.cpp(99): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+  DSutil.cpp
+  Generating Code...
+  Compiling...
+  Dagger.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\dagger.cpp(118): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Dagger_Throw.cpp
+  EffectManager.cpp
+  Font.cpp
+  Footballguy.cpp
+  Game.cpp
+  GameMap.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\gamemap.cpp(28): warning C4018: '<': signed/unsigned mismatch
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\gamemap.cpp(30): warning C4018: '<': signed/unsigned mismatch
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\gamemap.cpp(32): warning C4244: 'argument': conversion from 'int' to 'FLOAT', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\gamemap.cpp(36): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\gamemap.cpp(37): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\gamemap.cpp(61): warning C4101: 'result': unreferenced local variable
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\gamemap.cpp(60): warning C4101: 'info': unreferenced local variable
+  Game_Over.cpp
+  Grid.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(37): warning C4101: 'xStart': unreferenced local variable
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(37): warning C4101: 'xEnd': unreferenced local variable
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(107): warning C4018: '<': signed/unsigned mismatch
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(149): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(155): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(168): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(208): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(209): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(210): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(211): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(224): warning C4018: '<': signed/unsigned mismatch
+  GunRage.cpp
+  GunRage_Shoot.cpp
+  ItemBluePoint.cpp
+  ItemBlueShuriken.cpp
+  ItemBlueStack.cpp
+  ItemFreezeTime.cpp
+  ItemHadoken.cpp
+  ItemHealth.cpp
+  ItemRedPoint.cpp
+  ItemRedShuriken.cpp
+  ItemRedStack.cpp
+  Generating Code...
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\grid.cpp(159): warning C4715: 'Grid::NewObject': not all control paths return a value
+  Compiling...
+  Items.cpp
+  ItemsManager.cpp
+  KeyBoard.cpp
+  Ninja.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\ninja.cpp(267): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Panther.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\panther.cpp(15): warning C4305: '=': truncation from 'double' to 'float'
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\panther.cpp(97): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Scene.cpp
+  SceneManager.cpp
+  Scene_End.cpp
+  Scene_Game.cpp
+  Scene_Intro.cpp
+  Sound.cpp
+  Stairs.cpp
+  Texture.cpp
+  Timer.cpp
+  define.cpp
+  main.cpp
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\main.cpp(16): warning C4005: 'WINDOW_CLASS_NAME': macro redefinition
+  e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\define.h(8): note: see previous definition of 'WINDOW_CLASS_NAME'
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\main.cpp(17): warning C4005: 'MAIN_WINDOW_TITLE': macro redefinition
+  e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\define.h(9): note: see previous definition of 'MAIN_WINDOW_TITLE'
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\main.cpp(18): warning C4005: 'BACKGROUND_COLOR': macro redefinition
+  e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\define.h(10): note: see previous definition of 'BACKGROUND_COLOR'
+  Generating Code...
+e:\hkii 2019\phát triển game\sh-studio-ec996b502f18b897684276431aa63ff202b3bfef\ninja\ninja\itemsmanager.cpp(66): warning C4715: 'ItemsManager::itemGenerator': not all control paths return a value
   Ninja.vcxproj -> E:\HKII 2019\Phát Triển Game\SH-Studio-ec996b502f18b897684276431aa63ff202b3bfef\Ninja\Debug\Ninja.exe

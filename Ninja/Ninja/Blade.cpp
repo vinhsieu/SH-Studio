@@ -1,15 +1,15 @@
 #include "Blade.h"
 #include"Ninja.h"
-
-CBlade::CBlade(float x, float y, int Direction, int xStart, int xEnd)
+#include"Grid.h"
+CBlade::CBlade(float x, float y, int Direction)
 {
 	CGameObject::CGameObject();
-	this->xStart = xStart;
-	this->xEnd = xEnd;
 	this->isActive = false;
 	this->x =this->xBackup= x;
 	this->y =this->yBackup= y;
-	this->nx =this->nxBackup= Direction;
+	this->nx = Direction;
+	this->nxBackup= Direction;
+	this->Health = 0;
 	this->HealthBackup = this->Health;
 	this->type = eType::Blade;
 	this->vx = BLADE_VX;
@@ -56,11 +56,30 @@ void CBlade::Render()
 
 void CBlade::Update(DWORD dt)
 {
+	if (nx*vx < 0)
+	{
+		vx *= -1;
+	}
 	float xNinja, yNinja;
 	Ninja::GetInstance()->GetPosition(xNinja, yNinja);
-	if (((this->x - xNinja)*nx < 0 && fabs(this->x - xNinja) < BLADE_ACTIVE_AREA))
+	if (this->nx == -1)
 	{
-		isActive = true;
+		if (!isActive)
+		{
+			isActive = true;
+			this->Health = 1;
+		}
+	}
+	else
+	{
+		if (this->x - xNinja < 0 && fabs(this->x - xNinja) > BLADE_ACTIVE_AREA)
+		{
+			if (!isActive)
+			{
+				isActive = true;
+				this->Health = 1;
+			}
+		}
 	}
 	if (!isActive)
 	{
@@ -70,17 +89,11 @@ void CBlade::Update(DWORD dt)
 	{
 		return;
 	}
-	if ((x - xStart < 0 || x + 18 - xEnd>0)&&xStart!=-1)
-	{
-		nx *= -1;
-	}
-	if (nx*vx<0 )
-	{
-		vx *= -1;
-	}
+	
+	this->vy += 0.002*dt;
+	//DebugOut(L"vx: %f,nx:%f\n", this->vx,this->nx);
 	CGameObject::Update(dt);
-	x = x + dx;
-	y = y + dy;
+	CheckCollisionWithBrick();
 }
 
 void CBlade::GetBoundingBox(float & left, float & top, float & right, float & bottom)
@@ -91,6 +104,66 @@ void CBlade::GetBoundingBox(float & left, float & top, float & right, float & bo
 	bottom = y + 33;
 }
 
+void CBlade::CheckCollisionWithBrick()
+{
+
+	//Objects dua vao chi duoc dua vao brick
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	vector<LPGAMEOBJECT> list_Brick;
+	list_Brick.clear();
+	
+	Grid::GetInstance()->ListStatic(list_Brick);
+	CalcPotentialCollisions(&list_Brick, coEvents);
+
+	//DebugOut(L"coObjects: %d ,coEvents: %d\n",coObjects->size(), coEvents.size());
+
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+		// ?ang ko va ch?m tr?c y
+	   //DebugOut(L"Khong Co Va Cham\n");
+	}
+	else
+	{
+		
+		float min_tx, min_ty, nx = 0, ny;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			CBrick *currentBrick= dynamic_cast<CBrick *>(e->obj);
+			x += min_tx * dx + nx * 0.4f;
+			if (ny == -1)
+			{
+				y += min_ty * dy + ny * 0.4f;
+			}
+			else
+			{
+				y += dy;
+			}
+			float xBrickStart = 0;
+			float xBrickEnd = 0;
+			currentBrick->getStartEnd(xBrickStart, xBrickEnd);
+			if (this->x < xBrickStart)
+			{
+				this->nx = 1;
+			}
+			if (this->x + BLADE_TO_CENTERX * 2 > xBrickEnd)
+			{
+				this->nx = -1;
+			}
+		}
+
+	}
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+}
+
 void CBlade::SubHealth(int th)
 {
 	if (this->Health != 0)
@@ -98,12 +171,13 @@ void CBlade::SubHealth(int th)
 		EffectManager::GetInstance()->AddEffect(this->x, this->y, BLADE_TO_CENTERX * 2, BLADE_TO_CENTERY * 2);
 	}
 	CGameObject::SubHealth(th);
-	
-
 }
 
-
-
+void CBlade::SetDefault()
+{
+	this->isActive = false;
+	CGameObject::SetDefault();
+}
 
 CBlade::~CBlade()
 {

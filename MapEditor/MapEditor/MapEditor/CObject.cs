@@ -104,7 +104,7 @@ namespace MapEditor
         public string Output()
         {
             string output;
-            output = idName.ToString() + " " + multiFunc.ToString() + " " + region.X.ToString() + " " + region.Y.ToString() + " " + region.Width.ToString()+" "+region.Height.ToString()+" "+ReverseLo_Start+" "+ReverseLo_End;
+            output = idName.ToString() + " " + multiFunc.ToString() + " " + region.X.ToString() + " " + region.Y.ToString() + " " + region.Width.ToString()+" "+region.Height.ToString();
             return output;
         }
     }

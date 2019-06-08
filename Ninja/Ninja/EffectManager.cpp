@@ -29,9 +29,9 @@ void EffectManager::Render()
 	}
 }
 
-void EffectManager::AddEffect(float xHost, float yHost, int WidthHost, int HightHost)
+void EffectManager::AddEffect(float xHost, float yHost, int WidthHost, int HightHost,int TypeEnemy)
 {
-	listEffect.push_back(new CEnemyDie(xHost, yHost, WidthHost, HightHost));
+	listEffect.push_back(new CEnemyDie(xHost, yHost, WidthHost, HightHost,TypeEnemy));
 }
 
 void EffectManager::ClearEffect()

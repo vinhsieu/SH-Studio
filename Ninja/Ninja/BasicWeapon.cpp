@@ -14,9 +14,12 @@ CBasicWeapon::~CBasicWeapon()
 
 void CBasicWeapon::Attach()
 {
-	isFinished = false;
-	lastAttach = GetTickCount();
-	Sound::GetInstance()->Play(eSound::sound_Normal_Attack);
+	if (isFinished)
+	{
+		isFinished = false;
+		lastAttach = GetTickCount();
+		Sound::GetInstance()->Play(eSound::sound_Normal_Attack);
+	}
 }
 
 void CBasicWeapon::Render()
@@ -28,19 +31,13 @@ void CBasicWeapon::Render()
 	}
 }
 
-//bool CBasicWeapon::GetisFinished()
-//{
-//	DebugOut(L"isFinished: %d\n", isFinished);
-//	return isFinished;
-//	
-//}
 
 void CBasicWeapon::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	left = this->x;
 	top = this->y;
 	right = left + 16;
-	bottom = top + 8;
+	bottom = top + 16;
 }
 
 void CBasicWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

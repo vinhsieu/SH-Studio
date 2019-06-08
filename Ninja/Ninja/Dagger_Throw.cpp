@@ -103,7 +103,13 @@ void Dagger_Throw::CheckCollision()
 {
 	if (AABBcollision(Ninja::GetInstance()))
 	{
+		if (Ninja::GetInstance()->getUntouchable())
+		{
+			return;
+		}
 		Ninja::GetInstance()->SubHealth(1);
+		Ninja::GetInstance()->SetState(NINJA_STATE_BEING_HURT);
+		Ninja::GetInstance()->StartUntouchable();
 		this->Health = 0;
 		isFinished = true;
 	}

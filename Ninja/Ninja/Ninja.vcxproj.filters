@@ -64,6 +64,15 @@
     <Filter Include="GameComponents\Board">
       <UniqueIdentifier>{8e6ff924-97b6-4819-a5e4-c23257a563fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameComponents\Board\font">
+      <UniqueIdentifier>{bcdf6863-8b79-4f44-849f-34bc306aa3f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameComponents\Timer">
+      <UniqueIdentifier>{764520b8-7128-4a29-9b33-aff9aa40aaab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameComponents\BackGround">
+      <UniqueIdentifier>{e45f4803-7bcb-49af-978b-630e8c79b4f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -95,9 +104,6 @@
     </ClInclude>
     <ClInclude Include="CGame.h">
       <Filter>GameComponents\CGame</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMap.h">
-      <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>GameComponents</Filter>
@@ -222,6 +228,27 @@
     <ClInclude Include="Scene_Game.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>GameComponents\Board\font</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoardHealth.h">
+      <Filter>GameComponents\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_bullet.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>GameComponents\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_Over.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>GameComponents\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_End.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -253,9 +280,6 @@
     </ClCompile>
     <ClCompile Include="CGame.cpp">
       <Filter>GameComponents\CGame</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMap.cpp">
-      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>GameComponents</Filter>
@@ -382,6 +406,27 @@
     </ClCompile>
     <ClCompile Include="define.cpp">
       <Filter>GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>GameComponents\Board\font</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoardHealth.cpp">
+      <Filter>GameComponents\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_bullet.cpp">
+      <Filter>Objects\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>GameComponents\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Over.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>GameComponents\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_End.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

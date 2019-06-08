@@ -35,6 +35,9 @@
             this.pictureBox_Map = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox_ReverseLo_End = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox_ReverseLo_Start = new System.Windows.Forms.TextBox();
             this.button_ExportGrid = new System.Windows.Forms.Button();
             this.button_ZoomOut = new System.Windows.Forms.Button();
             this.button_ZoomIn = new System.Windows.Forms.Button();
@@ -44,6 +47,10 @@
             this.button_Delete = new System.Windows.Forms.Button();
             this.textBox_NumObject = new System.Windows.Forms.TextBox();
             this.dataGridView_Object = new System.Windows.Forms.DataGridView();
+            this.NameObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Multifunc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReverseLoca = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBox_MultiFunc = new System.Windows.Forms.ComboBox();
             this.comboBox_Name = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -59,13 +66,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button_ChooseFile = new System.Windows.Forms.Button();
-            this.textBox_ReverseLo_Start = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox_ReverseLo_End = new System.Windows.Forms.TextBox();
-            this.NameObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Multifunc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReverseLoca = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -156,6 +156,34 @@
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Setting Object";
+            // 
+            // textBox_ReverseLo_End
+            // 
+            this.textBox_ReverseLo_End.Location = new System.Drawing.Point(129, 77);
+            this.textBox_ReverseLo_End.Name = "textBox_ReverseLo_End";
+            this.textBox_ReverseLo_End.ReadOnly = true;
+            this.textBox_ReverseLo_End.Size = new System.Drawing.Size(50, 20);
+            this.textBox_ReverseLo_End.TabIndex = 19;
+            this.textBox_ReverseLo_End.Text = "-1";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(3, 80);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(68, 15);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "ReverLo_X";
+            // 
+            // textBox_ReverseLo_Start
+            // 
+            this.textBox_ReverseLo_Start.Location = new System.Drawing.Point(73, 77);
+            this.textBox_ReverseLo_Start.Name = "textBox_ReverseLo_Start";
+            this.textBox_ReverseLo_Start.ReadOnly = true;
+            this.textBox_ReverseLo_Start.Size = new System.Drawing.Size(48, 20);
+            this.textBox_ReverseLo_Start.TabIndex = 17;
+            this.textBox_ReverseLo_Start.Text = "-1";
             // 
             // button_ExportGrid
             // 
@@ -257,6 +285,29 @@
             this.dataGridView_Object.TabIndex = 7;
             this.dataGridView_Object.SelectionChanged += new System.EventHandler(this.dataGridView_Object_SelectionChanged);
             this.dataGridView_Object.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_Object_UserDeletingRow);
+            // 
+            // NameObject
+            // 
+            this.NameObject.FillWeight = 70.17551F;
+            this.NameObject.HeaderText = "Name";
+            this.NameObject.Name = "NameObject";
+            // 
+            // Multifunc
+            // 
+            this.Multifunc.FillWeight = 76.65892F;
+            this.Multifunc.HeaderText = "MultiFunc";
+            this.Multifunc.Name = "Multifunc";
+            // 
+            // Location
+            // 
+            this.Location.FillWeight = 171.9473F;
+            this.Location.HeaderText = "Location";
+            this.Location.Name = "Location";
+            // 
+            // ReverseLoca
+            // 
+            this.ReverseLoca.HeaderText = "Reverse";
+            this.ReverseLoca.Name = "ReverseLoca";
             // 
             // comboBox_MultiFunc
             // 
@@ -439,55 +490,6 @@
             this.button_ChooseFile.Text = "Choose";
             this.button_ChooseFile.UseVisualStyleBackColor = true;
             this.button_ChooseFile.Click += new System.EventHandler(this.button_ChooseFile_Click);
-            // 
-            // textBox_ReverseLo_Start
-            // 
-            this.textBox_ReverseLo_Start.Location = new System.Drawing.Point(73, 77);
-            this.textBox_ReverseLo_Start.Name = "textBox_ReverseLo_Start";
-            this.textBox_ReverseLo_Start.Size = new System.Drawing.Size(48, 20);
-            this.textBox_ReverseLo_Start.TabIndex = 17;
-            this.textBox_ReverseLo_Start.Text = "-1";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(3, 80);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(68, 15);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "ReverLo_X";
-            // 
-            // textBox_ReverseLo_End
-            // 
-            this.textBox_ReverseLo_End.Location = new System.Drawing.Point(129, 77);
-            this.textBox_ReverseLo_End.Name = "textBox_ReverseLo_End";
-            this.textBox_ReverseLo_End.Size = new System.Drawing.Size(50, 20);
-            this.textBox_ReverseLo_End.TabIndex = 19;
-            this.textBox_ReverseLo_End.Text = "-1";
-            // 
-            // NameObject
-            // 
-            this.NameObject.FillWeight = 70.17551F;
-            this.NameObject.HeaderText = "Name";
-            this.NameObject.Name = "NameObject";
-            // 
-            // Multifunc
-            // 
-            this.Multifunc.FillWeight = 76.65892F;
-            this.Multifunc.HeaderText = "MultiFunc";
-            this.Multifunc.Name = "Multifunc";
-            // 
-            // Location
-            // 
-            this.Location.FillWeight = 171.9473F;
-            this.Location.HeaderText = "Location";
-            this.Location.Name = "Location";
-            // 
-            // ReverseLoca
-            // 
-            this.ReverseLoca.HeaderText = "Reverse";
-            this.ReverseLoca.Name = "ReverseLoca";
             // 
             // Form
             // 

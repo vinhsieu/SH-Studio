@@ -3,7 +3,7 @@
 //#include"Ninja.h"
 
 #define BASIC_WEAPON_TIME 300
-#define BASIC_WEAPON_TO_CENTER_Y 4
+#define BASIC_WEAPON_TO_CENTER_Y 8
 #define BASIC_WEAPON_TO_CENTER_X 8
 class CBasicWeapon :
 	public CWeapon

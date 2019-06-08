@@ -9,7 +9,7 @@ public:
 	EffectManager();
 	void Update(DWORD dt);
 	void Render();
-	void AddEffect(float xHost, float yHost, int WidthHost, int HightHost);
+	void AddEffect(float xHost, float yHost, int WidthHost, int HightHost,int TypeEnemy=0);
 	void ClearEffect();
 	static EffectManager * GetInstance();
 	~EffectManager();

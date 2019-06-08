@@ -5,10 +5,12 @@
 BlackBird::BlackBird(float x, float y, int TypeItem)
 {
 	CGameObject::CGameObject();
+	this->HealthBackup = Health;
 	this->x = x;
 	this->y = y;
+	this->xBackup = x;
+	this->yBackup = y;
 	this->type = eType::Black_Bird;
-	this->HealthBackup = 0;
 	this->TypeItems = TypeItem;
 	items = ItemsManager::GetInstance()->itemGenerator(this->x, this->y, TypeItem);
 	LoadAni();

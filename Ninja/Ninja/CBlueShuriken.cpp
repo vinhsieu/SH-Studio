@@ -5,6 +5,7 @@
 CBlueShuriken::CBlueShuriken()
 {
 	isFinished = true;
+	this->type = eType::BlueShuriken;
 	this->vx = CBLUESHURIKEN_SPEED;
 	this->vy = 0.0f;
 	LoadAni();
@@ -139,6 +140,7 @@ void CBlueShuriken::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 			
 		}
 	}
+	CheckCollisEnemyWeapon();
 	x += dx;//Update neu nhu khong co va cham
 	y += dy;
 }

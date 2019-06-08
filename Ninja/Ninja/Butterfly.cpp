@@ -11,7 +11,7 @@ Butterfly::Butterfly(float x, float y, int TypeItem)
 	this->xBackup = x;
 	this->yBackup = y;
 	this->type = eType::ButterFly;
-	//this->TypeItems = TypeItem;
+	this->TypeItems = TypeItem;
 	items = ItemsManager::GetInstance()->itemGenerator(this->x,this->y,TypeItem);
 	LoadAni();
 }

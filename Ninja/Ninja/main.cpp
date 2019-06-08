@@ -85,7 +85,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 }
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, 320, 240);
+	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, 256, 240);
 	game = new Game();
 	game->GameInit(hWnd);
 	game->Run();

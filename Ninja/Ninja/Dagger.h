@@ -20,13 +20,13 @@ class CDagger : public CGameObject
 {
 	Dagger_Throw * mWeapon;
 	int AniDirection;
-	float xStart, xEnd;
 public:
-	CDagger(float x, float y, int Direction,float xStart, float xEnd);
+	CDagger(float x, float y, int Direction);
 	void LoadAni();
 	void Render();
 	void Update(DWORD dt);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	void CheckCollisionWithBrick();
 	void SubHealth(int th);
 	~CDagger();
 };

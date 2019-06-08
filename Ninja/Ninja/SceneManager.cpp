@@ -27,6 +27,16 @@ void SceneManager::SetScene(Scene * x)
 	SAFE_DELETE(scene_temp);
 }
 
+int SceneManager::getState()
+{
+	return _scene->getState();
+}
+
+void SceneManager::SetStateSituation(int statesituation)
+{
+	_scene->SetStateSituation(statesituation);
+}
+
 void SceneManager::KeyState(BYTE * state)
 {
 	_scene->KeyState(state);

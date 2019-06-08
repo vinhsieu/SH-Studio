@@ -12,7 +12,6 @@ class CCamera
 	int mWidth;
 	int mHeight;
 	 
-	float xStart;
 	float xEnd;
 	static CCamera * _instance;
 

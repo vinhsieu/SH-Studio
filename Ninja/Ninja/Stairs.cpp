@@ -8,7 +8,14 @@ Stairs::Stairs(float X, float Y, int W, int H, int Multifunc)
 	this->y = Y;
 	this->Width = W;
 	this->Height = H;
-	this->AllowToClimb = Multifunc;
+	if (Multifunc == -1)//-1 la khong cho leo
+	{
+		this->AllowToClimb = 1;
+	}
+	else
+	{
+		this->AllowToClimb = 2;
+	}
 	this->yStart = Y;
 	this->yEnd = Y + Height;
 	this->type = eType::STAIR;

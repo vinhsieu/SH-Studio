@@ -29,33 +29,56 @@ void CWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void CWeapon::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 {
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
+	//vector<LPCOLLISIONEVENT> coEvents;
+	//vector<LPCOLLISIONEVENT> coEventsResult;
 
-	coEvents.clear();
+	//coEvents.clear();
 
 	vector<LPGAMEOBJECT> list_Enemy;
 	list_Enemy.clear();
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		if (coObjects->at(i)->GetType() != eType::BRICK)
-			list_Enemy.push_back(coObjects->at(i));
-
+		{
+				list_Enemy.push_back(coObjects->at(i));
+		}
 	}
 
 
 	for (UINT i = 0; i < list_Enemy.size(); i++)
 	{
-
-		if (AABBcollision(list_Enemy.at(i)))
+		if (AABBcollision(list_Enemy.at(i))&& list_Enemy.at(i)->GetHealth()!=0)
 		{
-			list_Enemy[i]->SubHealth(2);
-			Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
+			if (list_Enemy.at(i)->GetType() != eType::BOSS)
+			{
+				list_Enemy[i]->SubHealth(2);
+				Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
+				Ninja::GetInstance()->plusPoint(100);
+			}
+			else
+			{
+				list_Enemy[i]->SubHealth(1);
+				this->isFinished = true;
+			}
 			//return;
 			//DebugOut(L"co va cham\n");
 		}
 	}
+	CheckCollisEnemyWeapon();
+}
 
+void CWeapon::CheckCollisEnemyWeapon()
+{
+	vector<CWeapon *>listEnemyWeapon;
+	Grid::GetInstance()->GetListBullet(listEnemyWeapon);
+	for (auto x : listEnemyWeapon)
+	{
+		if (!x->GetisFinished() && AABBcollision(x))
+		{
+			x->setIsFinished(true);
+			x->SubHealth(1);
+		}
+	}
 }
 
 bool CWeapon::CheckOutOfCamera()
@@ -76,4 +99,20 @@ bool CWeapon::GetisFinished()
 {
 	return isFinished;
 }
+
+void CWeapon::setIsFinished(bool isFinished)
+{
+	this->isFinished = isFinished;
+}
+
+void CWeapon::SubHealth(int th)
+{
+	if (this->Health != 0)
+	{
+		EffectManager::GetInstance()->AddEffect(this->x, this->y, 2 * 2, 3 * 2);
+	}
+	CGameObject::SubHealth(th);
+}
+
+
 

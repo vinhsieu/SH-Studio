@@ -8,6 +8,7 @@ CRedShuriken::CRedShuriken()
 	isFinished = true;
 	this->vx = CREDSHURIKEN_SPEED;
 	LoadAni();
+	this->type = eType::RedShuriken;
 }
 
 
@@ -150,14 +151,13 @@ void CRedShuriken::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 		{
 			list_Enemy[i]->SubHealth(2);
 			Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
-			this->Health = 0;
+			//this->Health = 0;
 			//this->vx = 0;// Update som hon Attack nen Set ve 0 de khoi Collis voi Ninja
-			isFinished = true;
-			return;
+			//return;
 
 		}
 	}
-	
+	CheckCollisEnemyWeapon();
 	x += dx;//Update neu nhu khong co va cham
 	y += dy;
 }

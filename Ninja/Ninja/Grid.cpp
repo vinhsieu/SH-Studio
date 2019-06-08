@@ -41,8 +41,9 @@ void Grid::ReadGrid()
 	inp >> n;
 	for (int i = 0; i < n; i++)
 	{
-		inp >> id >> type >> Multifunc >> x >> y >> w >> h >> xStart >> xEnd;
-		Insert(id, type, Multifunc, x, y, w, h, xStart,xEnd);
+		inp >> id >> type >> Multifunc >> x >> y >> w >> h;
+		//DebugOut(L"id: %d\n", id);
+		Insert(id, type, Multifunc, x, y, w, h);
 	}
 	inp.close();
 }
@@ -51,6 +52,18 @@ void Grid::BuildGrid()//Save grid(chua lam)
 {
 	string gridPath;
 
+}
+
+void Grid::GetListBullet(vector<CWeapon*>& listbullet)
+{
+	listbullet.clear();
+	for (auto x : listEnemyBullet)
+	{
+		for (auto y : x.second)
+		{
+			listbullet.push_back(y);
+		}
+	}
 }
 
 void Grid::Clear()
@@ -114,16 +127,16 @@ void Grid::ReloadOutOfCameraGrid(vector<LPGAMEOBJECT> ListObj)
 
 }
 
-CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y, float w, float h,float xStart,float xEnd)
+CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y, float w, float h)
 {
 	switch (type)
 	{
 		case eType::Dagger:
-			return new CDagger(x, y, Multifuntion, xStart, xEnd);
+			return new CDagger(x, y, Multifuntion);
 		case eType::BombGun:
 			return new CBombGun(id,x, y, Multifuntion);
 		case eType::Blade:
-			return new CBlade(x, y, Multifuntion,xStart,xEnd);
+			return new CBlade(x, y, Multifuntion);
 		case eType::BrownBird:
 			return new CBrownBird(x, y, Multifuntion);
 		case eType::Footballguy:
@@ -140,17 +153,19 @@ CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y
 			return new Butterfly(x, y, Multifuntion);
 		case eType::STAIR:
 			return new Stairs(x, y, w, h,Multifuntion);
+		case eType::BOSS:
+			return new Boss();
 	}
 }
 
-void Grid::Insert(int id, int type, int direction, float x, float y, int w, int h, float xStart, float xEnd)
+void Grid::Insert(int id, int type, int direction, float x, float y, int w, int h)
 {
 	int top = (int)(y / GRID_CELL_HEIGHT);
 	int bottom = (int)((y + h) / GRID_CELL_HEIGHT);
 	int left = (int)(x / GRID_CELL_WIDTH);
 	int right = (int)((x + w) / GRID_CELL_WIDTH);
 
-	CGameObject * obj = NewObject(id,type,direction, x, y, w, h,xStart,xEnd);
+	CGameObject * obj = NewObject(id,type,direction, x, y, w, h);
 	if (obj == NULL)
 	{
 		return;
@@ -165,6 +180,7 @@ void Grid::Insert(int id, int type, int direction, float x, float y, int w, int 
 			cells[i][j].push_back(obj);
 		}
 	}
+
 }
 
 void Grid::ListObject(vector<CGameObject*>& ListObj)
@@ -183,7 +199,7 @@ void Grid::ListObject(vector<CGameObject*>& ListObj)
 	vector<CGameObject* > listnow; //Update Obj Di Chuyen
 	listnow = ListObj;
 	ListObj.clear();
-	
+	this->listStatic.clear();
 	for (auto x : listnow)// Cac object van nam trong camera
 	{
 		RECT gObj;
@@ -241,8 +257,20 @@ void Grid::ListObject(vector<CGameObject*>& ListObj)
 	{
 		ListObj.push_back(x.second);
 	}
-	
+	for (auto x : mapObject)
+	{
+		if (x.second->GetType() == eType::BRICK)
+		{
+			listStatic.push_back(x.second);
+		}
+	}
 	ReloadOutOfCameraGrid(ListObj);
+}
+
+void Grid::ListStatic(vector<LPGAMEOBJECT>& listStatic)
+{
+	listStatic.clear();
+	listStatic = this->listStatic;
 }
 
 

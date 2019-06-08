@@ -34,7 +34,7 @@ void Sound::LoadResourceSound()
 	AddSound(eSound::sound_Normal_Attack, L"Resources/sound/14_Normal_Attack.wav");
 	AddSound(eSound::sound_Boss_Die, L"Resources/sound/15_Boss_Die.wav");
 	AddSound(eSound::sound_Boss_Jump_Hit_Wall, L"Resources/sound/16_Boss_Jump_Hit_Wall.wav");
-
+	AddSound(eSound::sound_Timer_Boss_Die, L"Resources/sound/17_Timer_Boss_Die.wav");
 
 	AddSound(eSound::music_Scence_1, L"Resources/sound/51_Scence_3.1.wav");
 	AddSound(eSound::music_Scence_2, L"Resources/sound/52_Scence_3.2.wav");
@@ -63,7 +63,6 @@ void Sound::AddSound(eSound type, LPTSTR filename)
  	HRESULT result= dsound->Create(&wave, filename);
 	if (result != DS_OK)
 	{
-		DebugOut(L"[SOUND] Load Sound that bai. eSound = %d \n", (int)type);
 		return;
 	} 
 	_ArrSound[type] = wave;

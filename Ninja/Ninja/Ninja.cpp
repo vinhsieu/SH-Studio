@@ -2,12 +2,17 @@
 #include"debug.h"
 #include"Sound.h"
 #include"ItemsManager.h"
+#include"Scene.h"
+
+
 Ninja * Ninja::_instance = NULL;
 bool AllowSetNewState = true;
 Ninja::Ninja()
 {
 	CGameObject::CGameObject();
-	this->Health = 100;
+	this->Health = 16;
+	this->Life = 3;
+	this->NumberOfBullet = 0;
 	isAttach = -1;//Not attach, 1 attach
 	isSit = -2;// Not Sit , 2 sit
 	this->type = eType::NINJA;
@@ -16,19 +21,37 @@ Ninja::Ninja()
 	isCollisionAxisYWithBrick = true;
 	isAllowContinueClimbing = false;
 	isClimbing = 0;
+	this->Point = 0;
 	DefaultWeapon= new CBasicWeapon();
 	LoadAni();
 }
 
 void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (this->Health == 0 || y > 300)
+	{
+		this->Life -= 1;
+		if (this->Life < 0)
+		{
+			SceneManager::GetInstance()->SetStateSituation(Ninja_Out_Of_Life);
+			this->Life = 3;
+		}
+		else
+		{
+			SceneManager::GetInstance()->SetStateSituation(Ninja_Die);
+		}
+		
+		if (this->Health == 0)
+		{
+			this->Health = 16;
+		}
+	}
 	if (isClimbing==0) 
 	{
 		CGameObject::Update(dt);
 	}
-	
+	//DebugOut(L"dy: %f\n", this->dy);
 	vy += NINJA_GRAVITY*dt;
-	
 	
 	if (GetTickCount() - untouchable_start > NINJA_UNTOUCHABLE_TIME)
 	{
@@ -204,11 +227,18 @@ void Ninja::SetState(int State)
 		nx = -1;
 		break;
 	case NINJA_STATE_JUMP:
-		if (isCollisionAxisYWithBrick||isClimbing)
+		if (isCollisionAxisYWithBrick)
 		{
 			isClimbing = false;
 			vy = -NINJA_JUMP_SPEED_Y;
-			isCollisionAxisYWithBrick = true;
+			isCollisionAxisYWithBrick = false;
+			Sound::GetInstance()->Play(eSound::sound_Jump_Climb);
+		}
+		if (isClimbing && nx*nxwithStairs>0)
+		{
+			isClimbing = false;
+			vy = -NINJA_JUMP_SPEED_Y;
+			isCollisionAxisYWithBrick = false;
 			Sound::GetInstance()->Play(eSound::sound_Jump_Climb);
 		}
 		break;
@@ -390,6 +420,21 @@ void Ninja::LoadAni()
 	//SetPosition(0.0f, 150.0f);
 }
 
+int Ninja::getLife()
+{
+	return this->Life;
+}
+
+int Ninja::getSpirit()
+{
+	return this->NumberOfBullet;
+}
+
+void Ninja::plusPoint(int plusPoint)
+{
+	this->Point += plusPoint;
+}
+
 void Ninja::Attach()
 {
 	if (DefaultWeapon->GetisFinished() && isUsingExtraWeapon == 0)
@@ -398,8 +443,9 @@ void Ninja::Attach()
 	}
 	if (ExtraWeapon != NULL)
 	{
-		if (ExtraWeapon->GetisFinished() && isUsingExtraWeapon == 1)
+		if (ExtraWeapon->GetisFinished() && isUsingExtraWeapon == 1 && this->NumberOfBullet>=5)
 		{
+			this->NumberOfBullet -= 5;
 			ExtraWeapon->Attach();
 		}
 	}
@@ -433,38 +479,48 @@ void Ninja::CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 	}
 	
 	CalcPotentialCollisions(&list_Brick, coEvents);
-	//DebugOut(L"list_Brick: %d, coEvent: %d\n", list_Brick.size(), coEvents.size());
-	//DebugOut(L"coObjects: %d ,coEvents: %d\n",coObjects->size(), coEvents.size());
-	
 	if (coEvents.size() == 0)
 	{
 		isClimbing = 0;
-		isCollisionAxisYWithBrick = false;
 		x += dx;
 		y += dy;
 		// đang ko va chạm trục y
-	   //DebugOut(L"Khong Co Va Cham\n");
 	}
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		//DebugOut(L"coEvents: %d,coEventsResults: %d\n",coEvents.size(), coEventsResult.size());
-		//if (nx != 0) vx = 0;
-		//if (ny != 0) vy = 0;
+		//DebugOut(L"coEventsResults: %d\n",coEventsResult.size());
+		if (nx != 0)
+		{
+			vx = 0;
+		}
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
+			//x += min_tx * dx + nx * 0.4f;
+			//x += dx;
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CBrick *>(e->obj))
 			{
-
-				isCollisionAxisYWithBrick = true;
+				//DebugOut(L"this\n");
 				//x += dx;
-				x += min_tx * dx + nx * 0.4f;
-				if (e->ny <0)
+				if (e->nx != 0)
 				{
-					//this->vy = 0.1f;
+					x += dx;
+				}
+				else
+				{
+					x += min_tx * dx + nx * 0.4f;
+				}
+				if (e->ny ==-1)
+				{
 					y += min_ty * dy + ny * 0.4f;
+					if (ny != 0)
+					{
+						vy = 0;
+					}
+				
+					isCollisionAxisYWithBrick = true;
 				}
 				else// Nhay duoi len
 				{
@@ -474,83 +530,43 @@ void Ninja::CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 			else
 			{
 				Stairs * currentStairs = dynamic_cast<Stairs *>(e->obj);
-				x += min_tx * dx + nx * 0.4f;
+				
 				isAllowContinueClimbing = 0;
-				if (!isCollisionAxisYWithBrick)
+				//if (!isCollisionAxisYWithBrick)
+				//{
+				float yStairStart = 0;
+				float yStairsEnd = 0;
+				currentStairs->getStartEnd(yStairStart, yStairsEnd);
+				if (yStairsEnd - yStairStart <= 40)
 				{
-					if (currentStairs->GetAllowToClimb() == 1)
-					{
-						isClimbing = 2;
-					}
-					else
-					{
-						isClimbing = 1;
-					}
-					NavClimbingCollision = nx == -1 ? 1 : -1;
-					float yStairStart=0;
-					float yStairsEnd=0;
-					currentStairs->getStartEnd(yStairStart, yStairsEnd);
-					if (this->y < yStairStart)
-					{
-						isAllowContinueClimbing = -1;
-					}
-					if (this->y + NINJA_TO_CENTERY * 2 > yStairsEnd)
-					{
-						isAllowContinueClimbing = 1;
-					}
+					isCollisionAxisYWithBrick = true;
+					continue;
 				}
+				this->nxwithStairs = nx;
+				y += min_ty * dy + ny * 0.4f;
+				dy = 0;
+				if (currentStairs->GetAllowToClimb() == 1)
+				{
+					isClimbing = 1;
+				}
+				else
+				{
+					isClimbing = 2;
+				}
+				NavClimbingCollision = nx == -1 ? 1 : -1;
+					
+					
+				if (this->y < yStairStart)
+				{
+					isAllowContinueClimbing = -1;
+				}
+				if (this->y + NINJA_TO_CENTERY * 2 > yStairsEnd)
+				{
+					isAllowContinueClimbing = 1;
+				}
+				//}
 			}
 			
-		}
-
-	}
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-}
-
-void Ninja::CheckCollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
-{
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-	
-	coEvents.clear();
-	
-	vector<LPGAMEOBJECT> list_Brick;
-	list_Brick.clear();
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		if (coObjects->at(i)->GetType() == eType::STAIR)
-			list_Brick.push_back(coObjects->at(i));
-	}
-
-	CalcPotentialCollisions(&list_Brick, coEvents);
-	//DebugOut(L"coObjects: %d ,coEvents: %d\n",coObjects->size(), coEvents.size());
-	
-	if (coEvents.size() == 0)
-	{
-		//isCollisionAxisYWithBrick = false;
-		//x += dx;
-		//y += dy;
-		// đang ko va chạm trục y
-	   //DebugOut(L"Khong Co Va Cham\n");
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			isCollisionAxisYWithBrick = true;
-			y += min_ty * dy + ny * 0.4f;
-			//x += min_tx * dx + nx * 0.4f;
-			//if (ny == -1)
-			//{
-				
-			//}
-			//else
-			//{
-			//	y += dy;
-			//}
 		}
 
 	}
@@ -600,6 +616,7 @@ void Ninja::CheckCollisionWithItems()
 		if (AABBcollision(x) && x->GetHealth() != 0)
 		{
 			x->SubHealth(1);
+			Sound::GetInstance()->Play(eSound::sound_Get_Item);
 			switch (x->GetType())
 			{
 			case eType::Item_BlueShuriken:
@@ -618,7 +635,11 @@ void Ninja::CheckCollisionWithItems()
 				continue;
 			case eType::Item_Heath:
 				this->Health += 6;
+				Sound::GetInstance()->Stop(eSound::sound_Get_Item);
+				Sound::GetInstance()->Play(eSound::sound_Get_Health_Item);
+				continue;
 			case eType::Item_Freeze_Time:
+				Freeze = 1;
 				continue;
 			case eType::Item_BlueStack:
 				this->NumberOfBullet += 5;
@@ -637,6 +658,20 @@ void Ninja::GetBoundingBox(float & left, float & top, float & right, float & bot
 		top = y;
 		right = left + 16;
 		bottom = top + 30;
+}
+
+eType Ninja::GetExTraWeaponType()
+{
+	if (this->ExtraWeapon != NULL)
+	{
+		return this->ExtraWeapon->GetType();
+	}
+	return eType::eNULL;
+}
+
+int Ninja::GetScore()
+{
+	return this->Point;
 }
 
 Ninja * Ninja::GetInstance()

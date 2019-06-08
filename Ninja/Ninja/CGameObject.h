@@ -87,7 +87,7 @@ public:
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
 	int GetID();
 
-	void SetDefault();
+	virtual void SetDefault();
 
 	bool AABBcollision(LPGAMEOBJECT gameobj);
 

@@ -15,6 +15,7 @@
 #include"BlackBird.h"
 #include"Butterfly.h"
 #include"Stairs.h"
+#include"Boss.h"
 
 #define GRID_CELL_MAX_ROW 1 // số dòng tối đa=MapHeight/GridCell
 #define GRID_CELL_MAX_COLUMN 30 // số cột tối đa=MapWidth/GridCell
@@ -27,7 +28,7 @@ class Grid
 {
 	vector<CGameObject *> cells[GRID_CELL_MAX_ROW][GRID_CELL_MAX_COLUMN];
 	LPCWSTR gridPath;
-	
+	vector<LPGAMEOBJECT> listStatic;
 
 	static Grid * _instance;
 public:
@@ -36,13 +37,14 @@ public:
 	void SetGridPath(LPCWSTR filePath);
 	void ReadGrid();
 	void BuildGrid();
+	void GetListBullet(vector<CWeapon*>&listbullet);
 	void Clear();
 	void AddObj(int idHost,CWeapon* objHost);
 	void ReloadOutOfCameraGrid(vector<LPGAMEOBJECT> ListObj);
-	CGameObject *NewObject(int id,int type,int direction, float x, float y, float w, float h, float xStart, float xEnd);
-	void Insert(int id, int type, int direction, float x, float y, int w, int h, float xStart, float xEnd);
+	CGameObject *NewObject(int id,int type,int direction, float x, float y, float w, float h);
+	void Insert(int id, int type, int direction, float x, float y, int w, int h);
 	void ListObject(vector<CGameObject*>& ListObj);
-
+	void ListStatic(vector<LPGAMEOBJECT>& listStatic);
 	~Grid();
 };
 

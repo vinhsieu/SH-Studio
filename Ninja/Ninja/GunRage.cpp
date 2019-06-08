@@ -18,7 +18,7 @@ CGunRage::CGunRage(int id,float x, float y, int Direction)
 	{
 		mWeapon[i] = new GunRage_Shoot();
 		mWeapon[i]->SetID(this->id*10 + i);
-		Grid::GetInstance()->AddObj(this->id, mWeapon[i]);
+		Grid::GetInstance()->AddObj(this->id, mWeapon[i]);// Them Dan vao Grid
 	}
 	lastTimeBullet = GetTickCount();
 	lastTimeShoot = GetTickCount();

@@ -27,13 +27,13 @@ void CCamera::SetPosition(float x, float y)
 
 void CCamera::SetPosition(D3DXVECTOR3 pos)
 {
-	if (pos.x < 160)
+	if (pos.x < 128)
 	{
-		pos.x = 160;
+		pos.x = 128;
 	}
-	if (pos.x > 1850)
+	if (pos.x > xEnd)
 	{
-		pos.x = 1850;
+		pos.x = xEnd;
 	}
 	pos.x = (int)pos.x;
 	pos.y = (int)pos.y;
@@ -60,8 +60,14 @@ void CCamera::SetBounding(eType Map)
 	switch (Map)
 	{
 	case eType::Map1:
-		this->xStart = 160;
-		this->xEnd = 2000;
+		this->xEnd = 1905;
+		break;
+	case eType::Map2:
+		this->xEnd = 2930;
+		break;
+	case eType::Map3:
+		this->xEnd = 128;
+		break;
 	default:
 		break;
 	}

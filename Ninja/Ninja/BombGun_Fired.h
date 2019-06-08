@@ -20,5 +20,6 @@ public:
 	void LoadAni();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void CheckCollision();
+	
 };
 

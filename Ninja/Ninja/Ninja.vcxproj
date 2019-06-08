@@ -159,12 +159,14 @@
     <ClInclude Include="BombGun.h" />
     <ClInclude Include="BombGun_Fired.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Boss_bullet.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrownBird.h" />
     <ClInclude Include="Butterfly.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBlueShuriken.h" />
     <ClInclude Include="CBoard.h" />
+    <ClInclude Include="CBoardHealth.h" />
     <ClInclude Include="CEnemyDie.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
@@ -176,10 +178,12 @@
     <ClInclude Include="DSutil.h" />
     <ClInclude Include="dxutil.h" />
     <ClInclude Include="EffectManager.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="Footballguy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="define.h" />
+    <ClInclude Include="Game_Over.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GunRage.h" />
     <ClInclude Include="GunRage_Shoot.h" />
@@ -199,12 +203,14 @@
     <ClInclude Include="Panther.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scene_End.h" />
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_Intro.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stairs.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicWeapon.cpp" />
@@ -213,12 +219,14 @@
     <ClCompile Include="BombGun.cpp" />
     <ClCompile Include="BombGun_Fired.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Boss_bullet.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrownBird.cpp" />
     <ClCompile Include="Butterfly.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBlueShuriken.cpp" />
     <ClCompile Include="CBoard.cpp" />
+    <ClCompile Include="CBoardHealth.cpp" />
     <ClCompile Include="CEnemyDie.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
@@ -231,9 +239,11 @@
     <ClCompile Include="DSutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="EffectManager.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="Footballguy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="Game_Over.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GunRage.cpp" />
     <ClCompile Include="GunRage_Shoot.cpp" />
@@ -254,12 +264,14 @@
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scene_End.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Intro.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stairs.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

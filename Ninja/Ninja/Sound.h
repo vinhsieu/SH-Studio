@@ -25,7 +25,7 @@ enum eSound
 	sound_Normal_Attack = 14,
 	sound_Boss_Die = 15,
 	sound_Boss_Jump_Hit_Wall = 16,
-	
+	sound_Timer_Boss_Die = 17,
 
 	music_Scence_1 = 51,
 	music_Scence_2 = 52,

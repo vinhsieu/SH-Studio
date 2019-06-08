@@ -9,7 +9,7 @@
 #include"Stairs.h"
 
 #define NINJA_WALKING_SPEED		0.1f
-#define NINJA_JUMP_SPEED_Y		0.4f
+#define NINJA_JUMP_SPEED_Y		0.45f
 #define NINJA_GRAVITY			0.002f
 #define NINJA_BEING_HURT_SPEED_Y 0.2f
 #define NINJA_BEING_HURT_SPEED_X 0.5f
@@ -53,12 +53,17 @@ private:
 	int isAllowContinueClimbing;// Tiep Tuc Leo Khi Den Ria Stairs (1 la cho ko leo xuong, -1 la ko cho leo len)
 	int isClimbing; //0 la khong leo, 1 la bu(dung yen),2 la duoc leo len
 	int NavClimbingCollision;// Huong va cham voi Stairs
+	float nxwithStairs;
+
 
 	int isSit;
 	bool untouchable;
+	
 
 	int Point;
-	int NumberOfBullet;
+	int NumberOfBullet;//Dan(spirit)
+	int Life;
+
 	int isUsingExtraWeapon;
 	CWeapon *DefaultWeapon;
 	CWeapon *ExtraWeapon;
@@ -71,15 +76,19 @@ public:
 	void Render();
 	void SetState(int State);
 	void LoadAni();
+	int getLife();
+	int getSpirit();
+	void plusPoint(int plusPoint);
 	void Attach(); // kich hoat vu khi
 	void SetCanControl(bool isCanControl);
 	void StartUntouchable() { untouchable = true; untouchable_start = GetTickCount(); canControl = false; }
 	bool getUntouchable();
 	void CheckCollisionWithBrick(vector<LPGAMEOBJECT>* coObjects);
-	void CheckCollisionWithStair(vector<LPGAMEOBJECT>* coObjects);
 	void CheckCollisionWithEmemy(vector<LPGAMEOBJECT>* coObjects);
 	void CheckCollisionWithItems();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	eType GetExTraWeaponType();
+	int GetScore();
 	static Ninja * GetInstance();
 };
 

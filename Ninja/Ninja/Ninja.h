@@ -78,6 +78,7 @@ public:
 	void LoadAni();
 	int getLife();
 	int getSpirit();
+	void SetHealthMax();
 	void plusPoint(int plusPoint);
 	void Attach(); // kich hoat vu khi
 	void SetCanControl(bool isCanControl);

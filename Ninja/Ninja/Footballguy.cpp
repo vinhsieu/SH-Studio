@@ -10,7 +10,7 @@ CFootballguy::CFootballguy(float x, float y, int Direction)
 	this->nx = this->nxBackup = Direction;
 	this->Health = 0;
 	this->HealthBackup = this->Health;
-	this->vx = 0.1f;
+	this->vx = 0.12f;
 	this->type = eType::Footballguy;
 	isJumping = false;
 	LoadAni();

@@ -80,7 +80,7 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture ,int left, int top
 	D3DXVECTOR3 center((right-left)/2, (bottom-top) / 2, 0);
 	D3DXVECTOR3 p(x, y, 0);
 
-	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_ARGB(alpha,TRAN_SCENE_COLOR, TRAN_SCENE_COLOR, TRAN_SCENE_COLOR));
+	spriteHandler->Draw(texture, &r, &center, &p, D3DCOLOR_ARGB(alpha,TRAN_SCENE_COLOR, TRAN_SCENE_COLOR_2, TRAN_SCENE_COLOR_3));
 	
 	spriteHandler->SetTransform(&oldMatrix);
 }

@@ -30,6 +30,8 @@ void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (this->Health == 0 || y > 300)
 	{
+		SAFE_DELETE(ExtraWeapon);// Xoa item nhat dc
+		Freeze = false;
 		this->Life -= 1;
 		if (this->Life < 0)
 		{
@@ -430,6 +432,11 @@ int Ninja::getSpirit()
 	return this->NumberOfBullet;
 }
 
+void Ninja::SetHealthMax()
+{
+	this->Health = 16;
+}
+
 void Ninja::plusPoint(int plusPoint)
 {
 	this->Point += plusPoint;
@@ -654,10 +661,10 @@ void Ninja::CheckCollisionWithItems()
 
 void Ninja::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-		left = x;
-		top = y;
-		right = left + 16;
-		bottom = top + 30;
+	left = x;
+	top = y;
+	right = left + 16;
+	bottom = top + 30;
 }
 
 eType Ninja::GetExTraWeaponType()

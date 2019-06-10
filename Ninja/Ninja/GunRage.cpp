@@ -12,7 +12,7 @@ CGunRage::CGunRage(int id,float x, float y, int Direction)
 	this->y = this->yBackup = y;
 	this->nx = this->nxBackup = Direction;
 	this->HealthBackup = this->Health;
-	//this->vx = DAGGER_SPEED_X;
+	this->vx = 0.02;
 	this->type = eType::GunRage;
 	for (int i = 0; i < 3; i++)
 	{
@@ -22,6 +22,7 @@ CGunRage::CGunRage(int id,float x, float y, int Direction)
 	}
 	lastTimeBullet = GetTickCount();
 	lastTimeShoot = GetTickCount();
+	timeChangeDirection = 0;
 	LoadAni();
 }
 
@@ -90,10 +91,10 @@ void CGunRage::Update(DWORD dt)
 	{
 		return;
 	}
-	if (nx*vx < 0)// Dieu huong van toc theo Ninja
-	{
-		vx *= -1;
-	}
+	//if (nx*vx < 0)// Dieu huong van toc theo dung huong
+	//{
+	//	vx *= -1;
+	//}
 	float tempX, tempY;
 	Ninja::GetInstance()->GetPosition(tempX, tempY);
 	if (tempX - this->x < 0)// quay huong theo ninja
@@ -104,8 +105,20 @@ void CGunRage::Update(DWORD dt)
 	{
 		this->nx = 1;
 	}
+	//Xu li huong di
+	timeChangeDirection += dt;
+	if (timeChangeDirection > GUNRAGE_TIME_CHANGE_DIRECTION)
+	{
+		this->vx *= -1;
+		this->timeChangeDirection = 0;
+	}
 	CGameObject::Update(dt);
-	for (int i = 0; i < 3; i++)
+	x += dx;
+
+
+
+
+	for (int i = 0; i < 3; i++)// Ban het 3 vien
 	{
 		if (!mWeapon[i]->GetisFinished())
 		{
@@ -116,7 +129,7 @@ void CGunRage::Update(DWORD dt)
 			shootAgain++;
 		}
 	}
-	for(int i=0;i<3;i++)
+	for(int i=0;i<3;i++)// Xu li ban 
 	{
 		
 		DWORD now = GetTickCount();

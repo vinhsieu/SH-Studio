@@ -5,7 +5,7 @@
 
 #define FOOTBALLGUY_TO_CENTERX 8
 #define FOOTBALLGUY_TO_CENTERY 16
-#define FOOTBALLGUY_JUMP_SPEED_Y 0.5f
+#define FOOTBALLGUY_JUMP_SPEED_Y 0.6f
 
 
 class CFootballguy :

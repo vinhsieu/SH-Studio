@@ -104,6 +104,8 @@ void CPanther::Update(DWORD dt)
 		{
 			this->isJumping = false;
 			this->x += dx;
+			//this->vy = -0.01;//Nhay nhe
+			//this->y += dy;
 		}
 	}
 	

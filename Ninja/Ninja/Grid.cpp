@@ -154,7 +154,7 @@ CGameObject * Grid::NewObject(int id,int type,int Multifuntion, float x, float y
 		case eType::STAIR:
 			return new Stairs(x, y, w, h,Multifuntion);
 		case eType::BOSS:
-			return new Boss();
+			return new Boss(id);
 	}
 }
 

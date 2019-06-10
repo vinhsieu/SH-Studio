@@ -10,18 +10,18 @@
 class Boss :
 	public CGameObject
 {
-	static Boss * _instance;
+	//static Boss * _instance;
 	Boss_bullet * mWeapon[3];
 	bool isJumping;
 	DWORD TimeEarned;
 public:
-	Boss();
+	Boss(int id);
 	void LoadAni();
 	void Render();
 	void Update(DWORD dt);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void SubHealth(int th);
-	static Boss * GetInstance();
+	//static Boss * GetInstance();
 	~Boss();
 };
 

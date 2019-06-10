@@ -95,7 +95,6 @@ void Scene_Game::Update(DWORD dt)
 {
 	if (Freeze)
 	{
-		//Sound::GetInstance()->Stop(eSound::sound_Time_tick_when_stop);
 		Sound::GetInstance()->Play(eSound::sound_Time_tick_when_stop);
 		TimeEarnFeeze += dt;
 		if (TimeEarnFeeze > Freeze_Item_Last)
@@ -130,7 +129,7 @@ void Scene_Game::Update(DWORD dt)
 				isTransitionScene = true;
 				TRAN_SCENE_COLOR = 255;
 			}
-			mTimer->Update(dt);
+			//mTimer->Update(dt);
 		}
 		else
 		{
@@ -142,58 +141,78 @@ void Scene_Game::Update(DWORD dt)
 				{
 					SceneManager::GetInstance()->SetScene(new Scene_Game(this->State + 1));
 					TRAN_SCENE_COLOR = 255;
+					TRAN_SCENE_COLOR_2 = 255;
+					TRAN_SCENE_COLOR_3 = 255;
 				}
 			}
 			else
 			{
 				if (TRAN_SCENE_COLOR - 2 > 0)
 				{
-					TRAN_SCENE_COLOR -= 2;
+					TRAN_SCENE_COLOR -= 1;
+					TRAN_SCENE_COLOR_2 -= 5;
+					TRAN_SCENE_COLOR_3 -= 10;
 				}
 				else
 				{
 					TRAN_SCENE_COLOR = 0;
+					TRAN_SCENE_COLOR_2 = 0;
+					TRAN_SCENE_COLOR_3 = 0;
 				}
 			}
 		}
 		break;
 	case Ninja_Die:
 		Sound::GetInstance()->StopAll();
+		Sound::GetInstance()->Play(eSound::sound_Ninja_Die);
 		StartTranTime += dt;
-		if (StartTranTime > 4000)
+		if (StartTranTime > 5000)
 		{
+			Sound::GetInstance()->StopAll();
 			SceneManager::GetInstance()->SetScene(new Scene_Game(this->State));
 			TRAN_SCENE_COLOR = 255;
+			TRAN_SCENE_COLOR_2 = 255;
+			TRAN_SCENE_COLOR_3 = 255;
 		}
 		else
 		{
 			if (TRAN_SCENE_COLOR - 2 > 0)
 			{
 				TRAN_SCENE_COLOR -= 2;
+				TRAN_SCENE_COLOR_2 -= 5;
+				TRAN_SCENE_COLOR_3 -= 10;
 			}
 			else
 			{
 				TRAN_SCENE_COLOR = 0;
+				TRAN_SCENE_COLOR_2 = 0;
+				TRAN_SCENE_COLOR_3 = 0;
 			}
 		}
 		break;
 	case Ninja_Out_Of_Life:
 		Sound::GetInstance()->StopAll();
 		StartTranTime += dt;
-		if (StartTranTime > 4000)
+		if (StartTranTime > 5000)
 		{
 			SceneManager::GetInstance()->SetScene(new Game_Over(this->State));
 			TRAN_SCENE_COLOR = 255;
+			TRAN_SCENE_COLOR_2 = 255;
+			TRAN_SCENE_COLOR_3 = 255;
 		}
 		else
 		{
 			if (TRAN_SCENE_COLOR - 2 > 0)
 			{
 				TRAN_SCENE_COLOR -= 2;
+				TRAN_SCENE_COLOR_2 -= 5;
+				TRAN_SCENE_COLOR_3 -= 10;
 			}
 			else
 			{
 				TRAN_SCENE_COLOR = 0;
+				TRAN_SCENE_COLOR_2 = 0;
+				TRAN_SCENE_COLOR_3 = 0;
 			}
 		}
 		break;
@@ -246,7 +265,7 @@ void Scene_Game::OnKeyDown(int KeyCode)
 		ninja->SetState(NINJA_STATE_ATTACH);
 		break;
 	case DIK_F:
-		ninja->SetPosition(0.0f, 10.0f);
+		ninja->SetHealthMax();
 		break;
 	case DIK_S:
 		ninja->SetState(NINJA_STATE_EXTRA_WEAPON);

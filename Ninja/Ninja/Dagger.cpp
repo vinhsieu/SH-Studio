@@ -13,7 +13,10 @@ CDagger::CDagger(float x, float y, int Direction)
 	this->HealthBackup = Health;
 	this->vx = DAGGER_SPEED_X;
 	this->type = eType::Dagger;
+	
 	mWeapon = new Dagger_Throw();
+	mWeapon->SetID(this->id * 100);
+	Grid::GetInstance()->AddObj(this->id, mWeapon);
 	LoadAni();
 }
 

@@ -1,10 +1,11 @@
 #include "Boss.h"
 #include"Sound.h"
 
-Boss * Boss::_instance = NULL;
+//Boss * Boss::_instance = NULL;
 int bulletFinished = 0;
-Boss::Boss()
+Boss::Boss(int id)
 {
+	this->id = id;
 	this->x = 25;
 	this->y = 130;
 	this->nx = -1;
@@ -122,7 +123,10 @@ void Boss::Update(DWORD dt)
 			bulletFinished++;
 		}
 	}
-	if (bulletFinished == 3&&!isJumping)
+	srand(time(NULL));
+	int randomAllowtoAttach = rand() % 3;
+
+	if (bulletFinished == 3 && !isJumping && randomAllowtoAttach!=0)
 	{
 		bulletFinished = 0;
 		if (this->nx == 1)
@@ -169,14 +173,14 @@ void Boss::SubHealth(int th)
 	CGameObject::SubHealth(th);
 }
 
-Boss * Boss::GetInstance()
-{
-	if (_instance == NULL)
-	{
-		_instance = new Boss();
-	}
-	return _instance;
-}
+//Boss * Boss::GetInstance()
+//{
+//	if (_instance == NULL)
+//	{
+//		//_instance = new Boss();
+//	}
+//	return _instance;
+//}
 
 
 Boss::~Boss()

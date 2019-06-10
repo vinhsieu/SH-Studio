@@ -39,11 +39,20 @@ void CBombGun::LoadAni()
 
 void CBombGun::Render()
 {
+	CSprites * sprites = CSprites::GetInstance();
 	if (this->Health == 0)
 	{
 		return;
 	}
-	this->animations.at(0)->Render(this->x+BOMGUN_TO_CENTERX, this->y+BOMGUN_TO_CENTERY, isAttach, this->nx, CCamera::GetInstance()->Tranform());
+	if (isAttach)
+	{
+		sprites->Get(900)->Draw(this->x + BOMGUN_TO_CENTERX, this->y + BOMGUN_TO_CENTERY, this->nx, CCamera::GetInstance()->Tranform());
+	}
+	else
+	{
+		sprites->Get(901)->Draw(this->x + BOMGUN_TO_CENTERX, this->y + BOMGUN_TO_CENTERY, this->nx, CCamera::GetInstance()->Tranform());
+	}
+	//this->animations.at(0)->Render(this->x+BOMGUN_TO_CENTERX, this->y+BOMGUN_TO_CENTERY, 0, this->nx, CCamera::GetInstance()->Tranform());
 	if (!mWeapon->GetisFinished())
 	{
 		mWeapon->Render();
@@ -82,6 +91,7 @@ void CBombGun::Update(DWORD dt)
 	}
 	else
 	{
+		isAttach = 0;
 		mWeapon->Update(dt);
 	}
 

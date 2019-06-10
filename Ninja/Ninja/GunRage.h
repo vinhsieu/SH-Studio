@@ -6,11 +6,13 @@
 
 #define GUNRAGE_TO_CENTERX 10
 #define GUNRAGE_TO_CENTERY 15
+#define GUNRAGE_TIME_CHANGE_DIRECTION 300
 #define TIME_BETWEEN_TWO_BULLET 200
 #define TIME_DELAY_SHOOT 3000
 class CGunRage :
 	public CGameObject
 {
+	DWORD timeChangeDirection;
 	DWORD lastTimeBullet;
 	DWORD lastTimeShoot;
 	GunRage_Shoot * mWeapon[3];

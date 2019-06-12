@@ -25,6 +25,7 @@ void BlackBird::Render()
 {
 	if (this->Health == 0)
 	{
+		HealthBackup = 0;
 		return;
 	}
 	this->animations[0]->Render(this->x + BlackBird_To_Center_X, this->y + BlackBird_To_Center_Y, 0, 0, CCamera::GetInstance()->Tranform());

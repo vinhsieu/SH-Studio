@@ -6,6 +6,7 @@
 #include"BasicWeapon.h"
 #include"CBlueShuriken.h"
 #include"CRedShuriken.h"
+#include"CHaDoKen.h"
 #include"Stairs.h"
 
 #define NINJA_WALKING_SPEED		0.1f

@@ -7,6 +7,7 @@
 
 Ninja * Ninja::_instance = NULL;
 bool AllowSetNewState = true;
+bool isPressClimbing = false;
 Ninja::Ninja()
 {
 	CGameObject::CGameObject();
@@ -23,6 +24,7 @@ Ninja::Ninja()
 	isClimbing = 0;
 	this->Point = 0;
 	DefaultWeapon= new CBasicWeapon();
+	//ExtraWeapon = new CHaDoKen();
 	LoadAni();
 }
 
@@ -37,15 +39,14 @@ void Ninja::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			SceneManager::GetInstance()->SetStateSituation(Ninja_Out_Of_Life);
 			this->Life = 3;
+			this->Health = 16;
+			this->NumberOfBullet = 0;
 		}
 		else
 		{
 			SceneManager::GetInstance()->SetStateSituation(Ninja_Die);
-		}
-		
-		if (this->Health == 0)
-		{
 			this->Health = 16;
+			this->NumberOfBullet = 0;
 		}
 	}
 	if (isClimbing==0) 
@@ -157,8 +158,15 @@ void Ninja::Render()
 	}
 	if (isClimbing == 2)
 	{
+		if (!isPressClimbing)
+		{
+			ani = NINJA_ANI_CLIMB_IDLE;
+		}
+		else
+		{
+			ani = NINJA_ANI_CLIMBING;
+		}
 		isLeft = NavClimbingCollision;
-		ani = NINJA_ANI_CLIMBING;
 	}
 
 	int isLoop=0; //Co Lap Hay Khong(Ap dung cho Attach)
@@ -183,6 +191,7 @@ void Ninja::Render()
 		isAttach = -1;
 		isUsingExtraWeapon = 0;
 	}
+	
 	//xu li weapon
 	if (DefaultWeapon->GetisFinished() == false)
 	{
@@ -236,7 +245,7 @@ void Ninja::SetState(int State)
 			isCollisionAxisYWithBrick = false;
 			Sound::GetInstance()->Play(eSound::sound_Jump_Climb);
 		}
-		if (isClimbing && nx*nxwithStairs>0)
+		if (isClimbing && nx*nxwithStairs>0)// nhay nguoc huong va cham
 		{
 			isClimbing = false;
 			vy = -NINJA_JUMP_SPEED_Y;
@@ -247,10 +256,12 @@ void Ninja::SetState(int State)
 	case NINJA_STATE_IDLE:
 		vx = 0;
 		isSit = -2;
+		isPressClimbing = false;
 		break;
 	case NINJA_STATE_SIT:
 		if (isClimbing == 2&& isAllowContinueClimbing!=1)
 		{
+			isPressClimbing = true;
 			y += 1.6f;
 		}
 		else
@@ -261,20 +272,27 @@ void Ninja::SetState(int State)
 		
 		break;
 	case NINJA_STATE_ATTACH:
-		isAttach = 1;
-		Attach();
+		if (isClimbing == 0)//Leo ko dc danh
+		{
+			isAttach = 1;
+			Attach();
+		}
 		break;
 	case NINJA_STATE_BEING_HURT:
 		vy = -NINJA_BEING_HURT_SPEED_Y;
 		vx = -0.4*NINJA_WALKING_SPEED*nx;// Giat ve phia sau huong dang di(van co loi)
 		break;
 	case NINJA_STATE_EXTRA_WEAPON:
-		isUsingExtraWeapon = 1;
-		Attach();
+		if (isClimbing == 0)
+		{
+			isUsingExtraWeapon = 1;
+			Attach();
+		}
 		break;
 	case NINJA_STATE_CLIMBING:
 		if (isClimbing==2 && isAllowContinueClimbing!=-1)
 		{
+			isPressClimbing = true;
 			y -= 1.6f;
 		}
 	}
@@ -647,6 +665,10 @@ void Ninja::CheckCollisionWithItems()
 				continue;
 			case eType::Item_Freeze_Time:
 				Freeze = 1;
+				continue;
+			case eType::Item_Hadoken:
+				SAFE_DELETE(ExtraWeapon);
+				ExtraWeapon = new CHaDoKen();
 				continue;
 			case eType::Item_BlueStack:
 				this->NumberOfBullet += 5;

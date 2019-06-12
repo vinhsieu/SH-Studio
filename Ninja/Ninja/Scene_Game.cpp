@@ -45,7 +45,7 @@ void Scene_Game::LoadResources()
 		gamemap = new GameMap(eType::Map1, L"Resources/Map/Map1_Matrix.txt");
 		CCamera::GetInstance()->SetBounding(eType::Map1);
 		ninja->SetPosition(0, 0);
-		xTrans = 2020;
+		xTrans = 2000;
 		break;
 	case 2:
 
@@ -53,7 +53,7 @@ void Scene_Game::LoadResources()
 		mGrid->SetGridPath(L"Resources/Map/Map2_Object.txt");
 		gamemap = new GameMap(eType::Map2, L"Resources/Map/Map2_Matrix.txt");
 		Sound::GetInstance()->Play(eSound::music_Scence_2, true);
-		xTrans = 3072;
+		xTrans = 3022;
 		ninja->SetPosition(0, 0);
 		break;
 	case 3:
@@ -129,7 +129,7 @@ void Scene_Game::Update(DWORD dt)
 				isTransitionScene = true;
 				TRAN_SCENE_COLOR = 255;
 			}
-			//mTimer->Update(dt);
+			mTimer->Update(dt);
 		}
 		else
 		{

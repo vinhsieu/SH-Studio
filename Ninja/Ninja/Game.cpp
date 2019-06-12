@@ -15,7 +15,7 @@ void Game::GameInit(HWND hWnd)
 	CGame::GetInstance()->Init(hWnd);
 	keyboard = CKeyHandler::GetInstance();
 	mSceneManager = SceneManager::GetInstance();
-	mSceneManager->SetScene(new Scene_Game(2));
+	mSceneManager->SetScene(new Scene_Intro());
 }
 
 void Game::LoadResources()

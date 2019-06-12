@@ -105,7 +105,7 @@ void Boss_bullet::CheckCollision()
 		Ninja::GetInstance()->SubHealth(1);
 		Ninja::GetInstance()->SetState(NINJA_STATE_BEING_HURT);
 		Ninja::GetInstance()->StartUntouchable();
-		this->Health = 0;
-		isFinished = true;
+		//this->Health = 0;
+		//isFinished = true;
 	}
 }

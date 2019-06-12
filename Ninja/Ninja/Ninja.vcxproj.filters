@@ -249,6 +249,9 @@
     <ClInclude Include="Scene_End.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="CHaDoKen.h">
+      <Filter>Objects\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -427,6 +430,9 @@
     </ClCompile>
     <ClCompile Include="Scene_End.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="CHaDoKen.cpp">
+      <Filter>Objects\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

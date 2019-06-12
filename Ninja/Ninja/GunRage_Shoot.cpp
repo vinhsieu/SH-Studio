@@ -21,7 +21,11 @@ void GunRage_Shoot::Attach(float Hx, float Hy, int HDirection)
 	{
 		return;
 	}
-
+	/*if (!CheckOutOfCamera())
+	{
+		isFinished = true;
+		return;
+	}*/
 	Sound::GetInstance()->Play(eSound::sound_GunRage_Attack);
 	isFinished = false;
 	this->Health = 1;

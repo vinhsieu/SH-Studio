@@ -45,7 +45,7 @@ enum eType
 	BASICWEAPON = 60,
 	BlueShuriken = 61,
 	RedShuriken = 62,
-
+	Hadoken = 63,
 	// item(Bat Dau 80)
 	Black_Bird = 80,
 	ButterFly = 81,

@@ -53,7 +53,30 @@ void CWeapon::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 			{
 				list_Enemy[i]->SubHealth(2);
 				Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
-				Ninja::GetInstance()->plusPoint(100);
+				switch (list_Enemy.at(i)->GetType())
+				{
+				case eType::Dagger:
+					Ninja::GetInstance()->plusPoint(300);
+					break;
+				case eType::BrownBird:
+					Ninja::GetInstance()->plusPoint(300);
+					break;
+				case eType::Blade:
+					Ninja::GetInstance()->plusPoint(100);
+					break;
+				case eType::Panther:
+					Ninja::GetInstance()->plusPoint(200);
+					break;
+				case eType::BombGun:
+					Ninja::GetInstance()->plusPoint(200);
+					break;
+				case eType::Footballguy:
+					Ninja::GetInstance()->plusPoint(300);
+					break;
+				case eType::GunRage:
+					Ninja::GetInstance()->plusPoint(200);
+					break;
+				}
 			}
 			else
 			{

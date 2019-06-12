@@ -170,6 +170,7 @@
     <ClInclude Include="CEnemyDie.h" />
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CHaDoKen.h" />
     <ClInclude Include="CRedShuriken.h" />
     <ClInclude Include="CWeapon.h" />
     <ClInclude Include="Dagger.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="CEnemyDie.cpp" />
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CHaDoKen.cpp" />
     <ClCompile Include="CRedShuriken.cpp" />
     <ClCompile Include="CWeapon.cpp" />
     <ClCompile Include="Dagger.cpp" />

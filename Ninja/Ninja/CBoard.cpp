@@ -34,8 +34,8 @@ void CBoard::Render()
 	mFont->Draw(58, 11, FillNumber(std::to_string(this->remainingTime), 3));
 	mFont->Draw(10, 20, "P-");
 	mFont->Draw(28, 20, FillNumber(std::to_string(this->nNinjaLife), 2));
-	CSprites::GetInstance()->Get(403)->Draw(50 + ItemRedShuriken_To_Center_X, 15 + ItemRedShuriken_To_Center_Y, 0, D3DXVECTOR2(0, 0));
-	mFont->Draw(65, 20, "-" + FillNumber(std::to_string(this->Spirit), 2));
+	CSprites::GetInstance()->Get(403)->Draw(45 + ItemRedShuriken_To_Center_X, 15 + ItemRedShuriken_To_Center_Y, 0, D3DXVECTOR2(0, 0));
+	mFont->Draw(60, 20, "-" + FillNumber(std::to_string(this->Spirit), 2));
 	mFont->Draw(110, 2, "STAGE-3-"+ std::to_string(SceneManager::GetInstance()->getState()));
 	mFont->Draw(110, 11, "NINJA-");
 	mFont->Draw(110, 20, "ENEMY-");
@@ -46,6 +46,9 @@ void CBoard::Render()
 		break;
 	case eType::BlueShuriken:
 		CSprites::GetInstance()->Get(230)->Draw(92 + ItemBlueShuriken_To_Center_X, 11 + ItemBlueShuriken_To_Center_Y, 0, D3DXVECTOR2(0, 0));
+		break;
+	case eType::Hadoken:
+		CSprites::GetInstance()->Get(256)->Draw(92 + ItemBlueShuriken_To_Center_X, 11 + ItemBlueShuriken_To_Center_Y, 0, D3DXVECTOR2(0, 0));
 		break;
 	default:
 		break;

@@ -11,6 +11,7 @@ class CHaDoKen :
 	bool isChange;//Lam giong nhu xoay
 	DWORD TimeChangeImage;
 	DWORD TimeLast;
+	bool isAllowAttackBoss;
 public:
 	CHaDoKen();
 	~CHaDoKen();

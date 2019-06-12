@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include"Sound.h"
 
 SceneManager * SceneManager::_instance = NULL;
 

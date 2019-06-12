@@ -29,6 +29,10 @@ void Timer::Update(DWORD dt)
 			_accumulationTime = (_accumulationTime + dt) % 1000;
 			_time++;
 		}
+		if (_time > GAME_MAX_TIME)
+		{
+			SceneManager::GetInstance()->SetStateSituation(Ninja_Die);
+		}
 	}
 	else
 	{

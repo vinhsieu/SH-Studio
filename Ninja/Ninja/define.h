@@ -10,7 +10,7 @@
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define ID_TEX_NINJA 0
 #define ID_TEX_BACKGROUND 1
-#define IS_BBOX_DEBUGGING 1
+#define IS_BBOX_DEBUGGING 0
 #define Freeze_Item_Last 7000
 #define GAME_MAX_TIME 150
 extern int TRAN_SCENE_COLOR;

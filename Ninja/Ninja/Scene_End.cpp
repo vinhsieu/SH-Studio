@@ -45,6 +45,7 @@ void Scene_End::Update(DWORD dt)
 		TimeBling += dt;
 		if (TimeBling > 5000)
 		{
+			Sound::GetInstance()->StopAll();
 			SceneManager::GetInstance()->SetScene(new Scene_Intro());
 		}
 		else

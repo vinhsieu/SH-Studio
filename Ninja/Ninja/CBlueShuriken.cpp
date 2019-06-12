@@ -8,6 +8,7 @@ CBlueShuriken::CBlueShuriken()
 	this->type = eType::BlueShuriken;
 	this->vx = CBLUESHURIKEN_SPEED;
 	this->vy = 0.0f;
+	isAllowAttackBoss = true;
 	LoadAni();
 }
 
@@ -21,6 +22,7 @@ void CBlueShuriken::Attach()
 	isFinished = false;
 	//lastAttach = GetTickCount();
 	this->Health = 1;
+	isAllowAttackBoss = true;
 	Ninja::GetInstance()->GetPosition(this->x, this->y);
 	this->SetDirection(Ninja::GetInstance()->GetDirection());
 
@@ -85,10 +87,7 @@ void CBlueShuriken::LoadAni()
 	CAnimations * animations = CAnimations::GetInstance();
 
 	LPDIRECT3DTEXTURE9 tex = texture->Get(eType::NINJA);
-	if (animations->Get(1500) != NULL)
-	{
-		return;
-	}
+	
 	// di chuyen bt
 	sprites->Add(10, 8, 117, 16, 124, tex);
 	sprites->Add(11, 23, 117, 31, 124, tex);
@@ -98,7 +97,7 @@ void CBlueShuriken::LoadAni()
 	ani->Add(10);
 	ani->Add(11);
 	animations->Add(1500, ani);
-	this->AddAnimation(1500);
+	AddAnimation(1500);
 	
 }
 
@@ -132,12 +131,25 @@ void CBlueShuriken::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 
 		if (AABBcollision(list_Enemy.at(i))&& list_Enemy.at(i)->GetHealth()!=0)
 		{
-			list_Enemy[i]->SubHealth(2);
-			Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
-			this->Health = 0;
-			isFinished = true;
-			return;
-			
+			if (list_Enemy.at(i)->GetType() != eType::BOSS)
+			{
+				list_Enemy[i]->SubHealth(2);
+				Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
+				this->Health = 0;
+				isFinished = true;
+				return;
+			}
+			else
+			{
+				if (isAllowAttackBoss)
+				{
+				list_Enemy[i]->SubHealth(1);
+				isAllowAttackBoss = false;
+				this->Health = 0;
+				isFinished = true;
+				return;
+				}
+			}
 		}
 	}
 	CheckCollisEnemyWeapon();

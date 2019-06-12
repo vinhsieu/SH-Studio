@@ -10,9 +10,11 @@ CHaDoKen::CHaDoKen()
 	isChange = false;
 	TimeChangeImage = 0;
 	TimeLast = 0;
-	LoadAni();
 	this->type = eType::Hadoken;
 	R = 5;
+	isAllowAttackBoss = true;
+	LoadAni();
+	
 }
 
 
@@ -29,6 +31,7 @@ void CHaDoKen::Attach()
 	Ninja::GetInstance()->GetPosition(this->x, this->y);
 	this->SetDirection(Ninja::GetInstance()->GetDirection());
 	isFinished = false;
+	isAllowAttackBoss = true;
 	this->Health = 1;
 	ModifyPositionFitHost();
 	if (nx*vx < 0)
@@ -174,8 +177,19 @@ void CHaDoKen::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 
 		if (AABBcollision(list_Enemy.at(i)) && list_Enemy.at(i)->GetHealth() != 0)
 		{
-			list_Enemy[i]->SubHealth(2);
-			Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
+			if (list_Enemy.at(i)->GetType() != eType::BOSS)
+			{
+				list_Enemy[i]->SubHealth(2);
+				Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
+			}
+			else
+			{
+				if (isAllowAttackBoss)
+				{
+					list_Enemy[i]->SubHealth(1);
+					isAllowAttackBoss = false;
+				}
+			}
 		}
 	}
 	CheckCollisEnemyWeapon();

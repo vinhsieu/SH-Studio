@@ -24,7 +24,7 @@ Ninja::Ninja()
 	isClimbing = 0;
 	this->Point = 0;
 	DefaultWeapon= new CBasicWeapon();
-	//ExtraWeapon = new CHaDoKen();
+	//ExtraWeapon = new CRedShuriken();
 	LoadAni();
 }
 

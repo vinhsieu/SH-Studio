@@ -8,6 +8,7 @@ CRedShuriken::CRedShuriken()
 	isFinished = true;
 	this->vx = CREDSHURIKEN_SPEED;
 	LoadAni();
+	isAllowAttackBoss = true;
 	this->type = eType::RedShuriken;
 }
 
@@ -24,6 +25,7 @@ void CRedShuriken::Attach()
 	}
 
 	isFinished = false;
+	isAllowAttackBoss = true;
 	lastTimeChangeDirection = GetTickCount();
 	//lastAttach = GetTickCount();
 	this->Health = 1;
@@ -147,14 +149,21 @@ void CRedShuriken::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < list_Enemy.size(); i++)
 	{
 
-		if (AABBcollision(list_Enemy.at(i)) && list_Enemy.at(i)->GetHealth() != 0)
+		if (list_Enemy.at(i)->GetType() != eType::BOSS)
 		{
-			list_Enemy[i]->SubHealth(2);
-			Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
-			//this->Health = 0;
-			//this->vx = 0;// Update som hon Attack nen Set ve 0 de khoi Collis voi Ninja
-			//return;
-
+			if (AABBcollision(list_Enemy.at(i)) && list_Enemy.at(i)->GetHealth() != 0)
+			{
+				list_Enemy[i]->SubHealth(2);
+				Sound::GetInstance()->Play(eSound::sound_Enemy_Die);
+			}
+		}
+		else
+		{
+			if (isAllowAttackBoss)
+			{
+				list_Enemy[i]->SubHealth(1);
+				isAllowAttackBoss = false;
+			}
 		}
 	}
 	CheckCollisEnemyWeapon();

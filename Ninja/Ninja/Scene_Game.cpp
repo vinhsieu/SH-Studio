@@ -57,7 +57,6 @@ void Scene_Game::LoadResources()
 		ninja->SetPosition(0, 0);
 		break;
 	case 3:
-
 		CCamera::GetInstance()->SetBounding(eType::Map3);
 		mGrid->SetGridPath(L"Resources/Map/Map3_Object.txt");
 		gamemap = new GameMap(eType::Map3, L"Resources/Map/Map3_Matrix.txt");

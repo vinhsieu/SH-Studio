@@ -7,6 +7,7 @@
 class CRedShuriken :
 	public CWeapon
 {
+	bool isAllowAttackBoss;
 	DWORD lastTimeChangeDirection;
 public:
 	CRedShuriken();

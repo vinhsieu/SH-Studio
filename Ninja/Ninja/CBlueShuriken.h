@@ -8,6 +8,7 @@
 class CBlueShuriken :
 	public CWeapon
 {
+	bool isAllowAttackBoss;
 public:
 	CBlueShuriken();
 	~CBlueShuriken();

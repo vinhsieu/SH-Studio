@@ -45,7 +45,7 @@ void Scene_Intro::Update(DWORD dt)
 	if (isPressedKey)
 	{
 		TimeBling += dt;
-		if (TimeBling > 5000)
+		if (TimeBling > 3000)
 		{
 			SceneManager::GetInstance()->SetScene(new Scene_Game(1));
 		}

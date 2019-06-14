@@ -43,7 +43,7 @@ void Scene_End::Update(DWORD dt)
 	if (isPressedKey)
 	{
 		TimeBling += dt;
-		if (TimeBling > 5000)
+		if (TimeBling > 3000)
 		{
 			Sound::GetInstance()->StopAll();
 			SceneManager::GetInstance()->SetScene(new Scene_Intro());

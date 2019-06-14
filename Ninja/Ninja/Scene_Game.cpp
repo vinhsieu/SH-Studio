@@ -134,7 +134,7 @@ void Scene_Game::Update(DWORD dt)
 		{
 			Sound::GetInstance()->StopAll();
 			StartTranTime += dt;
-			if (StartTranTime > 4000)
+			if (StartTranTime > 3000)
 			{
 				if (this->State < 3)
 				{
@@ -148,9 +148,9 @@ void Scene_Game::Update(DWORD dt)
 			{
 				if (TRAN_SCENE_COLOR - 2 > 0)
 				{
-					TRAN_SCENE_COLOR -= 1;
-					TRAN_SCENE_COLOR_2 -= 5;
-					TRAN_SCENE_COLOR_3 -= 10;
+					TRAN_SCENE_COLOR -= 2;
+					TRAN_SCENE_COLOR_2 -= 2;
+					TRAN_SCENE_COLOR_3 -= 2;
 				}
 				else
 				{
@@ -163,9 +163,9 @@ void Scene_Game::Update(DWORD dt)
 		break;
 	case Ninja_Die:
 		Sound::GetInstance()->StopAll();
-		Sound::GetInstance()->Play(eSound::sound_Ninja_Die);
+		Sound::GetInstance()->Play(eSound::sound_Ninja_Die,false);
 		StartTranTime += dt;
-		if (StartTranTime > 5000)
+		if (StartTranTime > 4000)
 		{
 			Sound::GetInstance()->StopAll();
 			SceneManager::GetInstance()->SetScene(new Scene_Game(this->State));
@@ -192,7 +192,7 @@ void Scene_Game::Update(DWORD dt)
 	case Ninja_Out_Of_Life:
 		Sound::GetInstance()->StopAll();
 		StartTranTime += dt;
-		if (StartTranTime > 5000)
+		if (StartTranTime > 4000)
 		{
 			SceneManager::GetInstance()->SetScene(new Game_Over(this->State));
 			TRAN_SCENE_COLOR = 255;

@@ -62,7 +62,7 @@ void Scene_Game::LoadResources()
 		gamemap = new GameMap(eType::Map3, L"Resources/Map/Map3_Matrix.txt");
 		Sound::GetInstance()->Play(eSound::music_Boss, true);
 		xTrans = 3000;
-		ninja->SetPosition(48, 0);
+		ninja->SetPosition(150, 150);
 		break;
 	}
 	

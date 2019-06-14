@@ -660,6 +660,10 @@ void Ninja::CheckCollisionWithItems()
 				continue;
 			case eType::Item_Heath:
 				this->Health += 6;
+				if (this->Health > 16)
+				{
+					this->Health = 16;
+				}
 				Sound::GetInstance()->Stop(eSound::sound_Get_Item);
 				Sound::GetInstance()->Play(eSound::sound_Get_Health_Item);
 				continue;
